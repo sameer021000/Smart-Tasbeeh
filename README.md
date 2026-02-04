@@ -14,9 +14,9 @@
 
 ## 📱 Screenshots
 
-|                   Home Setup                    |                    Counter                    |                    History                    |
-|:-----------------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|
-| ![Settings](src/main/res/drawable/settings.png) | ![Counter](src/main/res/drawable/counter.png) | ![History](src/main/res/drawable/history.png) |
+|                Settings                |                    Counter                    |                    History                    |
+|:--------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|
+| ![Settings](res/drawable/settings.png) | ![Counter](src/main/res/drawable/counter.png) | ![History](src/main/res/drawable/history.png) |
 
 *(Note: Images are stored in the `screenshots` folder)*
 
