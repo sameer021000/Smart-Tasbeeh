@@ -16,9 +16,9 @@
 
 | Home Setup | Counter | History |
 |:---:|:---:|:---:|
-| ![Home](path/to/screenshot1.png) | ![Counter](path/to/screenshot2.png) | ![History](path/to/screenshot3.png) |
+| ![Home](screenshots/settings.jpg) | ![Counter](screenshots/counter.jpg) | ![History](screenshots/history.jpg) |
 
-*(Note: Add your screenshots to a `screenshots` folder and update the paths above)*
+*(Note: Images are stored in the `screenshots` folder)*
 
 ## 🛠️ Tech Stack
 
@@ -31,7 +31,7 @@
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/YOUR_USERNAME/SmartTasbeeh.git
+    git clone https://github.com/sameer021000/Smart-Tasbeeh.git
     ```
 2.  Open the project in **Android Studio**.
 3.  Sync with Gradle files.
