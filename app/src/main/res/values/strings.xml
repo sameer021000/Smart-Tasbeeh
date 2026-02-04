@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Smart Tasbeeh</string>
+    <string name="Count_Number">0</string>
+    <string name="Tasbeeh_Name">TASBEEH</string>
+    <string name="Tap_Button_Text">TAP</string>
+    <string name="Button_Reposition_Hint_Text">HOLD 3-SECONDS TO REPOSITION BUTTON</string>
+</resources>

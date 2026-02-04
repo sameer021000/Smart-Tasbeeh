@@ -1,0 +1,39 @@
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Branding (Tailwind Blue) -->
+    <color name="tasbeeh_blue_primary">#2563EB</color> <!-- Blue 600 -->
+    <color name="tasbeeh_blue_dark">#1E3A8A</color>    <!-- Blue 900 -->
+    <color name="tasbeeh_blue_light">#EFF6FF</color>   <!-- Blue 50 -->
+    <color name="tasbeeh_blue_accent">#3B82F6</color>  <!-- Blue 500 -->
+    
+    <!-- UI Colors -->
+    <color name="background_light">#EFF6FF</color>     <!-- Blue 50 (App Background) -->
+    <color name="card_background">#FFFFFF</color>
+    
+    <!-- Text -->
+    <color name="text_primary">#0F172A</color>         <!-- Slate 900 -->
+    <color name="text_secondary">#64748B</color>       <!-- Slate 500 -->
+    <color name="text_white">#FFFFFF</color>
+    
+    <!-- Action Colors -->
+    <color name="delete_background">#FEF2F2</color>    <!-- Red 50 -->
+    <color name="delete_text">#DC2626</color>          <!-- Red 600 -->
+    
+    <!-- Semantic Mappings (New Design) -->
+    <color name="app_background">@color/background_light</color>
+    <color name="count_text_color">#2563EB</color>     <!-- Blue 600 -->
+    <color name="icon_btn_bg">#EFF6FF</color>          <!-- Blue 50 -->
+    <color name="icon_tint">#2563EB</color>            <!-- Blue 600 -->
+    <color name="tap_btn_color">#2563EB</color>        <!-- Blue 600 -->
+    <color name="tap_btn_text">#FFFFFF</color>
+    <color name="nav_text_selected">#2563EB</color>
+    <color name="nav_text_unselected">#94A3B8</color>  <!-- Slate 400 -->
+    <color name="nav_bg">#FFFFFF</color>
+    <color name="hint_text">#94A3B8</color>
+    
+    <color name="grid_line_color">#2563EB</color>
+    
+    <color name="card_stroke_color">#DBEAFE</color> <!-- Blue 100 -->
+</resources>

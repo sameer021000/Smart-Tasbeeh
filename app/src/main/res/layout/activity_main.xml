@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".MainActivity">
+
+    <!-- 1. Top Card with Count and Actions -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCountDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="24dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/card_stroke_color"
+        app:cardBackgroundColor="@color/card_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <!-- Count Number -->
+            <TextView
+                android:id="@+id/tvCountDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|start"
+                android:text="@string/Count_Number"
+                android:textColor="@color/count_text_color"
+                android:textSize="58sp"
+                android:fontFamily="sans-serif-black"
+                android:letterSpacing="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Save Button (Left) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnSave"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/card_stroke_color"
+        app:cardBackgroundColor="@color/card_background"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="@id/cardCountDisplay"
+        app:layout_constraintTop_toBottomOf="@id/cardCountDisplay">
+        
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_save"
+            app:tint="@color/tasbeeh_blue_accent"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvAppTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/Tasbeeh_Name"
+        android:textColor="@color/tasbeeh_blue_primary"
+        android:textSize="36sp"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.10"
+        android:shadowColor="@color/card_stroke_color"
+        android:shadowRadius="12"
+        android:shadowDy="4"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnReset"
+        app:layout_constraintStart_toEndOf="@+id/btnSave"
+        app:layout_constraintTop_toBottomOf="@+id/cardCountDisplay" />
+
+    <!-- Reset Button (Right) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnReset"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/card_stroke_color"
+        app:cardBackgroundColor="@color/card_background"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="@id/cardCountDisplay"
+        app:layout_constraintTop_toBottomOf="@id/cardCountDisplay">
+        
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_refresh"
+            app:tint="@color/tasbeeh_blue_accent"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 2. Middle Container for Draggable Button -->
+    <FrameLayout
+        android:id="@+id/bigBoxContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_grid_container"
+        android:clipToOutline="true"
+        app:layout_constraintTop_toBottomOf="@id/btnSave"
+        app:layout_constraintBottom_toTopOf="@id/controlsBar">
+
+        <!-- Grid Background -->
+        <View
+            android:id="@+id/gridBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"/>
+
+        <!-- "TAP" Button -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/videoButton"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="12dp"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent">
+
+            <!-- Inner border effect could be added here if needed, keeping simple matching design -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Tap_Button_Text"
+                android:textColor="@color/tap_btn_text"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_gravity="center"/>
+                
+             <!-- Simple ripple overlay for touch feedback if needed -->
+             <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="false"
+                android:focusable="false"/>
+
+        </androidx.cardview.widget.CardView>
+        
+        <!-- Helper Text -->
+        <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom|center_horizontal"
+             android:layout_marginBottom="32dp"
+             android:text="@string/Button_Reposition_Hint_Text"
+             android:textColor="@color/hint_text"
+             android:textSize="11sp"
+             android:textStyle="bold"
+             android:letterSpacing="0.05"/>
+
+    </FrameLayout>
+
+    <!-- Controls Bar -->
+    <LinearLayout
+        android:id="@+id/controlsBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavDivider"
+        app:layout_constraintTop_toBottomOf="@id/bigBoxContainer">
+
+        <!-- Decrease Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnDecrease"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/card_stroke_color"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_remove"
+                app:tint="@color/tasbeeh_blue_accent"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Auto Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnAuto"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/ivAutoIcon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_auto"
+                app:tint="@android:color/white"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Target Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnTarget"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/card_stroke_color"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_target"
+                app:tint="@color/tasbeeh_blue_accent"/>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+    <View
+        android:id="@+id/bottomNavDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/count_text_color"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"/>
+
+    <!-- 3. Bottom Navigation -->
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/nav_bg"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:baselineAligned="false"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- History -->
+        <LinearLayout
+            android:id="@+id/btnSavedCounts"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_clock"
+                app:tint="@color/nav_text_unselected" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="HISTORY"
+                android:textColor="@color/nav_text_unselected"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Counter (Active) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_add"
+                app:tint="@color/nav_text_selected"/>
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COUNTER"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/nav_text_selected"/>
+        </LinearLayout>
+
+        <!-- Settings -->
+        <LinearLayout
+            android:id="@+id/btnSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+            
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_settings"
+                app:tint="@color/nav_text_unselected"/>
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SETTINGS"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/nav_text_unselected"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
