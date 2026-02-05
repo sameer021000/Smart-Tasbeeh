@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
+    <!-- Background Ring (Faint Blue) -->
+    <item android:id="@android:id/background">
         <shape
             android:shape="ring"
-            android:thicknessRatio="14"
+            android:thickness="4dp"
             android:useLevel="false">
-            <solid android:color="#302962FF" />
+            <solid android:color="#202962FF" />
         </shape>
     </item>
-    <item>
+    
+    <!-- Progress Ring (Solid Blue) -->
+    <!-- Important: useLevel=true is required for progress to work -->
+    <item android:id="@android:id/progress">
         <rotate
             android:fromDegrees="270"
             android:toDegrees="270">
             <shape
                 android:shape="ring"
-                android:thicknessRatio="14"
+                android:thickness="4dp"
                 android:useLevel="true">
                 <solid android:color="@color/tasbeeh_blue_primary" />
             </shape>

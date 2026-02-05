@@ -25,9 +25,10 @@ import java.util.Locale;
 public class AnalysisActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private TextView tvCount, tvTapHint, tvPausedOverlay, tvReportSummary, tvReportDetails;
-    private View btnTap, scrollReport; 
+    private TextView tvCount, tvTapHint, tvPausedOverlay, tvReportSummary;
+    private View btnTap, reportView; 
     private FrameLayout graphContainer;
+    private android.widget.TableLayout tableReport;
     private FloatingActionButton fabPause;
     private LinearLayout layoutPauseOptions;
     private Button btnReset, btnShowReport;
@@ -66,14 +67,15 @@ public class AnalysisActivity extends AppCompatActivity {
         btnReset = findViewById(R.id.btnResetAnalysis);
         btnShowReport = findViewById(R.id.btnShowReport);
         
-        scrollReport = findViewById(R.id.scrollReport);
+        tableReport = findViewById(R.id.tableReport);
         tvReportSummary = findViewById(R.id.tvReportSummary);
-        tvReportDetails = findViewById(R.id.tvReportDetails);
         graphContainer = findViewById(R.id.graphContainer);
         
-        // Initial State
+        // reportContainer is the linear layout holding summary + graph + table
+        this.reportView = findViewById(R.id.reportContainer);
+        
         fabPause.setVisibility(View.INVISIBLE);
-        scrollReport.setVisibility(View.INVISIBLE);
+        reportView.setVisibility(View.GONE);
         tvPausedOverlay.setVisibility(View.GONE);
     }
 
@@ -143,6 +145,10 @@ public class AnalysisActivity extends AppCompatActivity {
             // Clean slate
             zikrDurations.clear();
             
+            // Hide report if restarting
+            reportView.setVisibility(View.GONE);
+            layoutPauseOptions.setVisibility(View.GONE);
+            
         } else {
             // Count > 0
             long duration = now - lastTapTime;
@@ -169,7 +175,8 @@ public class AnalysisActivity extends AppCompatActivity {
             layoutPauseOptions.setVisibility(View.VISIBLE);
             tvPausedOverlay.setVisibility(View.VISIBLE);
             btnTap.setEnabled(false); // Disable tap
-            scrollReport.setVisibility(View.INVISIBLE); // Hide previous report if any, wait for user request
+            btnTap.setEnabled(false); // Disable tap
+            reportView.setVisibility(View.GONE); // Hide previous report if any, wait for user request
             
         } else {
             // Resuming
@@ -177,7 +184,9 @@ public class AnalysisActivity extends AppCompatActivity {
             layoutPauseOptions.setVisibility(View.GONE);
             tvPausedOverlay.setVisibility(View.GONE);
             btnTap.setEnabled(true);
-            scrollReport.setVisibility(View.INVISIBLE);
+            tvPausedOverlay.setVisibility(View.GONE);
+            btnTap.setEnabled(true);
+            reportView.setVisibility(View.GONE);
             
             // Reset base time so pause duration isn't counted in next interval
             lastTapTime = System.currentTimeMillis(); 
@@ -191,10 +200,11 @@ public class AnalysisActivity extends AppCompatActivity {
         lastTapTime = 0;
         
         layoutPauseOptions.setVisibility(View.GONE);
-        scrollReport.setVisibility(View.INVISIBLE);
+        reportView.setVisibility(View.GONE);
         tvPausedOverlay.setVisibility(View.GONE);
         fabPause.setVisibility(View.INVISIBLE);
         btnTap.setEnabled(true);
+        btnTap.setAlpha(1.0f);
         tvTapHint.setVisibility(View.VISIBLE);
         
         updateUI();
@@ -206,7 +216,7 @@ public class AnalysisActivity extends AppCompatActivity {
             return;
         }
         
-        scrollReport.setVisibility(View.VISIBLE);
+        reportView.setVisibility(View.VISIBLE);
         
         // Stats
         long totalDur = 0;
@@ -214,69 +224,73 @@ public class AnalysisActivity extends AppCompatActivity {
         double avgMillis = (double) totalDur / zikrDurations.size();
         double avgSec = avgMillis / 1000.0;
         
-        tvReportSummary.setText(String.format(Locale.US, "Count: %d | Avg Speed: %.2f sec", currentCount, avgSec));
+        tvReportSummary.setText(String.format(Locale.US, "Count: %d | Avg Speed: %.2f sec\nTotal Time: %.1f sec", 
+                currentCount, avgSec, totalDur/1000.0));
         
-        // Detailed Text
-        StringBuilder sb = new StringBuilder();
+        // Populate Table
+        tableReport.removeAllViews();
+        
         for (int i = 0; i < zikrDurations.size(); i++) {
-            // Zikr # refers to interval. 
-            // Durations[0] is interval between Tap 1 (Count 1) and Tap 2 (Count 2).
-            // So it represents the speed of the 2nd zikr recited? 
-            // Or if we assume start time was correct, 1st tap was end of 1st.
-            // Let's Label them as "Interval 1-2", "Interval 2-3" etc.
-            // Or "Zikr #2" (assuming #1 was setup).
-            sb.append(String.format(Locale.US, "Zikr %d : %.2f s\n", (i+2), zikrDurations.get(i)/1000.0));
+            long dur = zikrDurations.get(i);
+            double sec = dur / 1000.0;
+            
+            android.widget.TableRow row = new android.widget.TableRow(this);
+            row.setPadding(0, 8, 0, 8);
+            if (i % 2 == 1) row.setBackgroundColor(0xFFEEEEEE); // Striped
+            
+            // #
+            TextView tvNum = new TextView(this);
+            tvNum.setText(String.valueOf(i + 1));
+            tvNum.setGravity(android.view.Gravity.CENTER);
+            tvNum.setTextColor(0xFF000000);
+            
+            // Time (Duration of THIS zikr)
+            TextView tvTime = new TextView(this);
+            tvTime.setText(String.format(Locale.US, "%.2f", sec));
+            tvTime.setGravity(android.view.Gravity.CENTER);
+            tvTime.setTextColor(0xFF000000);
+            
+            // Interval (Cumulative Time? or just "Zikr #")
+            // Requested: "Time taken from one zikhr to another zikhr" -> This IS the duration.
+            // "at which second - the particular numbered zikhr is counted" -> Cumulative time.
+            
+            long cumulative = 0;
+            for(int j=0; j<=i; j++) cumulative += zikrDurations.get(j);
+            double cumSec = cumulative / 1000.0;
+            
+            TextView tvCum = new TextView(this);
+            tvCum.setText(String.format(Locale.US, "%.1f s", cumSec));
+            tvCum.setGravity(android.view.Gravity.CENTER);
+            tvCum.setTextColor(0xFF555555);
+            
+            row.addView(tvNum);
+            row.addView(tvTime);
+            row.addView(tvCum);
+            
+            tableReport.addView(row);
         }
-        tvReportDetails.setText(sb.toString());
         
         // Graph
         drawGraph();
     }
     
     private void finishAnalysis() {
-        fabPause.setVisibility(View.INVISIBLE); // Hide pause
-        btnTap.setEnabled(false); // Disable
+        fabPause.setVisibility(View.INVISIBLE); 
+        btnTap.setEnabled(false);
+        // set opacity to show disabled
+        btnTap.setAlpha(0.6f);
         
-        // Auto-show report logic "give the whole report"
+        // "After reaching 100, circular counter disabled and reset button displayed"
+        layoutPauseOptions.setVisibility(View.VISIBLE); 
+        // We only want Reset button in this specific case? Or both?
+        // "Only after clicking reset... counter goes to 0"
+        
+        // Generate report automatically? 
+        // "give the whole report upto that count"
         generateReport();
         
-        // Show Reset button in the report area? Or main Reset option?
-        // User requirements: "After watching report... resume and completes... or reset".
-        // But here we finished 100.
-        // Let's show Reset button prominent or rely on the Pause/Reset flow?
-        // Actually, if finished, we are "Paused" effectively.
-        // Let's manually trigger options visibility but without Resume option.
-        
-        layoutPauseOptions.setVisibility(View.GONE); // Hide pause options
-        // Show a final Reset button instead?
-        // Re-using Reset button from pause menu but putting it below report?
-        // Handled: The flow ends here for 100.
-        // User said: "counter goes to 0" after completing.
-        // Resetting automatically?
-        // "after completing... counter goes to 0. And the analysis... will be provided"
-        // This implies: Show Report AND Reset Count.
-        
-        // Implementation:
-        // 1. Show Report.
-        // 2. Reset Count variable but keep Report visible?
-        // Visually: Count becomes 0.
-        
-        currentCount = 0;
-        updateUI(); 
-        
-        // Keep Report Visible.
-        // Since count is 0, user can start again?
-        // Yes.
-        lastTapTime = 0;
-        zikrDurations.clear(); // Clear internal data?
-        // If we clear data, report is empty?
-        // We must KEEP data for report until next start.
-        // So we decouple data clearing.
-        // Clear data on NEXT First Tap.
-        
-        fabPause.setVisibility(View.INVISIBLE);
-        tvTapHint.setVisibility(View.VISIBLE);
-        btnTap.setEnabled(true);
+        // Ensure Reset button is visible (it is inside layoutPauseOptions)
+        // btnShowReport is also there.
     }
 
     private void updateUI() {
