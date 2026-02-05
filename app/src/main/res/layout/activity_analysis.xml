@@ -56,8 +56,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
+                <!-- Inner Circle (bg) -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/bg_circle_button" />
+
                 <!-- Progress Bar (Thin Line Outer Ring) -->
-                <!-- We apply padding to ensure stroke isn't clipped and sits outside inner circle -->
+                <!-- Placed AFTER inner circle to render ON TOP/AROUND it -->
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="match_parent"
@@ -69,14 +76,7 @@
                     android:max="100"
                     android:progress="0"
                     android:padding="2dp"/>
-
-                <!-- Inner Circle (bg) -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="12dp"
-                    android:background="@drawable/bg_circle_button" />
-
+                    
                 <!-- Count Text -->
                 <TextView
                     android:id="@+id/tvCount"

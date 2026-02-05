@@ -35,7 +35,7 @@ public class AnalysisActivity extends AppCompatActivity {
     
     // State
     private int currentCount = 0;
-    private final int TARGET = 100;
+    private final int TARGET = 99;
     private boolean isPaused = false;
     private long lastTapTime = 0;
     
@@ -217,10 +217,18 @@ public class AnalysisActivity extends AppCompatActivity {
         }
         
         reportView.setVisibility(View.VISIBLE);
+        reportView.setAlpha(0f);
+        reportView.animate().alpha(1f).setDuration(500).start();
         
         // Stats
         long totalDur = 0;
-        for (long d : zikrDurations) totalDur += d;
+        long maxDur = 0;
+        long minDur = Long.MAX_VALUE;
+        for (long d : zikrDurations) {
+            totalDur += d;
+            if (d > maxDur) maxDur = d;
+            if (d < minDur) minDur = d;
+        }
         double avgMillis = (double) totalDur / zikrDurations.size();
         double avgSec = avgMillis / 1000.0;
         
@@ -229,14 +237,39 @@ public class AnalysisActivity extends AppCompatActivity {
         
         // Populate Table
         tableReport.removeAllViews();
+        tableReport.setStretchAllColumns(true);
         
+        // Header Row
+        android.widget.TableRow headerRow = new android.widget.TableRow(this);
+        headerRow.setBackgroundColor(0xFF2962FF); // Primary Blue
+        headerRow.setPadding(0, 16, 0, 16);
+        
+        String[] headers = {"#", "Time (s)", "Interval (s)"};
+        for (String h : headers) {
+            TextView tv = new TextView(this);
+            tv.setText(h);
+            tv.setTextColor(android.graphics.Color.WHITE);
+            tv.setTypeface(null, android.graphics.Typeface.BOLD);
+            tv.setGravity(android.view.Gravity.CENTER);
+            tv.setPadding(8, 8, 8, 8);
+            headerRow.addView(tv);
+        }
+        tableReport.addView(headerRow);
+        
+        // Data Rows
         for (int i = 0; i < zikrDurations.size(); i++) {
             long dur = zikrDurations.get(i);
             double sec = dur / 1000.0;
             
             android.widget.TableRow row = new android.widget.TableRow(this);
-            row.setPadding(0, 8, 0, 8);
-            if (i % 2 == 1) row.setBackgroundColor(0xFFEEEEEE); // Striped
+            row.setPadding(0, 12, 0, 12);
+            
+            // Alternating Backgrounds
+            if (i % 2 == 0) {
+                row.setBackgroundColor(0xFFF5F5F5); // Very Light Grey
+            } else {
+                row.setBackgroundColor(0xFFE3F2FD); // Very Light Blue
+            }
             
             // #
             TextView tvNum = new TextView(this);
@@ -244,22 +277,22 @@ public class AnalysisActivity extends AppCompatActivity {
             tvNum.setGravity(android.view.Gravity.CENTER);
             tvNum.setTextColor(0xFF000000);
             
-            // Time (Duration of THIS zikr)
+            // Time
             TextView tvTime = new TextView(this);
             tvTime.setText(String.format(Locale.US, "%.2f", sec));
             tvTime.setGravity(android.view.Gravity.CENTER);
-            tvTime.setTextColor(0xFF000000);
+            // Highlight outliers
+            if (dur > avgMillis * 1.5) tvTime.setTextColor(0xFFFF0000); // Slower
+            else if (dur < avgMillis * 0.5) tvTime.setTextColor(0xFF008000); // Faster
+            else tvTime.setTextColor(0xFF000000);
             
-            // Interval (Cumulative Time? or just "Zikr #")
-            // Requested: "Time taken from one zikhr to another zikhr" -> This IS the duration.
-            // "at which second - the particular numbered zikhr is counted" -> Cumulative time.
-            
+            // Interval
             long cumulative = 0;
             for(int j=0; j<=i; j++) cumulative += zikrDurations.get(j);
             double cumSec = cumulative / 1000.0;
             
             TextView tvCum = new TextView(this);
-            tvCum.setText(String.format(Locale.US, "%.1f s", cumSec));
+            tvCum.setText(String.format(Locale.US, "%.1f", cumSec));
             tvCum.setGravity(android.view.Gravity.CENTER);
             tvCum.setTextColor(0xFF555555);
             
@@ -336,7 +369,7 @@ public class AnalysisActivity extends AppCompatActivity {
     // Simple custom view for graph
     private class GraphView extends View {
         private List<Long> data;
-        private Paint paintLine, paintDot;
+        private Paint paintLine, paintDot, paintText, paintGrid;
         
         public GraphView(Context context, List<Long> data) {
             super(context);
@@ -351,6 +384,15 @@ public class AnalysisActivity extends AppCompatActivity {
             paintDot.setColor(0xFF2979FF); // lighter blue accent
             paintDot.setStyle(Paint.Style.FILL);
             paintDot.setAntiAlias(true);
+
+            paintText = new Paint(); // Text Color
+            paintText.setColor(0xFF000000);
+            paintText.setTextSize(24f);
+            paintText.setAntiAlias(true);
+
+            paintGrid = new Paint();
+            paintGrid.setColor(0xFFCCCCCC);
+            paintGrid.setStrokeWidth(2f);
         }
         
         @Override
@@ -360,21 +402,38 @@ public class AnalysisActivity extends AppCompatActivity {
             
             float width = getWidth();
             float height = getHeight();
-            float padding = 20f;
+            float paddingLeft = 60f;
+            float paddingBottom = 40f;
+            float paddingRight = 20f;
+            float paddingTop = 20f;
             
             float maxVal = 0;
             for (long d : data) if (d > maxVal) maxVal = d;
             if (maxVal == 0) maxVal = 1;
 
-            float xStep = (width - 2 * padding) / (data.size() - 1);
+            float graphWidth = width - paddingLeft - paddingRight;
+            float graphHeight = height - paddingTop - paddingBottom;
+
+            // Draw Axes
+            canvas.drawLine(paddingLeft, paddingTop, paddingLeft, height - paddingBottom, paintGrid); // Y
+            canvas.drawLine(paddingLeft, height - paddingBottom, width - paddingRight, height - paddingBottom, paintGrid); // X
+
+            // Labels
+            canvas.drawText("Count ->", width - 100f, height - 10f, paintText);
+            canvas.save();
+            canvas.rotate(-90, 20f, height/2);
+            canvas.drawText("Time (ms)", 20f, height/2, paintText);
+            canvas.restore();
+
+            float xStep = graphWidth / (data.size() - 1);
             
             // Draw lines
-            float prevX = padding;
-            float prevY = height - padding - ((data.get(0) / maxVal) * (height - 2 * padding));
+            float prevX = paddingLeft;
+            float prevY = height - paddingBottom - ((data.get(0) / maxVal) * graphHeight);
             
             for (int i = 1; i < data.size(); i++) {
-                float x = padding + i * xStep;
-                float y = height - padding - ((data.get(i) / maxVal) * (height - 2 * padding));
+                float x = paddingLeft + i * xStep;
+                float y = height - paddingBottom - ((data.get(i) / maxVal) * graphHeight);
                 
                 canvas.drawLine(prevX, prevY, x, y, paintLine);
                 canvas.drawCircle(prevX, prevY, 6f, paintDot);
