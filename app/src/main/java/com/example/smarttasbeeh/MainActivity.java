@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,12 +41,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_TARGET = "target_count";
     private static final String KEY_AUTO_SPEED = "auto_speed";
     private static final String KEY_AUTO_RUNNING = "is_auto_running";
+    private static final String KEY_SOUND = "sound_enabled";
 
     private int currentCount = 0;
     private int targetCount = 0;
     private final int MAX_COUNT = 9999999;
     private boolean isVibrationEnabled = true;
     private boolean isTapAnywhereEnabled = false;
+    private boolean isSoundEnabled = false;
+    private ToneGenerator toneGen;
 
     private TextView tvCountDisplay;
     private CardView counterButton;
@@ -89,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new DbHelper(this);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        try {
+            toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Initialize Views
         tvCountDisplay = findViewById(R.id.tvCountDisplay);
@@ -580,6 +590,10 @@ public class MainActivity extends AppCompatActivity {
             currentCount++;
             updateCountDisplay();
             vibrate(90); // Strong vibration for click
+            if (isSoundEnabled && toneGen != null) {
+                // TONE_PROP_BEEP is a standard beep. duration in ms.
+                toneGen.startTone(ToneGenerator.TONE_PROP_BEEP, 150);
+            }
             saveCountPref();
 
             // Target Check
@@ -822,6 +836,7 @@ public class MainActivity extends AppCompatActivity {
         // Refresh settings that might have changed
         isVibrationEnabled = prefs.getBoolean(KEY_VIBRATION, true);
         isTapAnywhereEnabled = prefs.getBoolean(KEY_TAP_ANYWHERE, false);
+        isSoundEnabled = prefs.getBoolean(KEY_SOUND, false);
 
         targetCount = prefs.getInt(KEY_TARGET, 0); // Reload target
         autoSpeed = prefs.getLong(KEY_AUTO_SPEED, 1000);
@@ -846,6 +861,14 @@ public class MainActivity extends AppCompatActivity {
             rootLayout.setClickable(false);
             bigBoxContainer.setOnClickListener(null);
             bigBoxContainer.setClickable(false);
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (toneGen != null) {
+            toneGen.release();
+            toneGen = null;
         }
     }
 }

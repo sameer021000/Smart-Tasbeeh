@@ -25,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
     private static final String KEY_TAP_ANYWHERE = "tap_anywhere";
     private static final String KEY_DARK_MODE = "dark_mode";
     private static final String KEY_AUTO_RUNNING = "is_auto_running";
+    private static final String KEY_SOUND = "sound_enabled";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         SwitchMaterial switchDarkMode = findViewById(R.id.switchDarkMode);
         SwitchMaterial switchHaptic = findViewById(R.id.switchHaptic);
+        SwitchMaterial switchSound = findViewById(R.id.switchSound);
         SwitchMaterial switchTapAnywhere = findViewById(R.id.switchTapAnywhere);
         SeekBar seekBarVibration = findViewById(R.id.seekBarVibration);
         View layoutVibrationLevel = findViewById(R.id.layoutVibrationLevel);
@@ -53,6 +55,8 @@ public class SettingsActivity extends AppCompatActivity {
         switchDarkMode.setChecked(isDarkMode);
         boolean isVibEnabled = prefs.getBoolean(KEY_VIBRATION, true);
         switchHaptic.setChecked(isVibEnabled);
+        boolean isSoundEnabled = prefs.getBoolean(KEY_SOUND, false);
+        switchSound.setChecked(isSoundEnabled);
         boolean isTapAnywhere = prefs.getBoolean(KEY_TAP_ANYWHERE, false);
         switchTapAnywhere.setChecked(isTapAnywhere);
         
@@ -91,6 +95,13 @@ public class SettingsActivity extends AppCompatActivity {
             seekBarVibration.setEnabled(isChecked);
             
             if (isChecked) Toast.makeText(this, "Vibration On", Toast.LENGTH_SHORT).show();
+        });
+
+        switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putBoolean(KEY_SOUND, isChecked);
+            editor.apply();
+            if (isChecked) Toast.makeText(this, "Sound On", Toast.LENGTH_SHORT).show();
         });
         
         switchTapAnywhere.setOnCheckedChangeListener((buttonView, isChecked) -> {
