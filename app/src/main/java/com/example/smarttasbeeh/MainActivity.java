@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);   // Promoted
         View btnSavedCounts = findViewById(R.id.btnSavedCounts);
         View btnSettings = findViewById(R.id.btnSettings);
+        View btnAnalysis = findViewById(R.id.btnAnalysis);
         rootLayout = findViewById(R.id.main);
 
         btnDecrease = findViewById(R.id.btnDecrease);
@@ -321,6 +322,10 @@ public class MainActivity extends AppCompatActivity {
         });
         btnSettings.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
+        btnAnalysis.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, AnalysisActivity.class));
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
