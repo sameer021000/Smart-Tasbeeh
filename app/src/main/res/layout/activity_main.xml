@@ -57,7 +57,7 @@
         app:cardElevation="5dp"
         app:strokeWidth="2dp"
         app:strokeColor="@color/card_stroke_color"
-        app:cardBackgroundColor="@color/card_background"
+        app:cardBackgroundColor="@color/tasbeeh_blue_accent"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="@id/cardCountDisplay"
@@ -68,7 +68,7 @@
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_save"
-            app:tint="@color/tasbeeh_blue_accent"/>
+            app:tint="@color/card_background"/>
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
@@ -99,7 +99,7 @@
         app:cardElevation="5dp"
         app:strokeWidth="2dp"
         app:strokeColor="@color/card_stroke_color"
-        app:cardBackgroundColor="@color/card_background"
+        app:cardBackgroundColor="@color/tasbeeh_blue_accent"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="@id/cardCountDisplay"
@@ -110,7 +110,7 @@
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_refresh"
-            app:tint="@color/tasbeeh_blue_accent"/>
+            app:tint="@color/card_background"/>
     </com.google.android.material.card.MaterialCardView>
 
     <!-- 2. Middle Container for Draggable Button -->
@@ -198,7 +198,7 @@
             android:layout_marginEnd="24dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="5dp"
-            app:cardBackgroundColor="@color/card_background"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
             app:strokeWidth="2dp"
             app:strokeColor="@color/card_stroke_color"
             android:clickable="true"
@@ -208,7 +208,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_remove"
-                app:tint="@color/tasbeeh_blue_accent"/>
+                app:tint="@color/card_background"/>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Auto Button -->
@@ -238,7 +238,7 @@
             android:layout_marginStart="24dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="5dp"
-            app:cardBackgroundColor="@color/card_background"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
             app:strokeWidth="2dp"
             app:strokeColor="@color/card_stroke_color"
             android:clickable="true"
@@ -248,7 +248,7 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_target"
-                app:tint="@color/tasbeeh_blue_accent"/>
+                app:tint="@color/card_background"/>
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
