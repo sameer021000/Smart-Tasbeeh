@@ -47,6 +47,12 @@ public class SavedCountsActivity extends AppCompatActivity {
             finish();
         });
 
+        findViewById(R.id.btnNavAnalysis).setOnClickListener(v -> {
+            startActivity(new Intent(SavedCountsActivity.this, AnalysisActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
+        });
+
         loadCounts();
     }
 

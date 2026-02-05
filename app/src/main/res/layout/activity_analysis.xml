@@ -64,7 +64,6 @@
                     android:background="@drawable/bg_circle_button" />
 
                 <!-- Progress Bar (Thin Line Outer Ring) -->
-                <!-- Placed AFTER inner circle to render ON TOP/AROUND it -->
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="match_parent"
@@ -98,7 +97,7 @@
                      android:textColor="@color/hint_text"
                      android:translationY="40dp"/>
                      
-                <!-- Pause Overlay (Visible when Paused or Finished) -->
+                <!-- Pause Overlay (Visible when Paused) -->
                  <TextView
                      android:id="@+id/tvPausedOverlay"
                      android:layout_width="wrap_content"
@@ -112,7 +111,7 @@
                      android:padding="8dp"
                      android:visibility="gone"/>
 
-                <!-- Click overlay -->
+                <!-- Click overlay (This intercepts taps for counting) -->
                 <View
                     android:id="@+id/tapActionView"
                     android:layout_width="match_parent"
@@ -121,6 +120,17 @@
                     android:background="?attr/selectableItemBackgroundBorderless" 
                     android:clickable="true"
                     android:focusable="true"/>
+
+                <!-- Start Button Overlay (Must be LAST to be ON TOP of tap overlay) -->
+                <Button
+                    android:id="@+id/btnStartOverlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="START"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
+                    android:visibility="visible"
+                    android:elevation="10dp"/>
                     
             </FrameLayout>
             
@@ -175,7 +185,6 @@
             </LinearLayout>
 
             <!-- Report Container (Visible on request) -->
-            <!-- Using TableLayout for Better Design -->
             <LinearLayout
                 android:id="@+id/reportContainer"
                 android:layout_width="match_parent"

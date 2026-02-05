@@ -33,16 +33,17 @@ public class AnalysisActivity extends AppCompatActivity {
     private LinearLayout layoutPauseOptions;
     private Button btnReset, btnShowReport;
     
+    private Button btnStartOverlay;
+    
     // State
     private int currentCount = 0;
-    private final int TARGET = 99;
+    private final int TARGET = 100;
     private boolean isPaused = false;
+    private boolean hasStarted = false;
     private long lastTapTime = 0;
     
     // Data: Stores DURATION (ms) of each Zikr (i.e., time between taps)
-    // zikrDurations[0] = duration of 1st zikr (Finish Tap 1 - Start).
-    // Actually, user taps AFTER reciting.
-    // Tap 0 (Start) -> Recite -> Tap 1 (End of 1st). duration = T1 - T0.
+    // Start -> Tap 1 (Duration 1) -> Tap 2 (Duration 2)...
     private ArrayList<Long> zikrDurations = new ArrayList<>();
     
     @Override
@@ -57,10 +58,13 @@ public class AnalysisActivity extends AppCompatActivity {
 
     private void initViews() {
         progressBar = findViewById(R.id.progressBar);
+        progressBar.setMax(TARGET); // Ensure progress scale matches target
+        
         tvCount = findViewById(R.id.tvCount);
         tvTapHint = findViewById(R.id.tvTapHint);
         tvPausedOverlay = findViewById(R.id.tvPausedOverlay);
         btnTap = findViewById(R.id.tapActionView); 
+        btnStartOverlay = findViewById(R.id.btnStartOverlay);
         
         fabPause = findViewById(R.id.fabPause);
         layoutPauseOptions = findViewById(R.id.layoutPauseOptions);
@@ -74,93 +78,63 @@ public class AnalysisActivity extends AppCompatActivity {
         // reportContainer is the linear layout holding summary + graph + table
         this.reportView = findViewById(R.id.reportContainer);
         
+        // Initial State
         fabPause.setVisibility(View.INVISIBLE);
         reportView.setVisibility(View.GONE);
         tvPausedOverlay.setVisibility(View.GONE);
+        layoutPauseOptions.setVisibility(View.GONE);
+        
+        // Disable tap until started
+        btnTap.setEnabled(false);
+        btnTap.setClickable(false);
+        tvTapHint.setVisibility(View.GONE);
+        
+        btnStartOverlay.setVisibility(View.VISIBLE);
     }
 
     private void setupListeners() {
         btnTap.setOnClickListener(v -> handleTap());
-        
+        btnStartOverlay.setOnClickListener(v -> startAnalysisSession());
         fabPause.setOnClickListener(v -> togglePause());
-        
         btnReset.setOnClickListener(v -> resetAnalysis());
-        
         btnShowReport.setOnClickListener(v -> generateReport());
+    }
+    
+    private void startAnalysisSession() {
+        hasStarted = true;
+        currentCount = 0;
+        zikrDurations.clear();
+        lastTapTime = System.currentTimeMillis();
+        
+        btnStartOverlay.setVisibility(View.GONE);
+        tvTapHint.setVisibility(View.VISIBLE);
+        
+        btnTap.setEnabled(true);
+        btnTap.setClickable(true);
+        btnTap.setAlpha(1.0f);
+        
+        fabPause.setVisibility(View.VISIBLE);
+        fabPause.setImageResource(R.drawable.ic_pause);
+        
+        updateUI();
     }
 
     private void handleTap() {
-        if (currentCount >= TARGET) return;
-        if (isPaused) {
-            // Should be blocked by UI, but safety check
-            return; 
-        }
-
-        long now = System.currentTimeMillis();
+        if (!hasStarted || currentCount >= TARGET) return;
+        if (isPaused) return; 
         
-        // Feedback
-        performFeedback();
+        long now = System.currentTimeMillis();
+        performFeedback(); 
 
-        if (currentCount == 0) {
-            // First Tap: STARTS the timer for Zikr #1
-            lastTapTime = now;
-            currentCount++; // Wait, if count=0, this is "Start"?
-            // Suggestion: Tap 1 starts it.
-            // Requirement: "Tap 100 times".
-            // If I tap once, have I completed 1 zikr? 
-            // Usually, user recites then taps. So Tap 1 = Done 1.
-            // But we need a reference time.
-            // Let's assume Tap 1 is "Started". Count remains 0? Or 1?
-            // "Timer... time taken for one zikr to another (from 0 to 100)"
-            // Logic:
-            // Tap (Start) -> Count 0? Or just "Started".
-            // Tap (End #1) -> Count 1. Duration = T_end1 - T_start.
-            // So we need 101 taps for 100 zikrs if strictly measuring duration?
-            // OR we use the first tap as "Count 1 completed" but duration is unknown/approx?
-            // "user can count his specific Zikhr for 100 times... analysis... time taken for one zikhr to another"
-            // Let's treat Tap 1 as START of Session. Count = 0.
-            // Tap 2 = Count 1. Duration = T2-T1.
-            // Tap 101 = Count 100.
-            
-            // Re-reading: "count... for 100 times" commonly means I press the button 100 times.
-            // If I press 100 times, I have 99 intervals.
-            // If I want 100 intervals, I need a "Start" button or 1st tap is start.
-            // Let's assume 1st Tap = Start (Count 0 -> 1?). 
-            // If Text says "0", and I tap, it becomes "1". 
-            // I cannot measure the speed of the 1st one because I don't know when it started.
-            // I will start measuring intervals from Count 2 onwards (Interval 1-2).
-            // BUT user wants analysis for 0 to 100.
-            // Let's start timestamp on 1st tap (Count 1).
-            // Valid duration data starts appearing from Count 2.
-            // Count 1: "Started". Duration: N/A (or 0).
-            
-            lastTapTime = now;
-            currentCount = 1; 
-            updateUI();
-            
-            tvTapHint.setVisibility(View.GONE);
-            fabPause.setVisibility(View.VISIBLE);
-            fabPause.setImageResource(R.drawable.ic_pause);
-            
-            // Clean slate
-            zikrDurations.clear();
-            
-            // Hide report if restarting
-            reportView.setVisibility(View.GONE);
-            layoutPauseOptions.setVisibility(View.GONE);
-            
-        } else {
-            // Count > 0
-            long duration = now - lastTapTime;
-            zikrDurations.add(duration);
-            
-            lastTapTime = now;
-            currentCount++;
-            updateUI();
-            
-            if (currentCount == TARGET) {
-                finishAnalysis();
-            }
+        long duration = now - lastTapTime;
+        zikrDurations.add(duration);
+        
+        lastTapTime = now;
+        currentCount++;
+        updateUI();
+        
+        if (currentCount == TARGET) {
+            finishAnalysis();
         }
     }
     
@@ -197,16 +171,25 @@ public class AnalysisActivity extends AppCompatActivity {
         currentCount = 0;
         zikrDurations.clear();
         isPaused = false;
+        hasStarted = false;
         lastTapTime = 0;
         
+        // Reset UI to Initial State
         layoutPauseOptions.setVisibility(View.GONE);
         reportView.setVisibility(View.GONE);
         tvPausedOverlay.setVisibility(View.GONE);
         fabPause.setVisibility(View.INVISIBLE);
-        btnTap.setEnabled(true);
-        btnTap.setAlpha(1.0f);
-        tvTapHint.setVisibility(View.VISIBLE);
         
+        // Show Start Button again
+        btnStartOverlay.setVisibility(View.VISIBLE);
+        
+        // Disable Tap
+        btnTap.setEnabled(false);
+        btnTap.setClickable(false);
+        tvTapHint.setVisibility(View.GONE);
+        
+        // Reset progress
+        progressBar.setProgress(0);
         updateUI();
     }
     
@@ -239,10 +222,15 @@ public class AnalysisActivity extends AppCompatActivity {
         tableReport.removeAllViews();
         tableReport.setStretchAllColumns(true);
         
+        // Table (with border) styling happens in code or xml. 
+        // Applying border to the whole table:
+        tableReport.setBackgroundResource(R.drawable.border_shape); // Need to create this if want specific borders
+        // Or simply set background color.
+        
         // Header Row
         android.widget.TableRow headerRow = new android.widget.TableRow(this);
-        headerRow.setBackgroundColor(0xFF2962FF); // Primary Blue
-        headerRow.setPadding(0, 16, 0, 16);
+        headerRow.setBackgroundColor(0xFF1565C0); // Darker Blue
+        headerRow.setPadding(0, 0, 0, 0);
         
         String[] headers = {"#", "Time (s)", "Interval (s)"};
         for (String h : headers) {
@@ -251,7 +239,7 @@ public class AnalysisActivity extends AppCompatActivity {
             tv.setTextColor(android.graphics.Color.WHITE);
             tv.setTypeface(null, android.graphics.Typeface.BOLD);
             tv.setGravity(android.view.Gravity.CENTER);
-            tv.setPadding(8, 8, 8, 8);
+            tv.setPadding(16, 24, 16, 24); // More padding
             headerRow.addView(tv);
         }
         tableReport.addView(headerRow);

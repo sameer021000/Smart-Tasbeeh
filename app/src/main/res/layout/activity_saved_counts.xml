@@ -91,7 +91,8 @@
         android:layout_height="70dp"
         android:background="@color/nav_bg"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="4"
+        android:baselineAligned="false"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- History (Active) -->
@@ -175,6 +176,32 @@
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/nav_text_unselected"/>
+        </LinearLayout>
+        
+        <!-- Analysis -->
+        <LinearLayout
+            android:id="@+id/btnNavAnalysis"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_analysis"
+                app:tint="@color/nav_text_unselected"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ANALYSIS"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="@color/nav_text_unselected"
+                android:layout_marginTop="4dp"/>
         </LinearLayout>
 
     </LinearLayout>
