@@ -249,15 +249,43 @@ public class AnalysisActivity extends AppCompatActivity {
             long dur = zikrDurations.get(i);
             double sec = dur / 1000.0;
             
+            // Create layout params with margins to simulate borders
+            android.widget.TableRow.LayoutParams params = new android.widget.TableRow.LayoutParams(
+                android.widget.TableRow.LayoutParams.MATCH_PARENT,
+                android.widget.TableRow.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(1, 1, 1, 1); // 1px spacing for border effect
+            
             android.widget.TableRow row = new android.widget.TableRow(this);
             row.setPadding(0, 12, 0, 12);
+            row.setBackgroundColor(0xFFCCCCCC); // Border color behind cells
             
             // Alternating Backgrounds
+            int bgColor;
             if (i % 2 == 0) {
-                row.setBackgroundColor(0xFFF5F5F5); // Very Light Grey
+                bgColor = 0xFFF5F5F5; // Very Light Grey
             } else {
-                row.setBackgroundColor(0xFFE3F2FD); // Very Light Blue
+                bgColor = 0xFFE3F2FD; // Very Light Blue
             }
+            // Apply bg to individual cells instead of row to show "grid" via margins if desired
+            // Or just keep simple alternating rows. 
+            // Re-interpreting "border lines... for the table".
+            // Let's stick to row striping but add a bottom divider line for each row.
+            
+            // Revised approach: Set standard row background
+            row.setBackgroundColor(bgColor);
+            row.setPadding(0, 16, 0, 16);
+            
+            // Optional: Draw a thin line at bottom of each row? 
+            // Better: Use a background drawable for the row that has a bottom stroke.
+            // Or simpler: just keep alternating colors which is standard mobile UI.
+            // User specifically asked for "border lines".
+            
+            // Let's add a ShapeDrawable with bottom border to the row.
+            android.graphics.drawable.GradientDrawable border = new android.graphics.drawable.GradientDrawable();
+            border.setColor(bgColor);
+            border.setStroke(2, 0xFFB0BEC5); // Light Blue-Grey Border
+            row.setBackground(border);
             
             // #
             TextView tvNum = new TextView(this);
