@@ -55,15 +55,15 @@ public class SettingsActivity extends AppCompatActivity {
         switchDarkMode.setChecked(isDarkMode);
         boolean isVibEnabled = prefs.getBoolean(KEY_VIBRATION, true);
         switchHaptic.setChecked(isVibEnabled);
-        boolean isSoundEnabled = prefs.getBoolean(KEY_SOUND, false);
+        boolean isSoundEnabled = prefs.getBoolean(KEY_SOUND, true);
         switchSound.setChecked(isSoundEnabled);
-        boolean isTapAnywhere = prefs.getBoolean(KEY_TAP_ANYWHERE, false);
+        boolean isTapAnywhere = prefs.getBoolean(KEY_TAP_ANYWHERE, true);
         switchTapAnywhere.setChecked(isTapAnywhere);
         
         // Setup SeekBar
         // Setup SeekBar
         // Default 75% -> 191
-        int savedStrength = prefs.getInt(KEY_VIBRATION_STRENGTH, 191);
+        int savedStrength = prefs.getInt(KEY_VIBRATION_STRENGTH, 192);
         // Map 1-255 to 0-100
         int progress = (int) ((savedStrength - 1) * 100 / 254.0f);
         seekBarVibration.setProgress(progress);

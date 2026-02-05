@@ -121,9 +121,10 @@ public class MainActivity extends AppCompatActivity {
         targetCount = prefs.getInt(KEY_TARGET, 0);
         autoSpeed = prefs.getLong(KEY_AUTO_SPEED, 1000);
 
-        // ... (lines like isVibrationEnabled, simplified here as I replace block) ...
         isVibrationEnabled = prefs.getBoolean(KEY_VIBRATION, true);
-        isTapAnywhereEnabled = prefs.getBoolean(KEY_TAP_ANYWHERE, false);
+        isTapAnywhereEnabled = prefs.getBoolean(KEY_TAP_ANYWHERE, true);
+        isSoundEnabled = prefs.getBoolean(KEY_SOUND, true);
+
         // Reset Auto Running state on app launch
         prefs.edit().putBoolean(KEY_AUTO_RUNNING, false).apply();
 
@@ -306,8 +307,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Other Interactions
-        btnReset.setOnClickListener(v -> showResetDialog());
-        btnSave.setOnClickListener(v -> showSaveDialog());
+        btnReset.setOnClickListener(v -> {
+            performButtonFeedback();
+            showResetDialog();
+        });
+        btnSave.setOnClickListener(v -> {
+            performButtonFeedback();
+            showSaveDialog();
+        });
         btnSavedCounts.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, SavedCountsActivity.class));
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -318,9 +325,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // New Feature Listeners
-        btnDecrease.setOnClickListener(v -> decreaseCount());
-        btnTarget.setOnClickListener(v -> showTargetDialog());
+        btnDecrease.setOnClickListener(v -> {
+            performButtonFeedback();
+            decreaseCount();
+        });
+        btnTarget.setOnClickListener(v -> {
+            performButtonFeedback();
+            showTargetDialog();
+        });
         btnAuto.setOnClickListener(v -> {
+            performButtonFeedback();
             if (isAutoRunning) {
                 stopAutoCount();
             } else {
@@ -382,8 +396,16 @@ public class MainActivity extends AppCompatActivity {
         if (currentCount > 0) {
             currentCount--;
             updateCountDisplay();
-            vibrate(50); // Lighter vibration
+            // vibration handled in performButtonFeedback
             saveCountPref();
+        }
+    }
+
+    private void performButtonFeedback() {
+        vibrate(90); // Match incrementCount vibration
+        if (isSoundEnabled && toneGen != null) {
+            // Match incrementCount sound
+            toneGen.startTone(ToneGenerator.TONE_CDMA_ANSWER, 150);
         }
     }
 
@@ -814,7 +836,7 @@ public class MainActivity extends AppCompatActivity {
     private void vibrate(long ms) {
         if (isVibrationEnabled && vibrator != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                int strength = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_VIBRATION_STRENGTH, 191);
+                int strength = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_VIBRATION_STRENGTH, 192);
                 // Scale duration: 40ms to 125ms based on strength
                 long duration = 40 + (long)(85 * (strength / 255.0f));
 
@@ -837,8 +859,8 @@ public class MainActivity extends AppCompatActivity {
         currentCount = prefs.getInt(KEY_COUNT, currentCount);
         // Refresh settings that might have changed
         isVibrationEnabled = prefs.getBoolean(KEY_VIBRATION, true);
-        isTapAnywhereEnabled = prefs.getBoolean(KEY_TAP_ANYWHERE, false);
-        isSoundEnabled = prefs.getBoolean(KEY_SOUND, false);
+        isTapAnywhereEnabled = prefs.getBoolean(KEY_TAP_ANYWHERE, true);
+        isSoundEnabled = prefs.getBoolean(KEY_SOUND, true);
 
         targetCount = prefs.getInt(KEY_TARGET, 0); // Reload target
         autoSpeed = prefs.getLong(KEY_AUTO_SPEED, 1000);
