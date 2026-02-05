@@ -335,6 +335,8 @@ public class MainActivity extends AppCompatActivity {
         setupButtonAnimation(btnDecrease);
         setupButtonAnimation(btnTarget);
         setupButtonAnimation(btnAuto);
+        setupButtonAnimation(btnSave);
+        setupButtonAnimation(btnReset);
 
         // Auto Runnable
         autoRunnable = new Runnable() {
@@ -592,7 +594,7 @@ public class MainActivity extends AppCompatActivity {
             vibrate(90); // Strong vibration for click
             if (isSoundEnabled && toneGen != null) {
                 // TONE_PROP_BEEP is a standard beep. duration in ms.
-                toneGen.startTone(ToneGenerator.TONE_PROP_BEEP, 150);
+                toneGen.startTone(ToneGenerator.TONE_CDMA_ANSWER, 150);
             }
             saveCountPref();
 
