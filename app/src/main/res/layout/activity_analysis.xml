@@ -104,11 +104,9 @@
                      android:layout_height="wrap_content"
                      android:layout_gravity="center"
                      android:text="PAUSED"
-                     android:textSize="18sp"
-                     android:textStyle="bold"
-                     android:textColor="@color/tasbeeh_blue_accent"
-                     android:background="#DDFFFFFF"
-                     android:padding="8dp"
+                     android:textSize="25sp"
+                     android:fontFamily="sans-serif-black"
+                     android:textColor="@color/delete_text"
                      android:visibility="gone"/>
 
                 <!-- Click overlay (This intercepts taps for counting) -->
