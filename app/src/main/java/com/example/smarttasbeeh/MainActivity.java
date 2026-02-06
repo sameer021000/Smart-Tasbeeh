@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dbHelper = new DbHelper(this);
+
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         try {
             toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
@@ -409,8 +410,7 @@ public class MainActivity extends AppCompatActivity {
     private void performButtonFeedback() {
         vibrate(90); // Match incrementCount vibration
         if (isSoundEnabled && toneGen != null) {
-            // Match incrementCount sound
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ANSWER, 150);
+            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 50);
         }
     }
 
@@ -619,9 +619,10 @@ public class MainActivity extends AppCompatActivity {
             currentCount++;
             updateCountDisplay();
             vibrate(90); // Strong vibration for click
+            vibrate(90); // Strong vibration for click
             if (isSoundEnabled && toneGen != null) {
-                // TONE_PROP_BEEP is a standard beep. duration in ms.
-                toneGen.startTone(ToneGenerator.TONE_CDMA_ANSWER, 150);
+                // TONE_PROP_NACK produces a dull click/thud sound
+                toneGen.startTone(ToneGenerator.TONE_PROP_NACK, 50);
             }
             saveCountPref();
 
@@ -892,12 +893,5 @@ public class MainActivity extends AppCompatActivity {
             bigBoxContainer.setClickable(false);
         }
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (toneGen != null) {
-            toneGen.release();
-            toneGen = null;
-        }
-    }
+
 }

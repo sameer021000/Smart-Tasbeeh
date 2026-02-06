@@ -116,19 +116,19 @@ public class AnalysisActivity extends AppCompatActivity {
     private void setupListeners() {
         btnTap.setOnClickListener(v -> handleTap());
         btnStartOverlay.setOnClickListener(v -> {
-            performFeedback();
+            performFeedback(ToneGenerator.TONE_CDMA_PIP);
             startAnalysisSession();
         });
         fabPause.setOnClickListener(v -> {
-            performFeedback();
+            performFeedback(ToneGenerator.TONE_CDMA_PIP);
             togglePause();
         });
         btnReset.setOnClickListener(v -> {
-            performFeedback();
+            performFeedback(ToneGenerator.TONE_CDMA_PIP);
             resetAnalysis();
         });
         btnShowReport.setOnClickListener(v -> {
-            performFeedback();
+            performFeedback(ToneGenerator.TONE_CDMA_PIP);
             generateReport();
         });
         
@@ -162,7 +162,7 @@ public class AnalysisActivity extends AppCompatActivity {
         if (isPaused) return; 
         
         long now = System.currentTimeMillis();
-        performFeedback(); 
+        performFeedback(ToneGenerator.TONE_PROP_NACK); 
 
         long duration = now - lastTapTime;
         zikrDurations.add(duration);
@@ -427,7 +427,7 @@ public class AnalysisActivity extends AppCompatActivity {
         progressBar.setProgress(currentCount);
     }
 
-    private void performFeedback() {
+    private void performFeedback(int toneType) {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isVibEnabled = prefs.getBoolean(KEY_VIBRATION, true);
         boolean isSoundEnabled = prefs.getBoolean(KEY_SOUND, true);
@@ -449,7 +449,7 @@ public class AnalysisActivity extends AppCompatActivity {
         
         // Sound
         if (isSoundEnabled && toneGen != null) {
-             toneGen.startTone(ToneGenerator.TONE_CDMA_ANSWER, 150);
+             toneGen.startTone(toneType, 50);
         }
     }
 
