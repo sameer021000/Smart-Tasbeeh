@@ -219,6 +219,7 @@
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
             app:cardBackgroundColor="@color/tasbeeh_blue_accent"
+            app:strokeColor="@color/card_stroke_color"
             android:clickable="true"
             android:focusable="true">
             <ImageView
@@ -227,7 +228,7 @@
                 android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_auto"
-                app:tint="@android:color/white"/>
+                app:tint="@color/card_background"/>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Target Button -->
