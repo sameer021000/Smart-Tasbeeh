@@ -168,7 +168,7 @@ public class SettingsActivity extends AppCompatActivity {
         
         findViewById(R.id.btnNavAnalysis).setOnClickListener(v -> {
             startActivity(new Intent(SettingsActivity.this, AnalysisActivity.class));
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             finish();
         });
     }

@@ -98,6 +98,11 @@ public class AnalysisActivity extends AppCompatActivity {
         fabPause.setOnClickListener(v -> togglePause());
         btnReset.setOnClickListener(v -> resetAnalysis());
         btnShowReport.setOnClickListener(v -> generateReport());
+        
+        setupButtonAnimation(btnStartOverlay);
+        setupButtonAnimation(fabPause);
+        setupButtonAnimation(btnReset);
+        setupButtonAnimation(btnShowReport);
     }
     
     private void startAnalysisSession() {
@@ -357,6 +362,21 @@ public class AnalysisActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void setupButtonAnimation(View view) {
+        view.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case android.view.MotionEvent.ACTION_DOWN:
+                    v.animate().scaleX(0.9f).scaleY(0.9f).setDuration(100).start();
+                    break;
+                case android.view.MotionEvent.ACTION_UP:
+                case android.view.MotionEvent.ACTION_CANCEL:
+                    v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start();
+                    break;
+            }
+            return false;
+        });
+    }
     
     private void drawGraph() {
         graphContainer.removeAllViews();
@@ -365,21 +385,36 @@ public class AnalysisActivity extends AppCompatActivity {
     }
     
     private void setupBottomNav() {
-        findViewById(R.id.btnNavCounter).setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            finish();
-        });
-        findViewById(R.id.btnNavHistory).setOnClickListener(v -> {
-            startActivity(new Intent(this, SavedCountsActivity.class));
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            finish();
-        });
-        findViewById(R.id.btnNavSettings).setOnClickListener(v -> {
-            startActivity(new Intent(this, SettingsActivity.class));
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            finish();
-        });
+        // IDs might change later, but for now apply logic to existing IDs
+        // Note: We will reorder XMLs later, but the IDs will remain or be updated.
+        // Current: Counter, History, Settings. Analysis is current.
+        
+        android.view.View.OnClickListener navListener = v -> {
+            // Restriction Logic:
+            if (hasStarted && !isPaused && currentCount < TARGET) {
+               Toast.makeText(AnalysisActivity.this, "Please pause the Zikhr analysis counter to move to another screen.", Toast.LENGTH_SHORT).show();
+               return; 
+            }
+            
+            int id = v.getId();
+            if (id == R.id.btnNavCounter) {
+                startActivity(new Intent(this, MainActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Counter is to the right
+                finish();
+            } else if (id == R.id.btnNavHistory) { // History will be to the right of Counter
+                startActivity(new Intent(this, SavedCountsActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+            } else if (id == R.id.btnNavSettings) { // Settings is furthest right
+                startActivity(new Intent(this, SettingsActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+            }
+        };
+
+        findViewById(R.id.btnNavCounter).setOnClickListener(navListener);
+        findViewById(R.id.btnNavHistory).setOnClickListener(navListener);
+        findViewById(R.id.btnNavSettings).setOnClickListener(navListener);
     }
     
     // Simple custom view for graph

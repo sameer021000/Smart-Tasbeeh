@@ -270,32 +270,32 @@
         android:baselineAligned="false"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- History -->
+        <!-- Analysis -->
         <LinearLayout
-            android:id="@+id/btnSavedCounts"
+            android:id="@+id/btnAnalysis"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:gravity="center"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
+            android:background="?attr/selectableItemBackground">
+            
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_clock"
-                app:tint="@color/nav_text_unselected" />
-
+                android:src="@drawable/ic_analysis"
+                app:tint="@color/nav_text_unselected"/>
+                
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="HISTORY"
-                android:textColor="@color/nav_text_unselected"
+                android:text="ANALYSIS"
                 android:textSize="10sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/nav_text_unselected"/>
         </LinearLayout>
 
         <!-- Counter (Active) -->
@@ -324,6 +324,34 @@
                 android:textColor="@color/nav_text_selected"/>
         </LinearLayout>
 
+        <!-- History -->
+        <LinearLayout
+            android:id="@+id/btnSavedCounts"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_clock"
+                app:tint="@color/nav_text_unselected" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="HISTORY"
+                android:textColor="@color/nav_text_unselected"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <!-- Settings -->
         <LinearLayout
             android:id="@+id/btnSettings"
@@ -346,34 +374,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SETTINGS"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/nav_text_unselected"/>
-        </LinearLayout>
-
-        <!-- Analysis -->
-        <LinearLayout
-            android:id="@+id/btnAnalysis"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
-            
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_analysis"
-                app:tint="@color/nav_text_unselected"/>
-                
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ANALYSIS"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"

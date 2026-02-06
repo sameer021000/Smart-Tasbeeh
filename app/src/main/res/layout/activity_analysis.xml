@@ -272,29 +272,25 @@
         android:baselineAligned="false"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- History -->
+        <!-- Analysis (Active) -->
         <LinearLayout
-            android:id="@+id/btnNavHistory"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
+            android:gravity="center">
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_clock"
-                app:tint="@color/nav_text_unselected"/>
+                android:src="@drawable/ic_analysis"
+                app:tint="@color/nav_text_selected"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HISTORY"
+                android:text="ANALYSIS"
                 android:textSize="10sp"
                 android:textStyle="bold"
-                android:textColor="@color/nav_text_unselected"
+                android:textColor="@color/nav_text_selected"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 
@@ -324,6 +320,32 @@
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 
+        <!-- History -->
+        <LinearLayout
+            android:id="@+id/btnNavHistory"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_clock"
+                app:tint="@color/nav_text_unselected"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HISTORY"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="@color/nav_text_unselected"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
         <!-- Settings -->
         <LinearLayout
             android:id="@+id/btnNavSettings"
@@ -347,28 +369,6 @@
                 android:textSize="10sp"
                 android:textStyle="bold"
                 android:textColor="@color/nav_text_unselected"
-                android:layout_marginTop="4dp"/>
-        </LinearLayout>
-        
-        <!-- Analysis (Active) -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_analysis"
-                app:tint="@color/nav_text_selected"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ANALYSIS"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="@color/nav_text_selected"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 

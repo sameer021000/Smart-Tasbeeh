@@ -37,7 +37,7 @@ public class SavedCountsActivity extends AppCompatActivity {
             Intent intent = new Intent(SavedCountsActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             finish();
         });
 
@@ -49,7 +49,7 @@ public class SavedCountsActivity extends AppCompatActivity {
 
         findViewById(R.id.btnNavAnalysis).setOnClickListener(v -> {
             startActivity(new Intent(SavedCountsActivity.this, AnalysisActivity.class));
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             finish();
         });
 
