@@ -232,7 +232,7 @@ public class AnalysisActivity extends AppCompatActivity {
         headerRow.setBackgroundColor(0xFF1565C0); // Darker Blue
         headerRow.setPadding(0, 0, 0, 0);
         
-        String[] headers = {"#", "Time (s)", "Interval (s)"};
+        String[] headers = {"Zikhr", "Time (s)", "Interval (s)"};
         for (String h : headers) {
             TextView tv = new TextView(this);
             tv.setText(h);
