@@ -38,6 +38,14 @@ public class AnalysisActivity extends AppCompatActivity {
     
     private Button btnStartOverlay;
     
+    // New
+    private androidx.recyclerview.widget.RecyclerView rvCards;
+    private LinearLayout layoutDots;
+    private AnalysisAdapter adapter;
+    private List<AnalysisCard> analysisCards = new ArrayList<>();
+    
+    // State
+    
     // State
     private int currentCount = 0;
     private final int TARGET = 100;
@@ -89,12 +97,10 @@ public class AnalysisActivity extends AppCompatActivity {
         btnReset = findViewById(R.id.btnResetAnalysis);
         btnShowReport = findViewById(R.id.btnShowReport);
         
-        tableReport = findViewById(R.id.tableReport);
-        tvReportSummary = findViewById(R.id.tvReportSummary);
-        graphContainer = findViewById(R.id.graphContainer);
-        
         // reportContainer is the linear layout holding summary + graph + table
         this.reportView = findViewById(R.id.reportContainer);
+        rvCards = findViewById(R.id.rvAnalysisCards);
+        layoutDots = findViewById(R.id.layoutDots);
         
         // Initial State
         fabPause.setVisibility(View.INVISIBLE);
@@ -238,124 +244,190 @@ public class AnalysisActivity extends AppCompatActivity {
         reportView.setAlpha(0f);
         reportView.animate().alpha(1f).setDuration(500).start();
         
-        // Stats
+        // --- Calculate Stats ---
         long totalDur = 0;
         long maxDur = 0;
         long minDur = Long.MAX_VALUE;
-        for (long d : zikrDurations) {
+        int minIndex = -1;
+        int maxIndex = -1;
+        
+        for (int i=0; i<zikrDurations.size(); i++) {
+            long d = zikrDurations.get(i);
             totalDur += d;
-            if (d > maxDur) maxDur = d;
-            if (d < minDur) minDur = d;
+            if (d > maxDur) { maxDur = d; maxIndex = i; }
+            if (d < minDur) { minDur = d; minIndex = i; }
         }
         double avgMillis = (double) totalDur / zikrDurations.size();
         double avgSec = avgMillis / 1000.0;
         
-        tvReportSummary.setText(String.format(Locale.US, "Count: %d | Avg Speed: %.2f sec\nTotal Time: %.1f sec", 
-                currentCount, avgSec, totalDur/1000.0));
-        
-        // Populate Table
-        tableReport.removeAllViews();
-        tableReport.setStretchAllColumns(true);
-        
-        // Table (with border) styling happens in code or xml. 
-        // Applying border to the whole table:
-        tableReport.setBackgroundResource(R.drawable.border_shape); // Need to create this if want specific borders
-        // Or simply set background color.
-        
-        // Header Row
-        android.widget.TableRow headerRow = new android.widget.TableRow(this);
-        headerRow.setBackgroundColor(0xFF1565C0); // Darker Blue
-        headerRow.setPadding(0, 0, 0, 0);
-        
-        String[] headers = {"Zikhr", "Time (s)", "Interval (s)"};
-        for (String h : headers) {
-            TextView tv = new TextView(this);
-            tv.setText(h);
-            tv.setTextColor(android.graphics.Color.WHITE);
-            tv.setTypeface(null, android.graphics.Typeface.BOLD);
-            tv.setGravity(android.view.Gravity.CENTER);
-            tv.setPadding(16, 24, 16, 24); // More padding
-            headerRow.addView(tv);
-        }
-        tableReport.addView(headerRow);
-        
-        // Data Rows
-        for (int i = 0; i < zikrDurations.size(); i++) {
-            long dur = zikrDurations.get(i);
-            double sec = dur / 1000.0;
-            
-            // Create layout params with margins to simulate borders
-            android.widget.TableRow.LayoutParams params = new android.widget.TableRow.LayoutParams(
-                android.widget.TableRow.LayoutParams.MATCH_PARENT,
-                android.widget.TableRow.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(1, 1, 1, 1); // 1px spacing for border effect
-            
-            android.widget.TableRow row = new android.widget.TableRow(this);
-            row.setPadding(0, 12, 0, 12);
-            row.setBackgroundColor(0xFFCCCCCC); // Border color behind cells
-            
-            // Alternating Backgrounds
-            int bgColor;
-            if (i % 2 == 0) {
-                bgColor = 0xFFF5F5F5; // Very Light Grey
+        // Consistency: Max streak within 10% tolerance of average
+        int maxStreak = 0;
+        int currentStreak = 0;
+        double tolerance = avgMillis * 0.15; // 15% tolerance
+        for (long d : zikrDurations) {
+            if (Math.abs(d - avgMillis) <= tolerance) {
+                currentStreak++;
             } else {
-                bgColor = 0xFFE3F2FD; // Very Light Blue
+                if (currentStreak > maxStreak) maxStreak = currentStreak;
+                currentStreak = 0;
             }
-            // Apply bg to individual cells instead of row to show "grid" via margins if desired
-            // Or just keep simple alternating rows. 
-            // Re-interpreting "border lines... for the table".
-            // Let's stick to row striping but add a bottom divider line for each row.
+        }
+        if (currentStreak > maxStreak) maxStreak = currentStreak; // Check last run
+        
+        // --- Populate Cards ---
+        analysisCards.clear();
+        
+        // Card 1: Summary
+        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_STAT, "Session Complete", String.format(Locale.US, "%.2fs", avgSec), "Avg Speed | Total: "+(totalDur/1000)+"s", R.drawable.ic_analysis));
+        
+        // Card 2: Fastest
+        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_STAT, "Fastest Count", String.format(Locale.US, "%.2fs", minDur/1000.0), "Zikr #" + (minIndex + 1), R.drawable.ic_speed)); // need speed icon, fallback analysis
+        
+        // Card 3: Slowest
+        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_STAT, "Slowest Count", String.format(Locale.US, "%.2fs", maxDur/1000.0), "Zikr #" + (maxIndex + 1), R.drawable.ic_clock));
+        
+        // Card 4: Streak
+        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_STAT, "Consistency Streak", String.valueOf(maxStreak), "Counts near avg speed", R.drawable.ic_target));
+        
+        // Card 5: Graph
+        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_GRAPH, "Performance Graph", "", "", 0));
+        
+        // --- Setup Adapter ---
+        if (adapter == null) {
+            adapter = new AnalysisAdapter(analysisCards);
+            rvCards.setAdapter(adapter);
+            rvCards.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false));
             
-            // Revised approach: Set standard row background
-            row.setBackgroundColor(bgColor);
-            row.setPadding(0, 16, 0, 16);
+            // Snap Helper
+            androidx.recyclerview.widget.PagerSnapHelper snapHelper = new androidx.recyclerview.widget.PagerSnapHelper();
+            snapHelper.attachToRecyclerView(rvCards);
             
-            // Optional: Draw a thin line at bottom of each row? 
-            // Better: Use a background drawable for the row that has a bottom stroke.
-            // Or simpler: just keep alternating colors which is standard mobile UI.
-            // User specifically asked for "border lines".
-            
-            // Let's add a ShapeDrawable with bottom border to the row.
-            android.graphics.drawable.GradientDrawable border = new android.graphics.drawable.GradientDrawable();
-            border.setColor(bgColor);
-            border.setStroke(2, 0xFFB0BEC5); // Light Blue-Grey Border
-            row.setBackground(border);
-            
-            // #
-            TextView tvNum = new TextView(this);
-            tvNum.setText(String.valueOf(i + 1));
-            tvNum.setGravity(android.view.Gravity.CENTER);
-            tvNum.setTextColor(0xFF000000);
-            
-            // Time
-            TextView tvTime = new TextView(this);
-            tvTime.setText(String.format(Locale.US, "%.2f", sec));
-            tvTime.setGravity(android.view.Gravity.CENTER);
-            // Highlight outliers
-            if (dur > avgMillis * 1.5) tvTime.setTextColor(0xFFFF0000); // Slower
-            else if (dur < avgMillis * 0.5) tvTime.setTextColor(0xFF008000); // Faster
-            else tvTime.setTextColor(0xFF000000);
-            
-            // Interval
-            long cumulative = 0;
-            for(int j=0; j<=i; j++) cumulative += zikrDurations.get(j);
-            double cumSec = cumulative / 1000.0;
-            
-            TextView tvCum = new TextView(this);
-            tvCum.setText(String.format(Locale.US, "%.1f", cumSec));
-            tvCum.setGravity(android.view.Gravity.CENTER);
-            tvCum.setTextColor(0xFF555555);
-            
-            row.addView(tvNum);
-            row.addView(tvTime);
-            row.addView(tvCum);
-            
-            tableReport.addView(row);
+            // Dots
+            rvCards.addOnScrollListener(new androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@androidx.annotation.NonNull androidx.recyclerview.widget.RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) {
+                        int pos = ((androidx.recyclerview.widget.LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+                        if (pos != -1) updateDots(pos);
+                    }
+                }
+            });
+        } else {
+            adapter.notifyDataSetChanged();
+            rvCards.scrollToPosition(0);
         }
         
-        // Graph
-        drawGraph();
+        setupDots(analysisCards.size());
+    }
+    
+    private void setupDots(int count) {
+        layoutDots.removeAllViews();
+        for (int i = 0; i < count; i++) {
+            ImageView dot = new ImageView(this);
+            dot.setImageDrawable(androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_circle_button)); // Reuse circle shape
+            // Or create a simple dot drawable. I'll stick to a simple code-generated shape to avoid resource issues
+            // Actually reusing bg_circle works if small.
+            
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(24, 24);
+            params.setMargins(8, 0, 8, 0);
+            layoutDots.addView(dot, params);
+        }
+        updateDots(0);
+    }
+    
+    private void updateDots(int activePos) {
+        for (int i = 0; i < layoutDots.getChildCount(); i++) {
+             ImageView dot = (ImageView) layoutDots.getChildAt(i);
+             // Active: Blue, Inactive: Grey
+             if (i == activePos) {
+                 dot.setColorFilter(androidx.core.content.ContextCompat.getColor(this, R.color.tasbeeh_blue_primary));
+                 dot.setAlpha(1.0f);
+             } else {
+                 dot.setColorFilter(androidx.core.content.ContextCompat.getColor(this, R.color.text_secondary));
+                 dot.setAlpha(0.5f);
+             }
+        }
+    }
+
+    // --- Inner Classes for Adapter ---
+
+    static class AnalysisCard {
+        static final int TYPE_STAT = 0;
+        static final int TYPE_GRAPH = 1;
+        
+        int type;
+        String title, value, subtext;
+        int iconRes;
+        
+        AnalysisCard(int type, String t, String v, String s, int i) {
+            this.type = type; this.title = t; this.value = v; this.subtext = s; this.iconRes = i;
+        }
+    }
+    
+    class AnalysisAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<AnalysisAdapter.CardViewHolder> {
+        
+        private List<AnalysisCard> items;
+        
+        AnalysisAdapter(List<AnalysisCard> items) { this.items = items; }
+        
+        @androidx.annotation.NonNull
+        @Override
+        public CardViewHolder onCreateViewHolder(@androidx.annotation.NonNull android.view.ViewGroup parent, int viewType) {
+            View v = getLayoutInflater().inflate(R.layout.item_analysis_card, parent, false);
+            return new CardViewHolder(v);
+        }
+        
+        @Override
+        public void onBindViewHolder(@androidx.annotation.NonNull CardViewHolder holder, int position) {
+            AnalysisCard item = items.get(position);
+            
+            if (item.type == AnalysisCard.TYPE_STAT) {
+                holder.layoutStat.setVisibility(View.VISIBLE);
+                holder.layoutGraph.setVisibility(View.GONE);
+                
+                holder.tvTitle.setText(item.title);
+                holder.tvValue.setText(item.value);
+                holder.tvSubtext.setText(item.subtext);
+                holder.ivIcon.setImageResource(item.iconRes); // fallback if 0
+                
+            } else {
+                holder.layoutStat.setVisibility(View.GONE);
+                holder.layoutGraph.setVisibility(View.VISIBLE);
+                
+                // Add Graph view if not already there
+                if (holder.graphFrame.getChildCount() == 0) {
+                     GraphView graph = new GraphView(AnalysisActivity.this, zikrDurations);
+                     holder.graphFrame.addView(graph);
+                } else {
+                    // Update graph data if needed (redrawing)
+                    holder.graphFrame.removeAllViews();
+                    GraphView graph = new GraphView(AnalysisActivity.this, zikrDurations);
+                    holder.graphFrame.addView(graph);
+                }
+            }
+        }
+        
+        @Override
+        public int getItemCount() { return items.size(); }
+        
+        class CardViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+            LinearLayout layoutStat;
+            FrameLayout layoutGraph, graphFrame;
+            TextView tvTitle, tvValue, tvSubtext;
+            ImageView ivIcon;
+            
+            CardViewHolder(View itemView) {
+                super(itemView);
+                layoutStat = itemView.findViewById(R.id.layoutStatContent);
+                layoutGraph = itemView.findViewById(R.id.layoutGraphContent);
+                graphFrame = itemView.findViewById(R.id.graphFrame);
+                tvTitle = itemView.findViewById(R.id.tvTitle);
+                tvValue = itemView.findViewById(R.id.tvValue);
+                tvSubtext = itemView.findViewById(R.id.tvSubtext);
+                ivIcon = itemView.findViewById(R.id.ivIcon);
+            }
+        }
     }
     
     private void finishAnalysis() {

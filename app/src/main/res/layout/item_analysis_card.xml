@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardInfo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="5dp"
+    app:cardBackgroundColor="@color/card_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+        <!-- Stat Content -->
+        <LinearLayout
+            android:id="@+id/layoutStatContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="20dp"
+                app:tint="@color/tasbeeh_blue_primary"/>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fastest Count"
+                android:textSize="20sp"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:id="@+id/tvValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.5s"
+                android:textSize="56sp"
+                android:textColor="@color/tasbeeh_blue_primary"
+                android:fontFamily="sans-serif-black"
+                android:includeFontPadding="false"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:id="@+id/tvSubtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zikr : 54"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="sans-serif-black"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+        <!-- Graph Container (Initially Gone) -->
+        <FrameLayout
+            android:id="@+id/layoutGraphContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Performance Graph"
+                android:textSize="18sp"
+                android:layout_gravity="top|center_horizontal"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-bold"
+                android:layout_marginBottom="10dp"/>
+                
+             <FrameLayout
+                 android:id="@+id/graphFrame"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_marginTop="40dp"
+                 android:padding="8dp"/>
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

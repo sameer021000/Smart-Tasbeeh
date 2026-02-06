@@ -136,7 +136,7 @@
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
                     android:backgroundTint="@color/tasbeeh_blue_primary"
-                    app:cornerRadius="5dp"
+                    app:cornerRadius="10dp"
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
                     
             </FrameLayout>
@@ -161,6 +161,8 @@
                     app:backgroundTint="@color/tasbeeh_blue_primary"
                     app:tint="@android:color/white"
                     app:fabSize="normal"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
                     android:visibility="invisible"/>
 
             </LinearLayout>
@@ -188,7 +190,7 @@
                      android:textStyle="bold"
                      android:letterSpacing="0.05"
                      android:backgroundTint="@color/tasbeeh_blue_primary"
-                     app:cornerRadius="5dp"
+                     app:cornerRadius="10dp"
                      style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>/>
 
                  <Button
@@ -201,7 +203,7 @@
                      android:textStyle="bold"
                      android:letterSpacing="0.05"
                      android:backgroundTint="@color/tasbeeh_blue_primary"
-                     app:cornerRadius="5dp"
+                     app:cornerRadius="10dp"
                      style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
             </LinearLayout>
 
@@ -211,43 +213,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginTop="24dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:animateLayoutChanges="true"
                 app:layout_constraintTop_toBottomOf="@id/layoutPauseOptions"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
-                
-                 <TextView
-                     android:id="@+id/tvReportSummary"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:text="Summary Stats"
-                     android:textAlignment="center"
-                     android:fontFamily="sans-serif-black"
-                     android:textSize="18sp"
-                     android:textColor="@color/tasbeeh_blue_accent"
-                     android:paddingBottom="16dp"/>
 
-                <!-- Table Body -->
-                <TableLayout
-                    android:id="@+id/tableReport"
+                <!-- Carousel -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAnalysisCards"
                     android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    android:clipToPadding="false"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"/>
+
+                <!-- Dots Indicator -->
+                <LinearLayout
+                    android:id="@+id/layoutDots"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="1,2"
-                    android:layout_marginBottom="24dp">
-                </TableLayout>
-                    
-                <!-- Graph -->
-                <FrameLayout
-                    android:id="@+id/graphContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@drawable/info_box_background"
-                    android:elevation="2dp"
-                    android:padding="8dp">
-                </FrameLayout>
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"/>
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
