@@ -2,15 +2,14 @@ package com.example.smarttasbeeh;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Paint;
+
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -28,10 +27,8 @@ import android.content.SharedPreferences;
 public class AnalysisActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private TextView tvCount, tvTapHint, tvPausedOverlay, tvReportSummary;
+    private TextView tvCount, tvTapHint, tvPausedOverlay;
     private View btnTap, reportView; 
-    private FrameLayout graphContainer;
-    private android.widget.TableLayout tableReport;
     private FloatingActionButton fabPause;
     private LinearLayout layoutPauseOptions;
     private Button btnReset, btnShowReport;
@@ -257,8 +254,13 @@ public class AnalysisActivity extends AppCompatActivity {
             if (d > maxDur) { maxDur = d; maxIndex = i; }
             if (d < minDur) { minDur = d; minIndex = i; }
         }
+
         double avgMillis = (double) totalDur / zikrDurations.size();
         double avgSec = avgMillis / 1000.0;
+        
+        // Round to next whole decimal if applicable (e.g. 0.11 -> 0.2, 1.91 -> 2.0)
+        // Interpreted as ceiling to 1 decimal place based on user request "0.1xxx -> 0.2"
+        double roundedAvgSec = Math.ceil(avgSec * 10) / 10.0;
         
         // Consistency: Max streak within 10% tolerance of average
         int maxStreak = 0;
@@ -277,20 +279,20 @@ public class AnalysisActivity extends AppCompatActivity {
         // --- Populate Cards ---
         analysisCards.clear();
         
-        // Card 1: Summary
-        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_STAT, "Session Complete", String.format(Locale.US, "%.2fs", avgSec), "Avg Speed | Total: "+(totalDur/1000)+"s", R.drawable.ic_analysis));
+        // Card 1: Total Duration
+        analysisCards.add(new AnalysisCard("Total Duration", String.format(Locale.US, "%.1fs", totalDur/1000.0), "For " + currentCount + " Zikhr", R.drawable.ic_clock));
         
-        // Card 2: Fastest
-        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_STAT, "Fastest Count", String.format(Locale.US, "%.2fs", minDur/1000.0), "Zikr #" + (minIndex + 1), R.drawable.ic_speed)); // need speed icon, fallback analysis
+        // Card 2: Average Time
+        analysisCards.add(new AnalysisCard("Average Time", String.format(Locale.US, "%.1fs", roundedAvgSec), "Per Zikhr", R.drawable.ic_analysis)); // Using ic_analysis as simple fallback
         
-        // Card 3: Slowest
-        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_STAT, "Slowest Count", String.format(Locale.US, "%.2fs", maxDur/1000.0), "Zikr #" + (maxIndex + 1), R.drawable.ic_clock));
+        // Card 3: Fastest Count
+        analysisCards.add(new AnalysisCard("Fastest Count", String.format(Locale.US, "%.2fs", minDur/1000.0), "At Zikhr : " + (minIndex + 1), R.drawable.ic_speed));
         
-        // Card 4: Streak
-        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_STAT, "Consistency Streak", String.valueOf(maxStreak), "Counts near avg speed", R.drawable.ic_target));
+        // Card 4: Slowest Count
+        analysisCards.add(new AnalysisCard("Slowest Count", String.format(Locale.US, "%.2fs", maxDur/1000.0), "At Zikhr : " + (maxIndex + 1), R.drawable.ic_clock));
         
-        // Card 5: Graph
-        analysisCards.add(new AnalysisCard(AnalysisCard.TYPE_GRAPH, "Performance Graph", "", "", 0));
+        // Card 5: Consistency Streak
+        analysisCards.add(new AnalysisCard("Consistency Streak", String.valueOf(maxStreak), "Counts near avg time", R.drawable.ic_target));
         
         // --- Setup Adapter ---
         if (adapter == null) {
@@ -353,15 +355,11 @@ public class AnalysisActivity extends AppCompatActivity {
     // --- Inner Classes for Adapter ---
 
     static class AnalysisCard {
-        static final int TYPE_STAT = 0;
-        static final int TYPE_GRAPH = 1;
-        
-        int type;
         String title, value, subtext;
         int iconRes;
         
-        AnalysisCard(int type, String t, String v, String s, int i) {
-            this.type = type; this.title = t; this.value = v; this.subtext = s; this.iconRes = i;
+        AnalysisCard(String t, String v, String s, int i) {
+            this.title = t; this.value = v; this.subtext = s; this.iconRes = i;
         }
     }
     
@@ -382,46 +380,21 @@ public class AnalysisActivity extends AppCompatActivity {
         public void onBindViewHolder(@androidx.annotation.NonNull CardViewHolder holder, int position) {
             AnalysisCard item = items.get(position);
             
-            if (item.type == AnalysisCard.TYPE_STAT) {
-                holder.layoutStat.setVisibility(View.VISIBLE);
-                holder.layoutGraph.setVisibility(View.GONE);
-                
-                holder.tvTitle.setText(item.title);
-                holder.tvValue.setText(item.value);
-                holder.tvSubtext.setText(item.subtext);
-                holder.ivIcon.setImageResource(item.iconRes); // fallback if 0
-                
-            } else {
-                holder.layoutStat.setVisibility(View.GONE);
-                holder.layoutGraph.setVisibility(View.VISIBLE);
-                
-                // Add Graph view if not already there
-                if (holder.graphFrame.getChildCount() == 0) {
-                     GraphView graph = new GraphView(AnalysisActivity.this, zikrDurations);
-                     holder.graphFrame.addView(graph);
-                } else {
-                    // Update graph data if needed (redrawing)
-                    holder.graphFrame.removeAllViews();
-                    GraphView graph = new GraphView(AnalysisActivity.this, zikrDurations);
-                    holder.graphFrame.addView(graph);
-                }
-            }
+            holder.tvTitle.setText(item.title);
+            holder.tvValue.setText(item.value);
+            holder.tvSubtext.setText(item.subtext);
+            holder.ivIcon.setImageResource(item.iconRes);
         }
         
         @Override
         public int getItemCount() { return items.size(); }
         
         class CardViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
-            LinearLayout layoutStat;
-            FrameLayout layoutGraph, graphFrame;
             TextView tvTitle, tvValue, tvSubtext;
             ImageView ivIcon;
             
             CardViewHolder(View itemView) {
                 super(itemView);
-                layoutStat = itemView.findViewById(R.id.layoutStatContent);
-                layoutGraph = itemView.findViewById(R.id.layoutGraphContent);
-                graphFrame = itemView.findViewById(R.id.graphFrame);
                 tvTitle = itemView.findViewById(R.id.tvTitle);
                 tvValue = itemView.findViewById(R.id.tvValue);
                 tvSubtext = itemView.findViewById(R.id.tvSubtext);
@@ -495,11 +468,7 @@ public class AnalysisActivity extends AppCompatActivity {
         });
     }
     
-    private void drawGraph() {
-        graphContainer.removeAllViews();
-        GraphView graph = new GraphView(this, zikrDurations);
-        graphContainer.addView(graph);
-    }
+
     
     private void setupBottomNav() {
         // IDs might change later, but for now apply logic to existing IDs
@@ -534,82 +503,4 @@ public class AnalysisActivity extends AppCompatActivity {
         findViewById(R.id.btnNavSettings).setOnClickListener(navListener);
     }
     
-    // Simple custom view for graph
-    private class GraphView extends View {
-        private List<Long> data;
-        private Paint paintLine, paintDot, paintText, paintGrid;
-        
-        public GraphView(Context context, List<Long> data) {
-            super(context);
-            this.data = new ArrayList<>(data);
-            
-            paintLine = new Paint();
-            paintLine.setColor(0xFF2962FF); // tasbeeh_blue_primary
-            paintLine.setStrokeWidth(4f);
-            paintLine.setAntiAlias(true);
-            
-            paintDot = new Paint();
-            paintDot.setColor(0xFF2979FF); // lighter blue accent
-            paintDot.setStyle(Paint.Style.FILL);
-            paintDot.setAntiAlias(true);
-
-            paintText = new Paint(); // Text Color
-            paintText.setColor(0xFF000000);
-            paintText.setTextSize(24f);
-            paintText.setAntiAlias(true);
-
-            paintGrid = new Paint();
-            paintGrid.setColor(0xFFCCCCCC);
-            paintGrid.setStrokeWidth(2f);
-        }
-        
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-            if (data == null || data.size() < 2) return;
-            
-            float width = getWidth();
-            float height = getHeight();
-            float paddingLeft = 60f;
-            float paddingBottom = 40f;
-            float paddingRight = 20f;
-            float paddingTop = 20f;
-            
-            float maxVal = 0;
-            for (long d : data) if (d > maxVal) maxVal = d;
-            if (maxVal == 0) maxVal = 1;
-
-            float graphWidth = width - paddingLeft - paddingRight;
-            float graphHeight = height - paddingTop - paddingBottom;
-
-            // Draw Axes
-            canvas.drawLine(paddingLeft, paddingTop, paddingLeft, height - paddingBottom, paintGrid); // Y
-            canvas.drawLine(paddingLeft, height - paddingBottom, width - paddingRight, height - paddingBottom, paintGrid); // X
-
-            // Labels
-            canvas.drawText("Count ->", width - 100f, height - 10f, paintText);
-            canvas.save();
-            canvas.rotate(-90, 20f, height/2);
-            canvas.drawText("Time (ms)", 20f, height/2, paintText);
-            canvas.restore();
-
-            float xStep = graphWidth / (data.size() - 1);
-            
-            // Draw lines
-            float prevX = paddingLeft;
-            float prevY = height - paddingBottom - ((data.get(0) / maxVal) * graphHeight);
-            
-            for (int i = 1; i < data.size(); i++) {
-                float x = paddingLeft + i * xStep;
-                float y = height - paddingBottom - ((data.get(i) / maxVal) * graphHeight);
-                
-                canvas.drawLine(prevX, prevY, x, y, paintLine);
-                canvas.drawCircle(prevX, prevY, 6f, paintDot);
-                
-                prevX = x;
-                prevY = y;
-            }
-            canvas.drawCircle(prevX, prevY, 6f, paintDot);
-        }
-    }
 }

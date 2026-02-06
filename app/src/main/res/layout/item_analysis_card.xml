@@ -7,7 +7,9 @@
     android:layout_margin="16dp"
     app:cardCornerRadius="24dp"
     app:cardElevation="5dp"
-    app:cardBackgroundColor="@color/card_background">
+    app:cardBackgroundColor="@color/card_background"
+    app:strokeColor="@color/card_stroke_color"
+    app:strokeWidth="1.5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -64,29 +66,7 @@
 
         </LinearLayout>
 
-        <!-- Graph Container (Initially Gone) -->
-        <FrameLayout
-            android:id="@+id/layoutGraphContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Performance Graph"
-                android:textSize="18sp"
-                android:layout_gravity="top|center_horizontal"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-bold"
-                android:layout_marginBottom="10dp"/>
-                
-             <FrameLayout
-                 android:id="@+id/graphFrame"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_marginTop="40dp"
-                 android:padding="8dp"/>
-        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
