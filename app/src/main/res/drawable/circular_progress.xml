@@ -6,7 +6,7 @@
             android:shape="ring"
             android:thickness="4dp"
             android:useLevel="false">
-            <solid android:color="#202962FF" />
+            <solid android:color="@color/tasbeeh_blue_dark2" />
         </shape>
     </item>
     
@@ -20,7 +20,7 @@
                 android:shape="ring"
                 android:thickness="4dp"
                 android:useLevel="true">
-                <solid android:color="@color/tasbeeh_blue_primary" />
+                <solid android:color="@color/tasbeeh_blue_accent" />
             </shape>
         </rotate>
     </item>

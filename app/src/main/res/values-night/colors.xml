@@ -5,6 +5,7 @@
     <color name="tasbeeh_blue_dark">#020617</color>    <!-- Slate 950 -->
     <color name="tasbeeh_blue_light">#1E293B</color>   <!-- Slate 800 -->
     <color name="tasbeeh_blue_accent">#3B82F6</color>  <!-- Blue 500 -->
+    <color name="tasbeeh_blue_dark2">#202962FF</color>
     
     <!-- UI Colors -->
     <color name="background_light">#020617</color>     <!-- Slate 950 - MAIN BACKGROUND -->
