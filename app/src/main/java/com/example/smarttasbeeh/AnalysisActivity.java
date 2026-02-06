@@ -21,6 +21,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
+import android.content.SharedPreferences;
 
 public class AnalysisActivity extends AppCompatActivity {
 
@@ -46,6 +49,14 @@ public class AnalysisActivity extends AppCompatActivity {
     // Start -> Tap 1 (Duration 1) -> Tap 2 (Duration 2)...
     private ArrayList<Long> zikrDurations = new ArrayList<>();
     
+    // Feedback
+    private Vibrator vibrator;
+    private ToneGenerator toneGen;
+    private static final String PREFS_NAME = "TasbeehPrefs";
+    private static final String KEY_VIBRATION = "vibration";
+    private static final String KEY_VIBRATION_STRENGTH = "vibration_strength";
+    private static final String KEY_SOUND = "sound_enabled";
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +65,13 @@ public class AnalysisActivity extends AppCompatActivity {
         initViews();
         setupListeners();
         setupBottomNav();
+        
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        try {
+            toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initViews() {
@@ -94,10 +112,22 @@ public class AnalysisActivity extends AppCompatActivity {
 
     private void setupListeners() {
         btnTap.setOnClickListener(v -> handleTap());
-        btnStartOverlay.setOnClickListener(v -> startAnalysisSession());
-        fabPause.setOnClickListener(v -> togglePause());
-        btnReset.setOnClickListener(v -> resetAnalysis());
-        btnShowReport.setOnClickListener(v -> generateReport());
+        btnStartOverlay.setOnClickListener(v -> {
+            performFeedback();
+            startAnalysisSession();
+        });
+        fabPause.setOnClickListener(v -> {
+            performFeedback();
+            togglePause();
+        });
+        btnReset.setOnClickListener(v -> {
+            performFeedback();
+            resetAnalysis();
+        });
+        btnShowReport.setOnClickListener(v -> {
+            performFeedback();
+            generateReport();
+        });
         
         setupButtonAnimation(btnStartOverlay);
         setupButtonAnimation(fabPause);
@@ -353,13 +383,28 @@ public class AnalysisActivity extends AppCompatActivity {
     }
 
     private void performFeedback() {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (v != null) {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean isVibEnabled = prefs.getBoolean(KEY_VIBRATION, true);
+        boolean isSoundEnabled = prefs.getBoolean(KEY_SOUND, true);
+        
+        // Vibration
+        if (isVibEnabled && vibrator != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                v.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
+                int strength = prefs.getInt(KEY_VIBRATION_STRENGTH, 192);
+                long duration = 40 + (long)(85 * (strength / 255.0f));
+    
+                if (!vibrator.hasAmplitudeControl()) {
+                    strength = 255;
+                }
+                vibrator.vibrate(VibrationEffect.createOneShot(duration, strength));
             } else {
-                v.vibrate(50);
+                vibrator.vibrate(50);
             }
+        }
+        
+        // Sound
+        if (isSoundEnabled && toneGen != null) {
+             toneGen.startTone(ToneGenerator.TONE_CDMA_ANSWER, 150);
         }
     }
 
