@@ -318,15 +318,15 @@ public class MainActivity extends AppCompatActivity {
         });
         btnSavedCounts.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, SavedCountsActivity.class));
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(0, 0);
         });
         btnSettings.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(0, 0);
         });
         btnAnalysis.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, AnalysisActivity.class));
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            overridePendingTransition(0, 0);
         });
 
         // New Feature Listeners

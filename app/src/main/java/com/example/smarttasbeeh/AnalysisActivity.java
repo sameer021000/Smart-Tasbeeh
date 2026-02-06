@@ -485,15 +485,15 @@ public class AnalysisActivity extends AppCompatActivity {
             int id = v.getId();
             if (id == R.id.btnNavCounter) {
                 startActivity(new Intent(this, MainActivity.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Counter is to the right
+                overridePendingTransition(0, 0); // Counter is to the right
                 finish();
             } else if (id == R.id.btnNavHistory) { // History will be to the right of Counter
                 startActivity(new Intent(this, SavedCountsActivity.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(0, 0);
                 finish();
             } else if (id == R.id.btnNavSettings) { // Settings is furthest right
                 startActivity(new Intent(this, SettingsActivity.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(0, 0);
                 finish();
             }
         };

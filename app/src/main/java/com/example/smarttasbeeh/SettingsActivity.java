@@ -155,20 +155,20 @@ public class SettingsActivity extends AppCompatActivity {
             Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            overridePendingTransition(0, 0);
             finish(); 
         });
 
         btnSavedCounts.setOnClickListener(v -> {
             Intent intent = new Intent(SettingsActivity.this, SavedCountsActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            overridePendingTransition(0, 0);
             finish();
         });
         
         findViewById(R.id.btnNavAnalysis).setOnClickListener(v -> {
             startActivity(new Intent(SettingsActivity.this, AnalysisActivity.class));
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            overridePendingTransition(0, 0);
             finish();
         });
     }
