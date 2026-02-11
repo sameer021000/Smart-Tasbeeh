@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     // New Controls
     private View btnDecrease, btnAuto, btnTarget;
     private View btnReset, btnSave; // Promoted to class level
+    private View btnSavedCounts, btnSettings, btnAnalysis; // Promoted for Auto-Count block
     private android.widget.ImageView ivAutoIcon;
 
     private Handler handler = new Handler();
@@ -108,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
         bigBoxContainer = findViewById(R.id.bigBoxContainer);
         btnReset = findViewById(R.id.btnReset); // Promoted
         btnSave = findViewById(R.id.btnSave);   // Promoted
-        View btnSavedCounts = findViewById(R.id.btnSavedCounts);
-        View btnSettings = findViewById(R.id.btnSettings);
-        View btnAnalysis = findViewById(R.id.btnAnalysis);
+        btnSavedCounts = findViewById(R.id.btnSavedCounts);
+        btnSettings = findViewById(R.id.btnSettings);
+        btnAnalysis = findViewById(R.id.btnAnalysis);
         rootLayout = findViewById(R.id.main);
 
         btnDecrease = findViewById(R.id.btnDecrease);
@@ -525,14 +526,59 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tvSpeedValue = view.findViewById(R.id.tvSpeedValue);
         com.google.android.material.slider.Slider sliderSpeed = view.findViewById(R.id.sliderSpeed);
+        TextView tvMoreTime = view.findViewById(R.id.tvMoreTime);
 
         // Convert internal ms to seconds for display
         float currentSec = autoSpeed / 1000f;
-        if (currentSec < 0.1f) currentSec = 0.1f;
-        if (currentSec > 5.0f) currentSec = 5.0f;
+
+        // Determine initial mode
+        final boolean[] isExtendedMode = {currentSec > 5.0f};
+
+        // Configure Slider based on mode
+        if (isExtendedMode[0]) {
+            sliderSpeed.setValueFrom(5.0f);
+            sliderSpeed.setValueTo(60.0f);
+            sliderSpeed.setStepSize(1.0f); // 1 sec steps for extended range
+            tvMoreTime.setText("Less time ?");
+            
+            // Allow up to 60.0
+            if (currentSec > 60.0f) currentSec = 60.0f;
+            if (currentSec < 5.0f) currentSec = 5.0f; 
+        } else {
+            sliderSpeed.setValueFrom(0.1f);
+            sliderSpeed.setValueTo(5.0f);
+            sliderSpeed.setStepSize(0.1f);
+            tvMoreTime.setText("More time ?");
+            
+            if (currentSec < 0.1f) currentSec = 0.1f;
+            if (currentSec > 5.0f) currentSec = 5.0f;
+        }
 
         sliderSpeed.setValue(currentSec);
         tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", currentSec));
+
+        // Toggle Logic
+        tvMoreTime.setOnClickListener(v -> {
+            if (isExtendedMode[0]) {
+                // Switch to Less Time (Normal Mode)
+                isExtendedMode[0] = false;
+                sliderSpeed.setValueFrom(0.1f);
+                sliderSpeed.setValueTo(5.0f);
+                sliderSpeed.setStepSize(0.1f);
+                sliderSpeed.setValue(5.0f); // Reset to max of normal
+                tvMoreTime.setText("More time ?");
+            } else {
+                // Switch to More Time (Extended Mode)
+                isExtendedMode[0] = true;
+                sliderSpeed.setValueFrom(5.0f);
+                sliderSpeed.setValueTo(60.0f);
+                sliderSpeed.setStepSize(1.0f);
+                sliderSpeed.setValue(5.0f); // Reset to min of extended
+                tvMoreTime.setText("Less time ?");
+            }
+            // Update Text
+             tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", sliderSpeed.getValue()));
+        });
 
         sliderSpeed.addOnChangeListener((slider, value, fromUser) -> {
             tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", value));
@@ -599,6 +645,16 @@ public class MainActivity extends AppCompatActivity {
 
         btnReset.setEnabled(enabled);
         btnReset.setAlpha(alpha);
+
+        // Sidebar Navigation Buttons
+        btnSavedCounts.setEnabled(enabled);
+        btnSavedCounts.setAlpha(alpha);
+        
+        btnSettings.setEnabled(enabled);
+        btnSettings.setAlpha(alpha);
+        
+        btnAnalysis.setEnabled(enabled);
+        btnAnalysis.setAlpha(alpha);
 
         // Main Button & Tap Anywhere
         counterButton.setEnabled(enabled); // Disables touch listener

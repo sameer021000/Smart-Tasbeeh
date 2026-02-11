@@ -48,6 +48,19 @@
             app:trackColorActive="@color/tasbeeh_blue_primary"
             app:trackColorInactive="@color/card_stroke_color"/>
 
+        <TextView
+            android:id="@+id/tvMoreTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="More time ?"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/tasbeeh_blue_primary"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
