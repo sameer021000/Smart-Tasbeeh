@@ -187,8 +187,8 @@ public class AnalysisActivity extends AppCompatActivity {
             layoutPauseOptions.setVisibility(View.VISIBLE);
             tvPausedOverlay.setVisibility(View.VISIBLE);
             btnTap.setEnabled(false); // Disable tap
-            btnTap.setEnabled(false); // Disable tap
             reportView.setVisibility(View.GONE); // Hide previous report if any, wait for user request
+            tvCount.setTextColor(androidx.core.content.ContextCompat.getColor(this, R.color.tasbeeh_blue_dark2));
             
         } else {
             // Resuming
@@ -196,9 +196,8 @@ public class AnalysisActivity extends AppCompatActivity {
             layoutPauseOptions.setVisibility(View.GONE);
             tvPausedOverlay.setVisibility(View.GONE);
             btnTap.setEnabled(true);
-            tvPausedOverlay.setVisibility(View.GONE);
-            btnTap.setEnabled(true);
             reportView.setVisibility(View.GONE);
+            tvCount.setTextColor(androidx.core.content.ContextCompat.getColor(this, R.color.tasbeeh_blue_primary));
             
             // Reset base time so pause duration isn't counted in next interval
             lastTapTime = System.currentTimeMillis(); 
@@ -229,6 +228,9 @@ public class AnalysisActivity extends AppCompatActivity {
         // Reset progress
         progressBar.setProgress(0);
         updateUI();
+        
+        // Reset Text Color
+        tvCount.setTextColor(androidx.core.content.ContextCompat.getColor(this, R.color.tasbeeh_blue_primary));
     }
     
     private void generateReport() {
