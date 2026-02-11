@@ -742,6 +742,8 @@ public class MainActivity extends AppCompatActivity {
 
         EditText etTitle = view.findViewById(R.id.etTitle);
         Button btnSaveDialog = view.findViewById(R.id.btnSave);
+        TextView tvInstructions = view.findViewById(R.id.tvInstructions);
+        TextView tvExistingTitle = view.findViewById(R.id.tvExistingTitle);
 
         // Check for Resume State
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -750,8 +752,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (resumeId != -1 && resumeTitle != null) {
             // Update Mode
-            etTitle.setText(resumeTitle);
-            etTitle.setEnabled(false); // Disable editing
+            tvInstructions.setVisibility(View.GONE);
+            etTitle.setVisibility(View.GONE);
+            tvExistingTitle.setVisibility(View.VISIBLE);
+            tvExistingTitle.setText(resumeTitle);
+
             btnSaveDialog.setText("Update");
 
             // Enable button by default since title is present
