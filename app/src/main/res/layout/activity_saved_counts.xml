@@ -50,6 +50,19 @@
             android:textColor="@color/count_text_color"
             android:textSize="12sp"/>
 
+        <ImageView
+            android:id="@+id/btnSort"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/item_bg_shape"
+            android:backgroundTint="@color/card_background"
+            android:src="@drawable/ic_sort"
+            android:scaleType="centerInside"
+            app:tint="@color/count_text_color"
+            android:clickable="true"
+            android:focusable="true"/>
+
     </LinearLayout>
 
     <!-- List -->

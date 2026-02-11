@@ -5,18 +5,38 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class SavedCountsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private View emptyView;
     private DbHelper dbHelper;
+    private ImageView ivSort;
+
+    // Sorting Constants
+    private static final int SORT_LATEST = 0;
+    private static final int SORT_EARLIEST = 1;
+    private static final int SORT_HIGHEST = 2;
+    private static final int SORT_LOWEST = 3;
+    private static final int SORT_A_Z = 4;
+    private static final int SORT_Z_A = 5;
+
+    private int currentSort = SORT_LATEST; 
+    private static final String PREFS_NAME = "TasbeehPrefs";
+    private static final String KEY_SORT_ORDER = "sort_order";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +50,11 @@ public class SavedCountsActivity extends AppCompatActivity {
         
         recyclerView = findViewById(R.id.recyclerView);
         emptyView = findViewById(R.id.emptyView);
+        // Load saved sort order
+        currentSort = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_SORT_ORDER, SORT_LATEST);
+
+        ivSort = findViewById(R.id.btnSort); // Correct ID from layout change
+        ivSort.setOnClickListener(this::showSortMenu);
         
         // Top Bar Logic (Custom Header)
         // Ensure to reference new nav buttons if the layout changed
@@ -58,6 +83,9 @@ public class SavedCountsActivity extends AppCompatActivity {
 
     private void loadCounts() {
         List<SavedCount> counts = dbHelper.getAllCounts();
+        
+        // Sort the list based on currentSort
+        sortList(counts);
         
         // Update Badge
         TextView badge = findViewById(R.id.recordCountBadge);
@@ -113,5 +141,64 @@ public class SavedCountsActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
         }
+    }
+    private void showSortMenu(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        
+        // Add options manually or inflate from menu resource
+        // Manual addition for simplicity and control
+        popup.getMenu().add(0, SORT_HIGHEST, 0, "Highest Count \u2191");
+        popup.getMenu().add(0, SORT_LOWEST, 1, "Lowest Count \u2193");
+        popup.getMenu().add(0, SORT_LATEST, 2, "Time Latest");
+        popup.getMenu().add(0, SORT_EARLIEST, 3, "Time Earliest");
+        popup.getMenu().add(0, SORT_A_Z, 4, "Alphabets A->Z");
+        popup.getMenu().add(0, SORT_Z_A, 5, "Alphabets Z->A");
+
+        popup.setOnMenuItemClickListener(item -> {
+            currentSort = item.getItemId();
+            // Save preference
+            getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                    .edit()
+                    .putInt(KEY_SORT_ORDER, currentSort)
+                    .apply();
+            
+            loadCounts(); // Reloads and sorts
+            return true;
+        });
+
+        popup.show();
+    }
+
+    private void sortList(List<SavedCount> counts) {
+        Collections.sort(counts, new Comparator<SavedCount>() {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+
+            @Override
+            public int compare(SavedCount o1, SavedCount o2) {
+                switch (currentSort) {
+                    case SORT_HIGHEST:
+                        return Integer.compare(o2.getCount(), o1.getCount());
+                    case SORT_LOWEST:
+                        return Integer.compare(o1.getCount(), o2.getCount());
+                    case SORT_A_Z:
+                        return o1.getTitle().compareToIgnoreCase(o2.getTitle());
+                    case SORT_Z_A:
+                        return o2.getTitle().compareToIgnoreCase(o1.getTitle());
+                    case SORT_EARLIEST: // Oldest first
+                        try {
+                            return sdf.parse(o1.getTimestamp()).compareTo(sdf.parse(o2.getTimestamp()));
+                        } catch (ParseException e) {
+                            return 0;
+                        }
+                    case SORT_LATEST: // Newest first
+                    default:
+                        try {
+                            return sdf.parse(o2.getTimestamp()).compareTo(sdf.parse(o1.getTimestamp()));
+                        } catch (ParseException e) {
+                            return 0;
+                        }
+                }
+            }
+        });
     }
 }
