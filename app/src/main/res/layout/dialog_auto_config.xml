@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:text="1.0 sec"
             android:textSize="14sp"
-            android:textColor="@color/count_text_color"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/tasbeeh_blue_primary"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"/>
 
@@ -59,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
+                android:fontFamily="sans-serif-black"
                 android:textColor="@color/tasbeeh_blue_primary"
                 style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
@@ -67,6 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start"
+                android:fontFamily="sans-serif-black"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:backgroundTint="@color/tasbeeh_blue_primary"
                 android:textColor="@android:color/white"
                 android:layout_marginStart="8dp"/>
