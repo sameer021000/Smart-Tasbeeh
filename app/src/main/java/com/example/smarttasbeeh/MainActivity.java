@@ -319,14 +319,26 @@ public class MainActivity extends AppCompatActivity {
             showSaveDialog();
         });
         btnSavedCounts.setOnClickListener(v -> {
+            if (isAutoRunning) {
+                Toast.makeText(MainActivity.this, "Please pause auto-count", Toast.LENGTH_SHORT).show();
+                return;
+            }
             startActivity(new Intent(MainActivity.this, SavedCountsActivity.class));
             overridePendingTransition(0, 0);
         });
         btnSettings.setOnClickListener(v -> {
+            if (isAutoRunning) {
+                Toast.makeText(MainActivity.this, "Please pause auto-count", Toast.LENGTH_SHORT).show();
+                return;
+            }
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             overridePendingTransition(0, 0);
         });
         btnAnalysis.setOnClickListener(v -> {
+            if (isAutoRunning) {
+                Toast.makeText(MainActivity.this, "Please pause auto-count", Toast.LENGTH_SHORT).show();
+                return;
+            }
             startActivity(new Intent(MainActivity.this, AnalysisActivity.class));
             overridePendingTransition(0, 0);
         });
@@ -646,15 +658,10 @@ public class MainActivity extends AppCompatActivity {
         btnReset.setEnabled(enabled);
         btnReset.setAlpha(alpha);
 
-        // Sidebar Navigation Buttons
-        btnSavedCounts.setEnabled(enabled);
-        btnSavedCounts.setAlpha(alpha);
-        
-        btnSettings.setEnabled(enabled);
-        btnSettings.setAlpha(alpha);
-        
-        btnAnalysis.setEnabled(enabled);
-        btnAnalysis.setAlpha(alpha);
+        // Sidebar Navigation Buttons - kept enabled but with Toast check
+        // btnSavedCounts.setEnabled(enabled);
+        // btnSettings.setEnabled(enabled);
+        // btnAnalysis.setEnabled(enabled);
 
         // Main Button & Tap Anywhere
         counterButton.setEnabled(enabled); // Disables touch listener
