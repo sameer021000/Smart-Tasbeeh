@@ -58,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private View rootLayout;
 
     // New Controls
-    private View btnDecrease, btnAuto, btnTarget;
-    private View btnReset, btnSave; // Promoted to class level
-    private View btnSavedCounts, btnSettings, btnAnalysis; // Promoted for Auto-Count block
+    private View btnDecrease, btnAuto, btnTarget, btnReset, btnSave;
     private android.widget.ImageView ivAutoIcon;
 
     private Handler handler = new Handler();
@@ -109,9 +107,11 @@ public class MainActivity extends AppCompatActivity {
         bigBoxContainer = findViewById(R.id.bigBoxContainer);
         btnReset = findViewById(R.id.btnReset); // Promoted
         btnSave = findViewById(R.id.btnSave);   // Promoted
-        btnSavedCounts = findViewById(R.id.btnSavedCounts);
-        btnSettings = findViewById(R.id.btnSettings);
-        btnAnalysis = findViewById(R.id.btnAnalysis);
+        
+        View btnSavedCounts = findViewById(R.id.btnSavedCounts);
+        View btnSettings = findViewById(R.id.btnSettings);
+        View btnAnalysis = findViewById(R.id.btnAnalysis);
+
         rootLayout = findViewById(R.id.main);
 
         btnDecrease = findViewById(R.id.btnDecrease);
@@ -659,9 +659,7 @@ public class MainActivity extends AppCompatActivity {
         btnReset.setAlpha(alpha);
 
         // Sidebar Navigation Buttons - kept enabled but with Toast check
-        // btnSavedCounts.setEnabled(enabled);
-        // btnSettings.setEnabled(enabled);
-        // btnAnalysis.setEnabled(enabled);
+        // Logic handled in OnClickListener
 
         // Main Button & Tap Anywhere
         counterButton.setEnabled(enabled); // Disables touch listener

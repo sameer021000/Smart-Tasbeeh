@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background_premium"
+    android:paddingBottom="24dp">
+
+    <!-- Handle Bar (Visual cue for bottom sheet) -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/card_stroke_color"
+        android:backgroundTint="@color/card_stroke_color"/>
+
+    <!-- Option: Time Latest -->
+    <LinearLayout
+        android:id="@+id/optionLatest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_clock"
+            app:tint="@color/text_primary"
+            android:layout_marginEnd="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time Latest"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/text_primary"/>
+    </LinearLayout>
+
+    <!-- Option: Time Earliest -->
+    <LinearLayout
+        android:id="@+id/optionEarliest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_clock"
+            android:rotation="180"
+            app:tint="@color/text_primary"
+            android:layout_marginEnd="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time Earliest"
+            android:fontFamily="sans-serif-black"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"/>
+    </LinearLayout>
+
+    <!-- Option: Highest Count -->
+    <LinearLayout
+        android:id="@+id/optionHighest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_add" 
+            app:tint="@color/text_primary"
+            android:layout_marginEnd="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Highest Count"
+            android:fontFamily="sans-serif-black"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"/>
+    </LinearLayout>
+    
+    <!-- Option: Lowest Count -->
+    <LinearLayout
+        android:id="@+id/optionLowest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_remove" 
+            app:tint="@color/text_primary"
+            android:layout_marginEnd="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lowest Count"
+            android:fontFamily="sans-serif-black"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"/>
+    </LinearLayout>
+
+    <!-- Option: A-Z -->
+    <LinearLayout
+         android:id="@+id/optionAZ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical">
+        <TextView
+             android:layout_width="24dp"
+             android:layout_height="24dp"
+             android:text="A-Z"
+            android:fontFamily="sans-serif-black"
+             android:textSize="12sp"
+             android:gravity="center"
+             android:textColor="@color/text_primary"
+             android:layout_marginEnd="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title (A-Z)"
+            android:fontFamily="sans-serif-black"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"/>
+    </LinearLayout>
+
+    <!-- Option: Z-A -->
+    <LinearLayout
+        android:id="@+id/optionZA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical">
+        <TextView
+             android:layout_width="24dp"
+             android:layout_height="24dp"
+             android:text="Z-A"
+            android:fontFamily="sans-serif-black"
+             android:textSize="12sp"
+             android:gravity="center"
+             android:textColor="@color/text_primary"
+             android:layout_marginEnd="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title (Z-A)"
+            android:fontFamily="sans-serif-black"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import android.widget.ImageView;
-import android.widget.PopupMenu;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -143,30 +143,31 @@ public class SavedCountsActivity extends AppCompatActivity {
         }
     }
     private void showSortMenu(View view) {
-        PopupMenu popup = new PopupMenu(this, view);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+        View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_sort, null);
+        bottomSheetDialog.setContentView(sheetView);
+
+        // Click Listeners
+        sheetView.findViewById(R.id.optionLatest).setOnClickListener(v -> updateSort(SORT_LATEST, bottomSheetDialog));
+        sheetView.findViewById(R.id.optionEarliest).setOnClickListener(v -> updateSort(SORT_EARLIEST, bottomSheetDialog));
+        sheetView.findViewById(R.id.optionHighest).setOnClickListener(v -> updateSort(SORT_HIGHEST, bottomSheetDialog));
+        sheetView.findViewById(R.id.optionLowest).setOnClickListener(v -> updateSort(SORT_LOWEST, bottomSheetDialog));
+        sheetView.findViewById(R.id.optionAZ).setOnClickListener(v -> updateSort(SORT_A_Z, bottomSheetDialog));
+        sheetView.findViewById(R.id.optionZA).setOnClickListener(v -> updateSort(SORT_Z_A, bottomSheetDialog));
+
+        bottomSheetDialog.show();
+    }
+    
+    private void updateSort(int sortType, BottomSheetDialog dialog) {
+        currentSort = sortType;
+        // Save preference
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .edit()
+                .putInt(KEY_SORT_ORDER, currentSort)
+                .apply();
         
-        // Add options manually or inflate from menu resource
-        // Manual addition for simplicity and control
-        popup.getMenu().add(0, SORT_HIGHEST, 0, "Highest Count \u2191");
-        popup.getMenu().add(0, SORT_LOWEST, 1, "Lowest Count \u2193");
-        popup.getMenu().add(0, SORT_LATEST, 2, "Time Latest");
-        popup.getMenu().add(0, SORT_EARLIEST, 3, "Time Earliest");
-        popup.getMenu().add(0, SORT_A_Z, 4, "Alphabets A->Z");
-        popup.getMenu().add(0, SORT_Z_A, 5, "Alphabets Z->A");
-
-        popup.setOnMenuItemClickListener(item -> {
-            currentSort = item.getItemId();
-            // Save preference
-            getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-                    .edit()
-                    .putInt(KEY_SORT_ORDER, currentSort)
-                    .apply();
-            
-            loadCounts(); // Reloads and sorts
-            return true;
-        });
-
-        popup.show();
+        loadCounts();
+        dialog.dismiss();
     }
 
     private void sortList(List<SavedCount> counts) {
