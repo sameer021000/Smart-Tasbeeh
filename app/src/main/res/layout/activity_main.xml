@@ -62,7 +62,7 @@
         android:focusable="true"
         app:layout_constraintStart_toStartOf="@id/cardCountDisplay"
         app:layout_constraintTop_toBottomOf="@id/cardCountDisplay">
-        
+
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -104,7 +104,7 @@
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="@id/cardCountDisplay"
         app:layout_constraintTop_toBottomOf="@id/cardCountDisplay">
-        
+
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -154,9 +154,9 @@
                 android:textStyle="bold"
                 android:letterSpacing="0.1"
                 android:layout_gravity="center"/>
-                
-             <!-- Simple ripple overlay for touch feedback if needed -->
-             <View
+
+            <!-- Simple ripple overlay for touch feedback if needed -->
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"
@@ -164,18 +164,18 @@
                 android:focusable="false"/>
 
         </androidx.cardview.widget.CardView>
-        
+
         <!-- Helper Text -->
         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="bottom|center_horizontal"
-             android:layout_marginBottom="32dp"
-             android:text="@string/Button_Reposition_Hint_Text"
-             android:textColor="@color/hint_text"
-             android:textSize="11sp"
-             android:textStyle="bold"
-             android:letterSpacing="0.05"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="32dp"
+            android:text="@string/Button_Reposition_Hint_Text"
+            android:textColor="@color/hint_text"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"/>
 
     </FrameLayout>
 
@@ -282,13 +282,13 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
-            
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_analysis"
                 app:tint="@color/nav_text_unselected"/>
-                
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -308,13 +308,13 @@
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
-            
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_add"
                 app:tint="@color/nav_text_selected"/>
-                
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -364,13 +364,13 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
-            
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_settings"
                 app:tint="@color/nav_text_unselected"/>
-                
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

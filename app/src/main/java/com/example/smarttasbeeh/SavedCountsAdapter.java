@@ -40,7 +40,7 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
         holder.tvTitle.setText(item.getTitle());
         holder.tvDate.setText(item.getTimestamp());
         holder.tvCount.setText(String.valueOf(item.getCount()));
-        
+
         // Highlight Logic
         com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
         if (selectedPosition == position) {
@@ -52,14 +52,14 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
             card.setStrokeColor(holder.itemView.getContext().getResources().getColor(R.color.card_stroke_color));
             card.setStrokeWidth(2); // Standard width (1dp approx 2-3px, let's use pixels or keep consistent)
         }
-        
+
         holder.itemView.setOnClickListener(v -> {
             int previousSelected = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
             notifyItemChanged(previousSelected);
             notifyItemChanged(selectedPosition);
         });
-        
+
         holder.btnContinue.setOnClickListener(v -> listener.onContinueClick(item));
         holder.btnDelete.setOnClickListener(v -> listener.onDeleteClick(item));
     }

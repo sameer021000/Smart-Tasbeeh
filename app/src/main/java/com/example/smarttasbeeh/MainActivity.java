@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         bigBoxContainer = findViewById(R.id.bigBoxContainer);
         btnReset = findViewById(R.id.btnReset); // Promoted
         btnSave = findViewById(R.id.btnSave);   // Promoted
-        
+
         View btnSavedCounts = findViewById(R.id.btnSavedCounts);
         View btnSettings = findViewById(R.id.btnSettings);
         View btnAnalysis = findViewById(R.id.btnAnalysis);
@@ -552,16 +552,16 @@ public class MainActivity extends AppCompatActivity {
             sliderSpeed.setValueTo(60.0f);
             sliderSpeed.setStepSize(1.0f); // 1 sec steps for extended range
             tvMoreTime.setText("Less time ?");
-            
+
             // Allow up to 60.0
             if (currentSec > 60.0f) currentSec = 60.0f;
-            if (currentSec < 5.0f) currentSec = 5.0f; 
+            if (currentSec < 5.0f) currentSec = 5.0f;
         } else {
             sliderSpeed.setValueFrom(0.1f);
             sliderSpeed.setValueTo(5.0f);
             sliderSpeed.setStepSize(0.1f);
             tvMoreTime.setText("More time ?");
-            
+
             if (currentSec < 0.1f) currentSec = 0.1f;
             if (currentSec > 5.0f) currentSec = 5.0f;
         }
@@ -589,7 +589,7 @@ public class MainActivity extends AppCompatActivity {
                 tvMoreTime.setText("Less time ?");
             }
             // Update Text
-             tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", sliderSpeed.getValue()));
+            tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", sliderSpeed.getValue()));
         });
 
         sliderSpeed.addOnChangeListener((slider, value, fromUser) -> {

@@ -34,7 +34,7 @@ public class SavedCountsActivity extends AppCompatActivity {
     private static final int SORT_A_Z = 4;
     private static final int SORT_Z_A = 5;
 
-    private int currentSort = SORT_LATEST; 
+    private int currentSort = SORT_LATEST;
     private static final String PREFS_NAME = "TasbeehPrefs";
     private static final String KEY_SORT_ORDER = "sort_order";
 
@@ -45,9 +45,9 @@ public class SavedCountsActivity extends AppCompatActivity {
 
         // Apply theme 
         // Logic handled by device usually, but ensuring consistent prefs read if we had complex theming
-        
+
         dbHelper = new DbHelper(this);
-        
+
         recyclerView = findViewById(R.id.recyclerView);
         emptyView = findViewById(R.id.emptyView);
         // Load saved sort order
@@ -55,7 +55,7 @@ public class SavedCountsActivity extends AppCompatActivity {
 
         ivSort = findViewById(R.id.btnSort); // Correct ID from layout change
         ivSort.setOnClickListener(this::showSortMenu);
-        
+
         // Top Bar Logic (Custom Header)
         // Ensure to reference new nav buttons if the layout changed
         findViewById(R.id.btnNavCounter).setOnClickListener(v -> {
@@ -83,27 +83,27 @@ public class SavedCountsActivity extends AppCompatActivity {
 
     private void loadCounts() {
         List<SavedCount> counts = dbHelper.getAllCounts();
-        
+
         // Sort the list based on currentSort
         sortList(counts);
-        
+
         // Update Badge
         TextView badge = findViewById(R.id.recordCountBadge);
         if (badge != null) {
             badge.setText(counts.size() + " records");
         }
-        
+
         if (counts.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
-            
+
             SavedCountsAdapter adapter = new SavedCountsAdapter(counts, new SavedCountsAdapter.OnItemClickListener() {
                 @Override
                 public void onContinueClick(SavedCount item) {
-                     getSharedPreferences("TasbeehPrefs", MODE_PRIVATE)
+                    getSharedPreferences("TasbeehPrefs", MODE_PRIVATE)
                             .edit()
                             .putInt("count", item.getCount())
                             .putInt("resume_id", item.getId())
@@ -130,11 +130,11 @@ public class SavedCountsActivity extends AppCompatActivity {
 
                     view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
                     view.findViewById(R.id.btnDeleteConfirm).setOnClickListener(v -> {
-                         dbHelper.deleteCount(item.getId());
-                         loadCounts(); // Refresh list
-                         dialog.dismiss();
+                        dbHelper.deleteCount(item.getId());
+                        loadCounts(); // Refresh list
+                        dialog.dismiss();
                     });
-                    
+
                     dialog.show();
                 }
             });
@@ -157,7 +157,7 @@ public class SavedCountsActivity extends AppCompatActivity {
 
         bottomSheetDialog.show();
     }
-    
+
     private void updateSort(int sortType, BottomSheetDialog dialog) {
         currentSort = sortType;
         // Save preference
@@ -165,7 +165,7 @@ public class SavedCountsActivity extends AppCompatActivity {
                 .edit()
                 .putInt(KEY_SORT_ORDER, currentSort)
                 .apply();
-        
+
         loadCounts();
         dialog.dismiss();
     }
