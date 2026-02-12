@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.VibrationEffect;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -65,6 +64,12 @@ public class AnalysisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        if (getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE) {
+            getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
         setContentView(R.layout.activity_analysis);
 
         initViews();
@@ -489,7 +494,7 @@ public class AnalysisActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 overridePendingTransition(0, 0); // Counter is to the right
                 finish();
-            } else if (id == R.id.btnNavHistory) { // History will be to the right of Counter
+            } else if (id == R.id.btnSavedCounts) { // History will be to the right of Counter
                 startActivity(new Intent(this, SavedCountsActivity.class));
                 overridePendingTransition(0, 0);
                 finish();
@@ -501,7 +506,7 @@ public class AnalysisActivity extends AppCompatActivity {
         };
 
         findViewById(R.id.btnNavCounter).setOnClickListener(navListener);
-        findViewById(R.id.btnNavHistory).setOnClickListener(navListener);
+        findViewById(R.id.btnSavedCounts).setOnClickListener(navListener);
         findViewById(R.id.btnNavSettings).setOnClickListener(navListener);
     }
 

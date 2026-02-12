@@ -306,7 +306,7 @@
 
         <!-- History -->
         <LinearLayout
-            android:id="@+id/btnNavHistory"
+            android:id="@+id/btnSavedCounts"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

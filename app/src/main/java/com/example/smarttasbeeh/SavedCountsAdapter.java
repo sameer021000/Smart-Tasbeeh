@@ -18,6 +18,7 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
     public interface OnItemClickListener {
         void onContinueClick(SavedCount item);
         void onDeleteClick(SavedCount item);
+        void onItemLongClick(SavedCount item);
     }
 
     private int selectedPosition = -1;
@@ -40,6 +41,9 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
         holder.tvTitle.setText(item.getTitle());
         holder.tvDate.setText(item.getTimestamp());
         holder.tvCount.setText(String.valueOf(item.getCount()));
+        
+        // Show/Hide Pin Icon
+        holder.ivPin.setVisibility(item.isPinned() ? View.VISIBLE : View.GONE);
 
         // Highlight Logic
         com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
@@ -59,6 +63,11 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
             notifyItemChanged(previousSelected);
             notifyItemChanged(selectedPosition);
         });
+        
+        holder.itemView.setOnLongClickListener(v -> {
+            listener.onItemLongClick(item);
+            return true;
+        });
 
         holder.btnContinue.setOnClickListener(v -> listener.onContinueClick(item));
         holder.btnDelete.setOnClickListener(v -> listener.onDeleteClick(item));
@@ -71,6 +80,7 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvDate, tvCount;
+        android.widget.ImageView ivPin;
         android.widget.Button btnContinue;
         View btnDelete;
 
@@ -79,6 +89,7 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvCount = itemView.findViewById(R.id.tvCount);
+            ivPin = itemView.findViewById(R.id.ivPin);
             btnContinue = itemView.findViewById(R.id.btnContinue);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }

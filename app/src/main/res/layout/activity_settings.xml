@@ -391,7 +391,7 @@
 
         <!-- Counter -->
         <LinearLayout
-            android:id="@+id/btnCounter"
+            android:id="@+id/btnNavCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

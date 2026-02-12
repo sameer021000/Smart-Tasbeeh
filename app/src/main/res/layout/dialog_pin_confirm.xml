@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background_premium"
+    android:padding="24dp"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/tvPinDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pin Item"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/text_primary"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tvPinDialogMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you want to pin this item to the top?"
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="24dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:background="@drawable/selector_cancel_save"
+            android:stateListAnimator="@null"
+            android:padding="0dp"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btnPin"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Pin"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/tasbeeh_blue_primary"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
+    </LinearLayout>
+
+</LinearLayout>

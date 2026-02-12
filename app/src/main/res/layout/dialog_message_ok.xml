@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background_premium"
+    android:padding="24dp"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/tvPinDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pin Limit Reached"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/text_primary"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tvPinDialogMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You can only pin up to 3 items."
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="OK"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/tasbeeh_blue_primary"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
+
+</LinearLayout>

@@ -39,6 +39,12 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
+
+        if (getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE) {
+            getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
         setContentView(R.layout.activity_settings);
 
         SwitchMaterial switchDarkMode = findViewById(R.id.switchDarkMode);
@@ -48,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
         SeekBar seekBarVibration = findViewById(R.id.seekBarVibration);
         View layoutVibrationLevel = findViewById(R.id.layoutVibrationLevel);
         TextView tvSeekValue = findViewById(R.id.tvSeekValue);
-        View btnCounter = findViewById(R.id.btnCounter);
+        View btnNavCounter = findViewById(R.id.btnNavCounter);
         View btnSavedCounts = findViewById(R.id.btnSavedCounts);
 
         // Set initial state
@@ -151,7 +157,7 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // Navigation
-        btnCounter.setOnClickListener(v -> {
+        btnNavCounter.setOnClickListener(v -> {
             Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);

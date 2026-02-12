@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Solid Background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#20007AFF" /> 
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+
+    <!-- Stroke (Border) -->
+    <item>
+        <shape android:shape="rectangle">
+             <stroke android:width="2dp" android:color="@color/tasbeeh_blue_primary" />
+             <corners android:radius="12dp" />
+        </shape>
+    </item>
+</layer-list>

@@ -42,6 +42,12 @@ public class SavedCountsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_counts);
+        
+        // Hide status bar in landscape
+        if (getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE) {
+            getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
 
         // Apply theme 
         // Logic handled by device usually, but ensuring consistent prefs read if we had complex theming
@@ -137,6 +143,11 @@ public class SavedCountsActivity extends AppCompatActivity {
 
                     dialog.show();
                 }
+
+                @Override
+                public void onItemLongClick(SavedCount item) {
+                    showPinDialog(item);
+                }
             });
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
@@ -147,6 +158,9 @@ public class SavedCountsActivity extends AppCompatActivity {
         View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_sort, null);
         bottomSheetDialog.setContentView(sheetView);
 
+        // Initial Highlight Logic
+        updateSortHighlight(sheetView, currentSort);
+
         // Click Listeners
         sheetView.findViewById(R.id.optionLatest).setOnClickListener(v -> updateSort(SORT_LATEST, bottomSheetDialog));
         sheetView.findViewById(R.id.optionEarliest).setOnClickListener(v -> updateSort(SORT_EARLIEST, bottomSheetDialog));
@@ -156,6 +170,28 @@ public class SavedCountsActivity extends AppCompatActivity {
         sheetView.findViewById(R.id.optionZA).setOnClickListener(v -> updateSort(SORT_Z_A, bottomSheetDialog));
 
         bottomSheetDialog.show();
+    }
+
+    private void updateSortHighlight(View sheetView, int sortType) {
+        // Reset all backgrounds first (or simpler: assume default is selectable item background)
+        // Here we will set a specific background for the selected one, and default for others.
+        // For simplicity, let's just use semi-transparent blue for selected.
+        
+        int[] ids = {R.id.optionLatest, R.id.optionEarliest, R.id.optionHighest, R.id.optionLowest, R.id.optionAZ, R.id.optionZA};
+        int[] types = {SORT_LATEST, SORT_EARLIEST, SORT_HIGHEST, SORT_LOWEST, SORT_A_Z, SORT_Z_A};
+
+        for (int i = 0; i < ids.length; i++) {
+            View option = sheetView.findViewById(ids[i]);
+            if (types[i] == sortType) {
+                // Selected: Highlight with stroke/background
+                option.setBackground(androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_sort_selected)); 
+            } else {
+                // Default: Selectable Item Background
+                android.util.TypedValue outValue = new android.util.TypedValue();
+                getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+                option.setBackgroundResource(outValue.resourceId);
+            }
+        }
     }
 
     private void updateSort(int sortType, BottomSheetDialog dialog) {
@@ -173,9 +209,22 @@ public class SavedCountsActivity extends AppCompatActivity {
     private void sortList(List<SavedCount> counts) {
         Collections.sort(counts, new Comparator<SavedCount>() {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-
+            
             @Override
             public int compare(SavedCount o1, SavedCount o2) {
+                // Always prioritize Pinned items first
+                boolean p1 = o1.isPinned();
+                boolean p2 = o2.isPinned();
+                
+                if (p1 && !p2) return -1;
+                if (!p1 && p2) return 1;
+                
+                if (p1 && p2) {
+                    // Both pinned: Sort by Pinned Timestamp DESC (Latest Pin First)
+                    return Long.compare(o2.getPinnedTimestamp(), o1.getPinnedTimestamp());
+                }
+
+                // If both unpinned, sort by selected criteria
                 switch (currentSort) {
                     case SORT_HIGHEST:
                         return Integer.compare(o2.getCount(), o1.getCount());
@@ -201,5 +250,59 @@ public class SavedCountsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    private void showPinDialog(SavedCount item) {
+        boolean isPinned = item.isPinned();
+        
+        // Check limit only if we are trying to PIN (not unpin)
+        if (!isPinned && dbHelper.getPinnedCount() >= 3) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = getLayoutInflater().inflate(R.layout.dialog_message_ok, null);
+            builder.setView(view);
+            AlertDialog dialog = builder.create();
+            
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            }
+            
+            view.findViewById(R.id.btnOk).setOnClickListener(v -> dialog.dismiss());
+            
+            dialog.show();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_pin_confirm, null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        TextView title = view.findViewById(R.id.tvPinDialogTitle);
+        TextView msg = view.findViewById(R.id.tvPinDialogMessage);
+        android.widget.Button btnAction = view.findViewById(R.id.btnPin);
+        
+        if (isPinned) {
+            title.setText("Unpin Item");
+            msg.setText("Do you want to unpin this item?");
+            btnAction.setText("Unpin");
+        } else {
+            title.setText("Pin Item");
+            msg.setText("Do you want to pin this item to the top?");
+            btnAction.setText("Pin");
+        }
+
+        view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
+        btnAction.setOnClickListener(v -> {
+            dbHelper.togglePin(item.getId(), !isPinned);
+            loadCounts();
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 }
