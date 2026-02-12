@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".MainActivity">
+
+    <!-- 1. Left Side: App Title and Count Card -->
+    <TextView
+        android:id="@+id/tvAppTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/Tasbeeh_Name"
+        android:textColor="@color/tasbeeh_blue_primary"
+        android:textSize="24sp"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.10"
+        android:shadowColor="@color/card_stroke_color"
+        android:shadowRadius="12"
+        android:shadowDy="4"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCountDisplay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/card_stroke_color"
+        app:cardBackgroundColor="@color/card_background"
+        app:layout_constraintTop_toBottomOf="@id/tvAppTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bigBoxContainer"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavDivider">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <!-- Count Number -->
+            <TextView
+                android:id="@+id/tvCountDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/Count_Number"
+                android:textColor="@color/count_text_color"
+                android:textSize="80sp"
+                android:fontFamily="sans-serif-black"
+                android:letterSpacing="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Save Button (Top Right of Count Card) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnSave"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/card_stroke_color"
+        app:cardBackgroundColor="@color/tasbeeh_blue_accent"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="@id/cardCountDisplay"
+        app:layout_constraintTop_toTopOf="@id/cardCountDisplay">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_save"
+            app:tint="@color/card_background"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Reset Button (Top Left of Count Card) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnReset"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/card_stroke_color"
+        app:cardBackgroundColor="@color/tasbeeh_blue_accent"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="@id/cardCountDisplay"
+        app:layout_constraintTop_toTopOf="@id/cardCountDisplay">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_refresh"
+            app:tint="@color/card_background"/>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <!-- 2. Middle: Interactions Area -->
+    <FrameLayout
+        android:id="@+id/bigBoxContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_grid_container"
+        android:clipToOutline="true"
+        app:layout_constraintStart_toEndOf="@id/cardCountDisplay"
+        app:layout_constraintEnd_toStartOf="@id/controlsLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavDivider">
+
+        <!-- Grid Background -->
+        <View
+            android:id="@+id/gridBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"/>
+
+        <!-- "TAP" Button -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/videoButton"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="12dp"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Tap_Button_Text"
+                android:textColor="@color/tap_btn_text"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="false"
+                android:focusable="false"/>
+
+        </androidx.cardview.widget.CardView>
+        
+         <!-- Helper Text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:text="@string/Button_Reposition_Hint_Text"
+            android:textColor="@color/hint_text"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"/>
+
+    </FrameLayout>
+
+    <!-- 3. Right Side: Controls -->
+    <LinearLayout
+        android:id="@+id/controlsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavDivider">
+
+        <!-- Decrease Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnDecrease"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/card_stroke_color"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_remove"
+                app:tint="@color/card_background"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Auto Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnAuto"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
+            app:strokeColor="@color/card_stroke_color"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/ivAutoIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_auto"
+                app:tint="@color/card_background"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Target Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnTarget"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/card_stroke_color"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_target"
+                app:tint="@color/card_background"/>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bottomNavDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/card_stroke_color"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"/>
+
+    <!-- 4. Bottom Navigation (Same as Portrait) -->
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/nav_bg"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:baselineAligned="false"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Analysis -->
+        <LinearLayout
+            android:id="@+id/btnAnalysis"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_analysis"
+                app:tint="@color/nav_text_unselected"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ANALYSIS"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/nav_text_unselected"/>
+        </LinearLayout>
+
+         <!-- Counter (Active) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_add"
+                app:tint="@color/nav_text_selected"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COUNTER"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/nav_text_selected"/>
+        </LinearLayout>
+
+
+        <!-- History -->
+        <LinearLayout
+            android:id="@+id/btnSavedCounts"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_clock"
+                app:tint="@color/nav_text_unselected" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="HISTORY"
+                android:textColor="@color/nav_text_unselected"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Settings -->
+        <LinearLayout
+            android:id="@+id/btnSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_settings"
+                app:tint="@color/nav_text_unselected"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SETTINGS"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/nav_text_unselected"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
