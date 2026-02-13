@@ -64,7 +64,7 @@ public class AnalysisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         if (getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE) {
             getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -421,7 +421,7 @@ public class AnalysisActivity extends AppCompatActivity {
         // We only want Reset button in this specific case? Or both?
         // "Only after clicking reset... counter goes to 0"
 
-        // Generate report automatically? 
+        // Generate report automatically?
         // "give the whole report upto that count"
         generateReport();
 
