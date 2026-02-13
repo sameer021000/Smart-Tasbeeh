@@ -29,7 +29,6 @@ public class AnalysisActivity extends AppCompatActivity {
     private TextView tvCount, tvTapHint, tvPausedOverlay;
     private View btnTap, reportView;
     private FloatingActionButton fabPause;
-    private android.view.ViewGroup layoutPauseOptions;
     private Button btnReset, btnShowReport;
 
     private Button btnStartOverlay;
@@ -95,7 +94,6 @@ public class AnalysisActivity extends AppCompatActivity {
         btnStartOverlay = findViewById(R.id.btnStartOverlay);
 
         fabPause = findViewById(R.id.fabPause);
-        layoutPauseOptions = findViewById(R.id.layoutPauseOptions);
         btnReset = findViewById(R.id.btnResetAnalysis);
         btnShowReport = findViewById(R.id.btnShowReport);
 
@@ -108,7 +106,9 @@ public class AnalysisActivity extends AppCompatActivity {
         fabPause.setVisibility(View.INVISIBLE);
         reportView.setVisibility(View.GONE);
         tvPausedOverlay.setVisibility(View.GONE);
-        layoutPauseOptions.setVisibility(View.GONE);
+        //Instead of layoutPauseOptions
+        btnReset.setVisibility(View.GONE);
+        btnShowReport.setVisibility(View.GONE);
 
         // Disable tap until started
         btnTap.setEnabled(false);
@@ -189,7 +189,10 @@ public class AnalysisActivity extends AppCompatActivity {
         if (isPaused) {
             // Entering Pause
             fabPause.setImageResource(R.drawable.ic_play_circle); // Play icon to resume
-            layoutPauseOptions.setVisibility(View.VISIBLE);
+            //Instead of layoutPauseOptions
+            btnReset.setVisibility(View.VISIBLE);
+            btnShowReport.setVisibility(View.VISIBLE);
+
             tvPausedOverlay.setVisibility(View.VISIBLE);
             btnTap.setEnabled(false); // Disable tap
             reportView.setVisibility(View.GONE); // Hide previous report if any, wait for user request
@@ -198,7 +201,10 @@ public class AnalysisActivity extends AppCompatActivity {
         } else {
             // Resuming
             fabPause.setImageResource(R.drawable.ic_pause);
-            layoutPauseOptions.setVisibility(View.GONE);
+            //Instead of layoutPauseOptions
+            btnReset.setVisibility(View.GONE);
+            btnShowReport.setVisibility(View.GONE);
+
             tvPausedOverlay.setVisibility(View.GONE);
             btnTap.setEnabled(true);
             reportView.setVisibility(View.GONE);
@@ -217,7 +223,10 @@ public class AnalysisActivity extends AppCompatActivity {
         lastTapTime = 0;
 
         // Reset UI to Initial State
-        layoutPauseOptions.setVisibility(View.GONE);
+        //Instead of layoutPauseOptions
+        btnReset.setVisibility(View.GONE);
+        btnShowReport.setVisibility(View.GONE);
+
         reportView.setVisibility(View.GONE);
         tvPausedOverlay.setVisibility(View.GONE);
         fabPause.setVisibility(View.INVISIBLE);
@@ -417,7 +426,10 @@ public class AnalysisActivity extends AppCompatActivity {
         btnTap.setAlpha(0.6f);
 
         // "After reaching 100, circular counter disabled and reset button displayed"
-        layoutPauseOptions.setVisibility(View.VISIBLE);
+        //Instead of layoutPauseOptions
+        btnReset.setVisibility(View.VISIBLE);
+        btnShowReport.setVisibility(View.VISIBLE);
+
         // We only want Reset button in this specific case? Or both?
         // "Only after clicking reset... counter goes to 0"
 

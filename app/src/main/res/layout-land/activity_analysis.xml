@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <!-- Title and Subtitle - Right Side Top -->
     <LinearLayout
@@ -181,54 +181,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/leftContentBarrier">
 
-        <!-- Container for Reset & Report (Toggled by Java) -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutPauseOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <Button
-                android:id="@+id/btnResetAnalysis"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reset"
-                android:textSize="10sp"
-                android:layout_marginEnd="60dp"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:letterSpacing="0.05"
-                android:backgroundTint="@color/tasbeeh_blue_primary"
-                app:cornerRadius="8dp"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <Button
-                android:id="@+id/btnShowReport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Report"
-                android:layout_marginStart="60dp"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:letterSpacing="0.05"
-                android:backgroundTint="@color/tasbeeh_blue_primary"
-                app:cornerRadius="8dp"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <!-- Pause Button (Persistent, Centered) -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabPause"
@@ -247,6 +199,42 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnResetAnalysis"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Reset"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:visibility="gone"
+        android:backgroundTint="@color/tasbeeh_blue_primary"
+        app:cornerRadius="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        app:layout_constraintTop_toBottomOf="@+id/btnTap"
+        app:layout_constraintEnd_toStartOf="@+id/controlsLayout"/>
+
+    <Button
+        android:id="@+id/btnShowReport"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Report"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:visibility="gone"
+        android:backgroundTint="@color/tasbeeh_blue_primary"
+        app:cornerRadius="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        app:layout_constraintTop_toBottomOf="@+id/btnTap"
+        app:layout_constraintStart_toEndOf="@+id/controlsLayout"/>
 
     <!-- Divider -->
     <View
