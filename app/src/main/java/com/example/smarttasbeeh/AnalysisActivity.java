@@ -29,7 +29,7 @@ public class AnalysisActivity extends AppCompatActivity {
     private TextView tvCount, tvTapHint, tvPausedOverlay;
     private View btnTap, reportView;
     private FloatingActionButton fabPause;
-    private LinearLayout layoutPauseOptions;
+    private android.view.ViewGroup layoutPauseOptions;
     private Button btnReset, btnShowReport;
 
     private Button btnStartOverlay;
