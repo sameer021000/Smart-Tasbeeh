@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SETTINGS"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:fontFamily="sans-serif-black"
         android:letterSpacing="0.10"
         android:textColor="@color/tasbeeh_blue_primary"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Did you know?"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/count_text_color"
                     android:layout_marginBottom="4dp"/>
