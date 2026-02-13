@@ -20,8 +20,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:src="@drawable/ic_clock"
             app:tint="@color/count_text_color"
             android:layout_marginEnd="8dp"/>
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Saved History"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/count_text_color" />
 
@@ -48,12 +48,12 @@
             android:text="0 records"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/count_text_color"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
 
         <ImageView
             android:id="@+id/btnSort"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/item_bg_shape"
             android:backgroundTint="@color/card_background"
@@ -112,6 +112,22 @@
         app:layout_constraintStart_toEndOf="@id/guideline_vertical_50"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_saved_count" />
+
+    <!-- Empty Pinned View (Visible when no pinned items in Landscape) -->
+    <TextView
+        android:id="@+id/emptyPinnedView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO\nPINNED\nCOUNTS"
+        android:textColor="@color/count_text_color"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_vertical_50"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/emptyView"

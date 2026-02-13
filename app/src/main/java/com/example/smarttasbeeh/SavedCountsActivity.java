@@ -23,6 +23,7 @@ public class SavedCountsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView recyclerViewPinned; // For landscape
     private View emptyView;
+    private TextView emptyPinnedView; // For landscape "NO PINNED COUNTS"
     private DbHelper dbHelper;
     private ImageView ivSort;
 
@@ -54,6 +55,8 @@ public class SavedCountsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerViewPinned = findViewById(R.id.recyclerViewPinned); // Will be null in portrait
         emptyView = findViewById(R.id.emptyView);
+        emptyPinnedView = findViewById(R.id.emptyPinnedView); // Will be null in portrait
+
         // Load saved sort order
         currentSort = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_SORT_ORDER, SORT_LATEST);
 
@@ -142,6 +145,7 @@ public class SavedCountsActivity extends AppCompatActivity {
         if (counts.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             if (recyclerViewPinned != null) recyclerViewPinned.setVisibility(View.GONE);
+            if (emptyPinnedView != null) emptyPinnedView.setVisibility(View.GONE); 
             emptyView.setVisibility(View.VISIBLE);
         } else {
             emptyView.setVisibility(View.GONE);
@@ -149,15 +153,20 @@ public class SavedCountsActivity extends AppCompatActivity {
             if (recyclerViewPinned != null) {
                 // LANDSCAPE: Dual List
                 
-                // Left: Unpinned (Saved History)
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 recyclerView.setAdapter(new SavedCountsAdapter(unpinnedList, listener));
 
                 // Right: Pinned
-                recyclerViewPinned.setVisibility(View.VISIBLE);
-                recyclerViewPinned.setLayoutManager(new LinearLayoutManager(this));
-                recyclerViewPinned.setAdapter(new SavedCountsAdapter(pinnedList, listener));
+                if (pinnedList.isEmpty()) {
+                    recyclerViewPinned.setVisibility(View.GONE);
+                    if (emptyPinnedView != null) emptyPinnedView.setVisibility(View.VISIBLE);
+                } else {
+                    if (emptyPinnedView != null) emptyPinnedView.setVisibility(View.GONE);
+                    recyclerViewPinned.setVisibility(View.VISIBLE);
+                    recyclerViewPinned.setLayoutManager(new LinearLayoutManager(this));
+                    recyclerViewPinned.setAdapter(new SavedCountsAdapter(pinnedList, listener));
+                }
 
             } else {
                 // PORTRAIT: Single List (Pinned then Unpinned)
