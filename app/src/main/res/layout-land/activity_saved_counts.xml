@@ -20,8 +20,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_clock"
             app:tint="@color/count_text_color"
             android:layout_marginEnd="8dp"/>
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Saved History"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/count_text_color" />
 
@@ -48,12 +48,12 @@
             android:text="0 records"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/count_text_color"
-            android:textSize="12sp"/>
+            android:textSize="30sp"/>
 
         <ImageView
             android:id="@+id/btnSort"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/item_bg_shape"
             android:backgroundTint="@color/card_background"
