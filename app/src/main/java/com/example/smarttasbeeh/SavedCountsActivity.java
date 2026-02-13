@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import android.widget.ImageView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +21,7 @@ import java.util.Locale;
 public class SavedCountsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private RecyclerView recyclerViewPinned; // For landscape
     private View emptyView;
     private DbHelper dbHelper;
     private ImageView ivSort;
@@ -49,21 +49,18 @@ public class SavedCountsActivity extends AppCompatActivity {
                     android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        // Apply theme 
-        // Logic handled by device usually, but ensuring consistent prefs read if we had complex theming
-
         dbHelper = new DbHelper(this);
 
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerViewPinned = findViewById(R.id.recyclerViewPinned); // Will be null in portrait
         emptyView = findViewById(R.id.emptyView);
         // Load saved sort order
         currentSort = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_SORT_ORDER, SORT_LATEST);
 
-        ivSort = findViewById(R.id.btnSort); // Correct ID from layout change
+        ivSort = findViewById(R.id.btnSort); 
         ivSort.setOnClickListener(this::showSortMenu);
 
         // Top Bar Logic (Custom Header)
-        // Ensure to reference new nav buttons if the layout changed
         findViewById(R.id.btnNavCounter).setOnClickListener(v -> {
             Intent intent = new Intent(SavedCountsActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -90,8 +87,23 @@ public class SavedCountsActivity extends AppCompatActivity {
     private void loadCounts() {
         List<SavedCount> counts = dbHelper.getAllCounts();
 
-        // Sort the list based on currentSort
-        sortList(counts);
+        // 1. Separate into Pinned and Unpinned
+        java.util.List<SavedCount> pinnedList = new java.util.ArrayList<>();
+        java.util.List<SavedCount> unpinnedList = new java.util.ArrayList<>();
+
+        for (SavedCount item : counts) {
+            if (item.isPinned()) {
+                pinnedList.add(item);
+            } else {
+                unpinnedList.add(item);
+            }
+        }
+
+        // 2. Sort Pinned List (Always Latest Pinned First)
+        Collections.sort(pinnedList, (o1, o2) -> Long.compare(o2.getPinnedTimestamp(), o1.getPinnedTimestamp()));
+
+        // 3. Sort Unpinned List (Based on User Preference)
+        sortUnpinnedList(unpinnedList);
 
         // Update Badge
         TextView badge = findViewById(R.id.recordCountBadge);
@@ -99,60 +111,88 @@ public class SavedCountsActivity extends AppCompatActivity {
             badge.setText(counts.size() + " records");
         }
 
+        // Listener
+        SavedCountsAdapter.OnItemClickListener listener = new SavedCountsAdapter.OnItemClickListener() {
+            @Override
+            public void onContinueClick(SavedCount item) {
+                getSharedPreferences("TasbeehPrefs", MODE_PRIVATE)
+                        .edit()
+                        .putInt("count", item.getCount())
+                        .putInt("resume_id", item.getId())
+                        .putString("resume_title", item.getTitle())
+                        .apply();
+                Intent intent = new Intent(SavedCountsActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+            }
+
+            @Override
+            public void onDeleteClick(SavedCount item) {
+                showDeleteDialog(item);
+            }
+
+            @Override
+            public void onItemLongClick(SavedCount item) {
+                showPinDialog(item);
+            }
+        };
+
         if (counts.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
+            if (recyclerViewPinned != null) recyclerViewPinned.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         } else {
-            recyclerView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
 
-            SavedCountsAdapter adapter = new SavedCountsAdapter(counts, new SavedCountsAdapter.OnItemClickListener() {
-                @Override
-                public void onContinueClick(SavedCount item) {
-                    getSharedPreferences("TasbeehPrefs", MODE_PRIVATE)
-                            .edit()
-                            .putInt("count", item.getCount())
-                            .putInt("resume_id", item.getId())
-                            .putString("resume_title", item.getTitle())
-                            .apply();
-                    // Go to MainActivity
-                    Intent intent = new Intent(SavedCountsActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                    finish();
-                }
+            if (recyclerViewPinned != null) {
+                // LANDSCAPE: Dual List
+                
+                // Left: Unpinned (Saved History)
+                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(new SavedCountsAdapter(unpinnedList, listener));
 
-                @Override
-                public void onDeleteClick(SavedCount item) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SavedCountsActivity.this);
-                    View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirm, null);
-                    builder.setView(view);
-                    AlertDialog dialog = builder.create();
+                // Right: Pinned
+                recyclerViewPinned.setVisibility(View.VISIBLE);
+                recyclerViewPinned.setLayoutManager(new LinearLayoutManager(this));
+                recyclerViewPinned.setAdapter(new SavedCountsAdapter(pinnedList, listener));
 
-                    if (dialog.getWindow() != null) {
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                    }
-
-                    view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
-                    view.findViewById(R.id.btnDeleteConfirm).setOnClickListener(v -> {
-                        dbHelper.deleteCount(item.getId());
-                        loadCounts(); // Refresh list
-                        dialog.dismiss();
-                    });
-
-                    dialog.show();
-                }
-
-                @Override
-                public void onItemLongClick(SavedCount item) {
-                    showPinDialog(item);
-                }
-            });
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(adapter);
+            } else {
+                // PORTRAIT: Single List (Pinned then Unpinned)
+                recyclerView.setVisibility(View.VISIBLE);
+                
+                List<SavedCount> fullList = new java.util.ArrayList<>();
+                fullList.addAll(pinnedList);
+                fullList.addAll(unpinnedList);
+                
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(new SavedCountsAdapter(fullList, listener));
+            }
         }
     }
+
+    private void showDeleteDialog(SavedCount item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SavedCountsActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirm, null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.btnDeleteConfirm).setOnClickListener(v -> {
+            dbHelper.deleteCount(item.getId());
+            loadCounts(); // Refresh list
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
     private void showSortMenu(View view) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
         View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_sort, null);
@@ -206,25 +246,13 @@ public class SavedCountsActivity extends AppCompatActivity {
         dialog.dismiss();
     }
 
-    private void sortList(List<SavedCount> counts) {
+    private void sortUnpinnedList(List<SavedCount> counts) {
         Collections.sort(counts, new Comparator<SavedCount>() {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
             
             @Override
             public int compare(SavedCount o1, SavedCount o2) {
-                // Always prioritize Pinned items first
-                boolean p1 = o1.isPinned();
-                boolean p2 = o2.isPinned();
-                
-                if (p1 && !p2) return -1;
-                if (!p1 && p2) return 1;
-                
-                if (p1 && p2) {
-                    // Both pinned: Sort by Pinned Timestamp DESC (Latest Pin First)
-                    return Long.compare(o2.getPinnedTimestamp(), o1.getPinnedTimestamp());
-                }
-
-                // If both unpinned, sort by selected criteria
+                // Only normal sorting logic here
                 switch (currentSort) {
                     case SORT_HIGHEST:
                         return Integer.compare(o2.getCount(), o1.getCount());
@@ -251,7 +279,6 @@ public class SavedCountsActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void showPinDialog(SavedCount item) {
         boolean isPinned = item.isPinned();
