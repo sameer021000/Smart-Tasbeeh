@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Card Style -->
+    <style name="PercentCornerCard" parent="Widget.Material3.CardView.Filled">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.PercentCorner</item>
+    </style>
+
+    <style name="ShapeAppearance.App.PercentCorner" parent="">
+        <!-- 25% corner radius of the card's height/width (smallest dimension) -->
+        <item name="cornerSize">15%</item>
+    </style>
+</resources>
