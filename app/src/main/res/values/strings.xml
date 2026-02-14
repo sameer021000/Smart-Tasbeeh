@@ -9,6 +9,9 @@
     <string name="action_decrease_count">Decrease count</string>
     <string name="action_auto_count">Auto count</string>
     <string name="action_set_target">Set target</string>
+    <string name="action_pause_analysis">Pause analysis</string>
+    <string name="action_resume_analysis">Resume analysis</string>
+    <string name="action_tap_count">Count</string>
     <string name="nav_analysis">ANALYSIS</string>
     <string name="nav_counter">COUNTER</string>
     <string name="nav_history">HISTORY</string>

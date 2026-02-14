@@ -96,7 +96,8 @@
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackgroundBorderless" 
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:contentDescription="@string/action_tap_count"/>
 
             <!-- Start Button Overlay -->
             <Button
@@ -143,7 +144,8 @@
             android:visibility="invisible"
             app:layout_constraintTop_toTopOf="@id/controlsAnchor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/action_pause_analysis"/>
 
         <!-- Reset Button (Left of Pause) -->
         <Button
@@ -264,7 +266,7 @@
         android:id="@+id/bottomNavDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/count_text_color"
+        android:background="@color/card_stroke_color"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"/>
 
     <!-- Bottom Nav -->
@@ -289,7 +291,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_analysis"
-                app:tint="@color/nav_text_selected"/>
+                app:tint="@color/nav_text_selected"
+                android:contentDescription="@null"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -315,7 +318,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_add"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected"
+                android:contentDescription="@null"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -341,7 +345,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_clock"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected"
+                android:contentDescription="@null"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -367,7 +372,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_settings"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected"
+                android:contentDescription="@null"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

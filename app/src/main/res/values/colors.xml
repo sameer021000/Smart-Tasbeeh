@@ -15,7 +15,7 @@
 
     <!-- Text -->
     <color name="text_primary">#0F172A</color>         <!-- Slate 900 -->
-    <color name="text_secondary">#64748B</color>       <!-- Slate 500 -->
+    <color name="text_secondary">#475569</color>       <!-- Slate 600 (was Slate 500) -->
     <color name="text_white">#FFFFFF</color>
 
     <!-- Action Colors -->
@@ -32,7 +32,7 @@
     <color name="nav_text_selected">#2563EB</color>
     <color name="nav_text_unselected">#64748B</color>  <!-- Slate 500 (was Slate 400) -->
     <color name="nav_bg">#FFFFFF</color>
-    <color name="hint_text">#64748B</color>
+    <color name="hint_text">#475569</color>
 
     <color name="grid_line_color">#2563EB</color>
 
