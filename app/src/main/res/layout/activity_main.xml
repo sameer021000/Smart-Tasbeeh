@@ -61,14 +61,15 @@
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="@id/cardCountDisplay"
-        app:layout_constraintTop_toBottomOf="@id/cardCountDisplay">
+        app:layout_constraintTop_toBottomOf="@id/cardCountDisplay"
+        android:contentDescription="@string/action_save_count">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_save"
-            app:tint="@color/card_background"/>
+            app:tint="@color/card_background" android:contentDescription="@null"/>
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
@@ -103,14 +104,15 @@
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="@id/cardCountDisplay"
-        app:layout_constraintTop_toBottomOf="@id/cardCountDisplay">
+        app:layout_constraintTop_toBottomOf="@id/cardCountDisplay"
+        android:contentDescription="@string/action_reset_count">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_refresh"
-            app:tint="@color/card_background"/>
+            app:tint="@color/card_background" android:contentDescription="@null"/>
     </com.google.android.material.card.MaterialCardView>
 
     <!-- 2. Middle Container for Draggable Button -->
@@ -201,13 +203,14 @@
             app:strokeWidth="2dp"
             app:strokeColor="@color/card_stroke_color"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:contentDescription="@string/action_decrease_count">
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_remove"
-                app:tint="@color/card_background"/>
+                app:tint="@color/card_background" android:contentDescription="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Auto Button -->
@@ -220,14 +223,15 @@
             app:cardBackgroundColor="@color/tasbeeh_blue_accent"
             app:strokeColor="@color/card_stroke_color"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:contentDescription="@string/action_auto_count">
             <ImageView
                 android:id="@+id/ivAutoIcon"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_auto"
-                app:tint="@color/card_background"/>
+                app:tint="@color/card_background" android:contentDescription="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Target Button -->
@@ -242,13 +246,14 @@
             app:strokeWidth="2dp"
             app:strokeColor="@color/card_stroke_color"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:contentDescription="@string/action_set_target">
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_target"
-                app:tint="@color/card_background"/>
+                app:tint="@color/card_background" android:contentDescription="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
@@ -286,7 +291,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_analysis"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -312,7 +317,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_add"
-                app:tint="@color/nav_text_selected"/>
+                app:tint="@color/nav_text_selected" android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -340,7 +345,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_clock"
-                app:tint="@color/nav_text_unselected" />
+                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -368,7 +373,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_settings"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"

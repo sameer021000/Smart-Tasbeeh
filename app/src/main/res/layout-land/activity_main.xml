@@ -81,13 +81,14 @@
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/action_save_count">
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_save"
-                app:tint="@color/card_background"/>
+                app:tint="@color/card_background" android:contentDescription="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -102,13 +103,14 @@
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/action_reset_count">
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_refresh"
-                app:tint="@color/card_background"/>
+                app:tint="@color/card_background" android:contentDescription="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Row 2: Auto -->
@@ -125,14 +127,15 @@
             android:focusable="true"
             app:layout_constraintTop_toBottomOf="@id/btnSave"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/action_auto_count">
             <ImageView
                 android:id="@+id/ivAutoIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_auto"
-                app:tint="@color/card_background"/>
+                app:tint="@color/card_background" android:contentDescription="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Row 3: Decrease & Target -->
@@ -156,7 +159,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_remove"
-                app:tint="@color/card_background"/>
+                app:tint="@color/card_background" android:contentDescription="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -173,13 +176,14 @@
             android:focusable="true"
             app:layout_constraintTop_toBottomOf="@id/btnAuto"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/action_set_target">
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_target"
-                app:tint="@color/card_background"/>
+                app:tint="@color/card_background" android:contentDescription="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -301,7 +305,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_analysis"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -321,13 +325,14 @@
             android:orientation="vertical"
             android:gravity="center"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:contentDescription="@string/action_decrease_count">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_add"
-                app:tint="@color/nav_text_selected"/>
+                app:tint="@color/nav_text_selected" android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -355,7 +360,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_clock"
-                app:tint="@color/nav_text_unselected" />
+                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -383,7 +388,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_settings"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"

@@ -30,9 +30,9 @@
     <color name="tap_btn_color">#2563EB</color>        <!-- Blue 600 -->
     <color name="tap_btn_text">#FFFFFF</color>
     <color name="nav_text_selected">#2563EB</color>
-    <color name="nav_text_unselected">#94A3B8</color>  <!-- Slate 400 -->
+    <color name="nav_text_unselected">#64748B</color>  <!-- Slate 500 (was Slate 400) -->
     <color name="nav_bg">#FFFFFF</color>
-    <color name="hint_text">#94A3B8</color>
+    <color name="hint_text">#64748B</color>
 
     <color name="grid_line_color">#2563EB</color>
 

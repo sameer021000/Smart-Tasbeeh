@@ -4,6 +4,11 @@
     <string name="Tasbeeh_Name">TASBEEH</string>
     <string name="Tap_Button_Text">TAP</string>
     <string name="Button_Reposition_Hint_Text">HOLD 3-SECONDS TO REPOSITION BUTTON</string>
+    <string name="action_save_count">Save count</string>
+    <string name="action_reset_count">Reset count</string>
+    <string name="action_decrease_count">Decrease count</string>
+    <string name="action_auto_count">Auto count</string>
+    <string name="action_set_target">Set target</string>
     <string name="nav_analysis">ANALYSIS</string>
     <string name="nav_counter">COUNTER</string>
     <string name="nav_history">HISTORY</string>
