@@ -153,7 +153,8 @@
             android:focusable="true"
             app:layout_constraintTop_toBottomOf="@id/btnAuto"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/action_decrease_count">
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -242,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Tap_Button_Text"
                 android:textColor="@color/tap_btn_text"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1"
                 android:layout_gravity="center"/>
@@ -325,8 +326,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="@string/action_decrease_count">
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"

@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Tap_Button_Text"
                 android:textColor="@color/tap_btn_text"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1"
                 android:layout_gravity="center"/>
