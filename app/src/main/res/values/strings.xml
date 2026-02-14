@@ -18,4 +18,17 @@
     <string name="no_records_badge">0 records</string>
     <string name="no_saved_counts">No saved counts found</string>
     <string name="no_pinned_counts">NO\nPINNED\nCOUNTS</string>
+    <string name="did_you_know_title">Did you know?</string>
+    <string name="drag_button_hint">You can move the count button anywhere on the screen! Just press and hold it for 3 seconds to enter layout mode.</string>
+    <string name="drag_button_hint_short">You can move the count button anywhere! Hold for 3s.</string>
+    <string name="dark_mode_title">Dark Mode</string>
+    <string name="dark_mode_desc">Toggle between light and dark themes</string>
+    <string name="haptic_feedback_title">Haptic Feedback</string>
+    <string name="haptic_feedback_desc">Strong vibration on every count</string>
+    <string name="sound_title">Sound</string>
+    <string name="sound_desc">Play sound on every count</string>
+    <string name="tap_anywhere_title">Tap Anywhere</string>
+    <string name="tap_anywhere_desc">Count by tapping anywhere on the screen</string>
+    <string name="app_version">Smart Tasbeeh v1.0.0</string>
+    <string name="vibration_percentage_text">75%</string>
 </resources>

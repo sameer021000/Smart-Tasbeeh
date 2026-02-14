@@ -21,7 +21,7 @@
                 android:id="@+id/tvPageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SETTINGS"
+                android:text="@string/nav_settings"
                 android:textSize="36sp"
                 android:fontFamily="sans-serif-black"
                 android:letterSpacing="0.10"
@@ -52,7 +52,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Did you know?"
+                    android:text="@string/did_you_know_title"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/count_text_color"
@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="You can move the count button anywhere on the screen! Just press and hold it for 3 seconds to enter layout mode."
+                    android:text="@string/drag_button_hint"
                     android:textSize="14sp"
                     android:textColor="@color/text_secondary"
                     android:lineSpacingMultiplier="1.2"/>
@@ -91,7 +91,7 @@
                         android:id="@+id/tvDarkMode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dark Mode"
+                        android:text="@string/dark_mode_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
@@ -101,7 +101,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Toggle between light and dark themes"
+                        android:text="@string/dark_mode_desc"
                         android:textSize="14sp"
                         android:textColor="@color/text_secondary"
                         android:layout_marginTop="4dp"
@@ -147,7 +147,7 @@
                         android:id="@+id/tvHaptic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Haptic Feedback"
+                        android:text="@string/haptic_feedback_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
@@ -157,7 +157,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Strong vibration on every count"
+                        android:text="@string/haptic_feedback_desc"
                         android:textSize="14sp"
                         android:textColor="@color/text_secondary"
                         android:layout_marginTop="4dp"
@@ -189,7 +189,7 @@
                             android:id="@+id/tvSeekValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="75%"
+                            android:text="@string/vibration_percentage_text"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@color/tasbeeh_blue_primary"
@@ -239,7 +239,7 @@
                         android:id="@+id/tvSound"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sound"
+                        android:text="@string/sound_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
@@ -249,7 +249,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Play sound on every count"
+                        android:text="@string/sound_desc"
                         android:textSize="14sp"
                         android:textColor="@color/text_secondary"
                         android:layout_marginTop="4dp"
@@ -295,7 +295,7 @@
                         android:id="@+id/tvTapAnywhere"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tap Anywhere"
+                        android:text="@string/tap_anywhere_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
@@ -305,7 +305,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Count by tapping anywhere on the screen"
+                        android:text="@string/tap_anywhere_desc"
                         android:textSize="14sp"
                         android:textColor="@color/text_secondary"
                         android:layout_marginTop="4dp"
@@ -330,7 +330,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Smart Tasbeeh v1.0.0"
+                android:text="@string/app_version"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:layout_marginTop="32dp"
@@ -382,8 +382,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ANALYSIS"
-                android:textSize="10sp"
+                android:text="@string/nav_analysis"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/nav_text_unselected"
                 android:layout_marginTop="4dp"/>
@@ -410,8 +410,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COUNTER"
-                android:textSize="10sp"
+                android:text="@string/nav_counter"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/nav_text_unselected"/>
@@ -439,9 +439,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="HISTORY"
+                android:text="@string/nav_history"
                 android:textColor="@color/nav_text_unselected"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -464,8 +464,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SETTINGS"
-                android:textSize="10sp"
+                android:text="@string/nav_settings"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/nav_text_selected"/>
