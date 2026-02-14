@@ -260,7 +260,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/Button_Reposition_Hint_Text"
             android:textColor="@color/hint_text"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:textStyle="bold"
             android:letterSpacing="0.05"
             android:layout_gravity="bottom|center_horizontal"/>
@@ -307,7 +307,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_analysis"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/nav_text_unselected"/>
@@ -333,7 +333,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_counter"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/nav_text_selected"/>
@@ -363,7 +363,7 @@
                 android:layout_marginTop="2dp"
                 android:text="@string/nav_history"
                 android:textColor="@color/nav_text_unselected"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -389,7 +389,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_settings"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/nav_text_unselected"/>
