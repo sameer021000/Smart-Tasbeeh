@@ -194,7 +194,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/bg_grid_container"
-        android:clipToOutline="true"
+
         app:layout_constraintStart_toEndOf="@id/guideline_vertical_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -306,7 +306,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ANALYSIS"
+                android:text="@string/nav_analysis"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp"
@@ -332,7 +332,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COUNTER"
+                android:text="@string/nav_counter"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp"
@@ -361,7 +361,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="HISTORY"
+                android:text="@string/nav_history"
                 android:textColor="@color/nav_text_unselected"
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -388,7 +388,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SETTINGS"
+                android:text="@string/nav_settings"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp"

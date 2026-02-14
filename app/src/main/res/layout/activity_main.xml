@@ -123,7 +123,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/bg_grid_container"
-        android:clipToOutline="true"
         app:layout_constraintTop_toBottomOf="@id/btnSave"
         app:layout_constraintBottom_toTopOf="@id/controlsBar">
 
@@ -292,8 +291,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ANALYSIS"
-                android:textSize="10sp"
+                android:text="@string/nav_analysis"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/nav_text_unselected"/>
@@ -318,8 +317,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COUNTER"
-                android:textSize="10sp"
+                android:text="@string/nav_counter"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/nav_text_selected"/>
@@ -347,9 +346,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="HISTORY"
+                android:text="@string/nav_history"
                 android:textColor="@color/nav_text_unselected"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -374,8 +373,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SETTINGS"
-                android:textSize="10sp"
+                android:text="@string/nav_settings"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/nav_text_unselected"/>

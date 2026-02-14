@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         counterButton = findViewById(R.id.videoButton);
         gridBackground = findViewById(R.id.gridBackground);
         bigBoxContainer = findViewById(R.id.bigBoxContainer);
+        bigBoxContainer.setClipToOutline(true);
         btnReset = findViewById(R.id.btnReset); // Promoted
         btnSave = findViewById(R.id.btnSave);   // Promoted
 

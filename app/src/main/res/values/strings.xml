@@ -4,4 +4,14 @@
     <string name="Tasbeeh_Name">TASBEEH</string>
     <string name="Tap_Button_Text">TAP</string>
     <string name="Button_Reposition_Hint_Text">HOLD 3-SECONDS TO REPOSITION BUTTON</string>
+    <string name="nav_analysis">ANALYSIS</string>
+    <string name="nav_counter">COUNTER</string>
+    <string name="nav_history">HISTORY</string>
+    <string name="nav_settings">SETTINGS</string>
+    <string name="zikr_analysis_title">Zikr Analysis</string>
+    <string name="zikr_analysis_subtitle">Tap to measure your Zikr speed</string>
+    <string name="paused_text">PAUSED</string>
+    <string name="start_button_text">START</string>
+    <string name="reset_button_text">Reset</string>
+    <string name="report_button_text">Report</string>
 </resources>
