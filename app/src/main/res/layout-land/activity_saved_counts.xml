@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Saved History"
+            android:text="@string/history_title"
             android:textSize="25sp"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/count_text_color" />
@@ -45,7 +45,7 @@
             android:paddingEnd="12dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
-            android:text="0 records"
+            android:text="@string/no_records_badge"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/count_text_color"
             android:textSize="20sp"/>
@@ -118,7 +118,7 @@
         android:id="@+id/emptyPinnedView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NO\nPINNED\nCOUNTS"
+        android:text="@string/no_pinned_counts"
         android:textColor="@color/count_text_color"
         android:textSize="20sp"
         android:fontFamily="sans-serif-black"
@@ -133,7 +133,7 @@
         android:id="@+id/emptyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No saved counts found"
+        android:text="@string/no_saved_counts"
         android:textColor="@color/text_secondary"
         android:textSize="16sp"
         android:visibility="gone"
@@ -181,8 +181,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ANALYSIS"
-                android:textSize="10sp"
+                android:text="@string/nav_analysis"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/nav_text_unselected"
                 android:layout_marginTop="2dp"/>
@@ -209,8 +209,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COUNTER"
-                android:textSize="10sp"
+                android:text="@string/nav_counter"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/nav_text_unselected"/>
@@ -237,9 +237,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="HISTORY"
+                android:text="@string/nav_history"
                 android:textColor="@color/nav_text_selected"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -264,8 +264,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SETTINGS"
-                android:textSize="10sp"
+                android:text="@string/nav_settings"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/nav_text_unselected"/>

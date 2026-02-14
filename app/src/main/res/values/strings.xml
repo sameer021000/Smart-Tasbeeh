@@ -14,4 +14,8 @@
     <string name="start_button_text">START</string>
     <string name="reset_button_text">Reset</string>
     <string name="report_button_text">Report</string>
+    <string name="history_title">Saved History</string>
+    <string name="no_records_badge">0 records</string>
+    <string name="no_saved_counts">No saved counts found</string>
+    <string name="no_pinned_counts">NO\nPINNED\nCOUNTS</string>
 </resources>
