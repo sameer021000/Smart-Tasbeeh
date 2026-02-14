@@ -104,7 +104,7 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Invisible Space for 3% Margin -->
+    <!-- Invisible Space for 2% Margin -->
     <Space
         android:id="@+id/spaceBtnGap"
         android:layout_width="match_parent"
@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@id/cardCountDisplay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.03" />
+        app:layout_constraintHeight_percent="0.02" />
 
     <!-- Save Button (Left) -->
     <com.google.android.material.card.MaterialCardView
@@ -153,20 +153,24 @@
 
     <TextView
         android:id="@+id/tvAppTitle"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
         android:text="@string/Tasbeeh_Name"
         android:textColor="@color/tasbeeh_blue_primary"
-        android:textSize="36sp"
+        android:gravity="center"
         android:fontFamily="sans-serif-black"
         android:letterSpacing="0.10"
         android:shadowColor="@color/card_stroke_color"
         android:shadowRadius="12"
         android:shadowDy="4"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/btnReset"
         app:layout_constraintStart_toEndOf="@+id/btnSave"
-        app:layout_constraintTop_toBottomOf="@+id/cardCountDisplay" />
+        app:layout_constraintTop_toTopOf="@+id/btnSave"
+        app:layout_constraintBottom_toBottomOf="@+id/btnReset"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="40sp"
+        app:autoSizeStepGranularity="1sp" />
 
     <!-- Reset Button (Right) -->
     <com.google.android.material.card.MaterialCardView
@@ -205,6 +209,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Invisible Space for 2% Margin -->
+    <Space
+        android:id="@+id/spaceBtnGap2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/btnSave"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.02" />
+
     <!-- 2. Middle Container for Draggable Button -->
     <FrameLayout
         android:id="@+id/bigBoxContainer"
@@ -212,10 +226,9 @@
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/bg_grid_container"
-        app:layout_constraintTop_toBottomOf="@id/btnSave"
+        app:layout_constraintTop_toBottomOf="@id/spaceBtnGap2"
         app:layout_constraintBottom_toTopOf="@id/controlsBar">
 
         <!-- Grid Background -->
