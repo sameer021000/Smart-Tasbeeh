@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/Tap_Button_Text"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:fontFamily="sans-serif-black"
                 android:textColor="@color/text_secondary"
                 android:translationY="35dp"/>
@@ -224,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/zikr_analysis_subtitle"
                 android:textColor="@color/text_secondary"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 
@@ -294,7 +294,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_analysis"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/nav_text_selected"
                 android:layout_marginTop="2dp"/>
@@ -320,7 +320,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_counter"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/nav_text_unselected"
                 android:layout_marginTop="2dp"/>
@@ -346,7 +346,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_history"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/nav_text_unselected"
                 android:layout_marginTop="2dp"/>
@@ -372,7 +372,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_settings"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/nav_text_unselected"
                 android:layout_marginTop="2dp"/>
