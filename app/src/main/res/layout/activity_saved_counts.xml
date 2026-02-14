@@ -14,24 +14,25 @@
         android:orientation="horizontal"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:paddingTop="24dp"
+        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:src="@drawable/ic_clock"
             app:tint="@color/count_text_color"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@null"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/history_title"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/count_text_color" />
 
@@ -52,8 +53,8 @@
 
         <ImageView
             android:id="@+id/btnSort"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/item_bg_shape"
             android:backgroundTint="@color/card_background"
@@ -61,7 +62,8 @@
             android:scaleType="centerInside"
             app:tint="@color/count_text_color"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:contentDescription="@string/action_sort_history"/>
 
     </LinearLayout>
 
@@ -123,7 +125,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_analysis"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected"
+                android:contentDescription="@null"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,7 +153,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_add"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected"
+                android:contentDescription="@null"/>
                 
             <TextView
                 android:layout_width="wrap_content"
@@ -177,7 +181,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_clock"
-                app:tint="@color/nav_text_selected" />
+                app:tint="@color/nav_text_selected"
+                android:contentDescription="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -205,7 +210,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_settings"
-                app:tint="@color/nav_text_unselected"/>
+                app:tint="@color/nav_text_unselected"
+                android:contentDescription="@null"/>
                 
             <TextView
                 android:layout_width="wrap_content"
