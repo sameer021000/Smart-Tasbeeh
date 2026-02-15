@@ -1,5 +1,6 @@
 package com.example.smarttasbeeh;
 import android.annotation.SuppressLint;
+import android.util.Log;
 import androidx.appcompat.app.AlertDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
@@ -17,12 +18,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.cardview.widget.CardView;
 import com.google.android.material.card.MaterialCardView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int currentCount = 0;
     private int targetCount = 0;
-    private final int MAX_COUNT = 9999999;
+    private static final int MAX_COUNT = 9999999;
     private boolean isVibrationEnabled = true;
     private boolean isTapAnywhereEnabled = false;
     private boolean isSoundEnabled = false;
@@ -60,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
     private View rootLayout;
 
     // New Controls
-    private View btnDecrease, btnAuto, btnTarget, btnReset, btnSave;
+    private View btnDecrease, btnTarget, btnReset, btnSave;
     private android.widget.ImageView ivAutoIcon;
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     private boolean isDragMode = false;
     private float dX, dY;
     private float lastTouchX, lastTouchY;
 
     // Auto Count Logic
-    private Handler autoHandler = new Handler();
+    private final Handler autoHandler = new Handler();
     private Runnable autoRunnable;
     private boolean isAutoRunning = false;
     private boolean shouldIgnoreTarget = false; // New flag for Case A/B
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("MainActivity", "Error creating ToneGenerator", e);
         }
 
         // Initialize Views
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         rootLayout = findViewById(R.id.main);
 
         btnDecrease = findViewById(R.id.btnDecrease);
-        btnAuto = findViewById(R.id.btnAuto);
+        View btnAuto = findViewById(R.id.btnAuto);
         btnTarget = findViewById(R.id.btnTarget);
         ivAutoIcon = findViewById(R.id.ivAutoIcon);
 
@@ -551,19 +550,19 @@ public class MainActivity extends AppCompatActivity {
             sliderSpeed.setValueFrom(5.0f);
             sliderSpeed.setValueTo(60.0f);
             sliderSpeed.setStepSize(1.0f); // 1 sec steps for extended range
-            tvMoreTime.setText("Less time ?");
+            tvMoreTime.setText(R.string.auto_less_time);
 
             // Allow up to 60.0
             if (currentSec > 60.0f) currentSec = 60.0f;
-            if (currentSec < 5.0f) currentSec = 5.0f;
+            // Removed redundant check (< 5.0f) for logic consistency
         } else {
             sliderSpeed.setValueFrom(0.1f);
             sliderSpeed.setValueTo(5.0f);
             sliderSpeed.setStepSize(0.1f);
-            tvMoreTime.setText("More time ?");
+            tvMoreTime.setText(R.string.auto_more_time);
 
             if (currentSec < 0.1f) currentSec = 0.1f;
-            if (currentSec > 5.0f) currentSec = 5.0f;
+            // Removed redundant check (> 5.0f) for logic consistency
         }
 
         sliderSpeed.setValue(currentSec);
@@ -578,7 +577,7 @@ public class MainActivity extends AppCompatActivity {
                 sliderSpeed.setValueTo(5.0f);
                 sliderSpeed.setStepSize(0.1f);
                 sliderSpeed.setValue(5.0f); // Reset to max of normal
-                tvMoreTime.setText("More time ?");
+                tvMoreTime.setText(R.string.auto_more_time);
             } else {
                 // Switch to More Time (Extended Mode)
                 isExtendedMode[0] = true;
@@ -586,7 +585,7 @@ public class MainActivity extends AppCompatActivity {
                 sliderSpeed.setValueTo(60.0f);
                 sliderSpeed.setStepSize(1.0f);
                 sliderSpeed.setValue(5.0f); // Reset to min of extended
-                tvMoreTime.setText("Less time ?");
+                tvMoreTime.setText(R.string.auto_less_time);
             }
             // Update Text
             tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", sliderSpeed.getValue()));
@@ -733,7 +732,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         TextView tvMsg = view.findViewById(R.id.tvTargetMessage);
-        tvMsg.setText("Target of " + targetCount + " reached.");
+        tvMsg.setText(getString(R.string.target_reached_msg, targetCount));
 
         view.findViewById(R.id.btnContinue).setOnClickListener(v -> {
             // "Show ... whether to continue"
@@ -818,7 +817,7 @@ public class MainActivity extends AppCompatActivity {
             tvExistingTitle.setVisibility(View.VISIBLE);
             tvExistingTitle.setText(resumeTitle);
 
-            btnSaveDialog.setText("Update");
+            btnSaveDialog.setText(R.string.action_update);
 
             // Enable button by default since title is present
             btnSaveDialog.setAlpha(1.0f);
@@ -852,7 +851,7 @@ public class MainActivity extends AppCompatActivity {
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (s.toString().trim().length() > 0) {
+                    if (!s.toString().trim().isEmpty()) {
                         btnSaveDialog.setAlpha(1.0f);
                         btnSaveDialog.setEnabled(true);
                         btnSaveDialog.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFF2962FF));
