@@ -219,95 +219,128 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.02" />
 
-    <!-- 2. Middle Container for Draggable Button -->
-    <FrameLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/bigBoxContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.88"
+        app:layout_constraintHeight_percent="0.48"
+        style="@style/PercentCornerGrid"
+        app:cardBackgroundColor="@color/card_background"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/card_stroke_color"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/spaceBtnGap2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Grid Background -->
+            <View
+                android:id="@+id/gridBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <!-- "TAP" Button -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/videoButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                style="@style/PercentCornerCard"
+                app:layout_constraintWidth_percent="0.34"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:cardElevation="12dp"
+                app:cardBackgroundColor="@color/tasbeeh_blue_accent">
+
+                <!-- Inner border effect could be added here if needed, keeping simple matching design -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Tap_Button_Text"
+                    android:textColor="@color/tap_btn_text"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="8sp"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeStepGranularity="1sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"/>
+
+                <!-- Simple ripple overlay for touch feedback if needed -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="false"
+                    android:focusable="false"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Helper Text -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.8"
+                android:layout_marginBottom="32dp"
+                android:text="@string/Button_Reposition_Hint_Text"
+                android:textColor="@color/hint_text"
+                android:gravity="center"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="6sp"
+                app:autoSizeMaxTextSize="11sp"
+                app:autoSizeStepGranularity="1sp"
+                android:maxLines="1"
+                android:letterSpacing="0.05"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Invisible Space for 2% Margin -->
+    <Space
+        android:id="@+id/spaceBtnGap3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_grid_container"
-        app:layout_constraintTop_toBottomOf="@id/spaceBtnGap2"
-        app:layout_constraintBottom_toTopOf="@id/controlsBar">
-
-        <!-- Grid Background -->
-        <View
-            android:id="@+id/gridBackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"/>
-
-        <!-- "TAP" Button -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/videoButton"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="12dp"
-            app:cardBackgroundColor="@color/tasbeeh_blue_accent">
-
-            <!-- Inner border effect could be added here if needed, keeping simple matching design -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Tap_Button_Text"
-                android:textColor="@color/tap_btn_text"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_gravity="center"/>
-
-            <!-- Simple ripple overlay for touch feedback if needed -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="false"
-                android:focusable="false"/>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Helper Text -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="32dp"
-            android:text="@string/Button_Reposition_Hint_Text"
-            android:textColor="@color/hint_text"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.05"/>
-
-    </FrameLayout>
-
-    <!-- Controls Bar -->
-    <LinearLayout
-        android:id="@+id/controlsBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavDivider"
-        app:layout_constraintTop_toBottomOf="@id/bigBoxContainer">
+        app:layout_constraintTop_toBottomOf="@id/bigBoxContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.02" />
 
         <!-- Decrease Button -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnDecrease"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             style="@style/PercentCornerCard"
-            android:layout_marginEnd="24dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.13"
             app:cardElevation="5dp"
-            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
             app:strokeWidth="2dp"
             app:strokeColor="@color/card_stroke_color"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
             android:clickable="true"
             android:focusable="true"
-            android:contentDescription="@string/action_decrease_count">
+            android:contentDescription="@string/action_decrease_count"
+            app:layout_constraintEnd_toStartOf="@+id/btnAuto"
+            app:layout_constraintStart_toEndOf="@+id/btnSave"
+            app:layout_constraintTop_toTopOf="@+id/btnAuto"
+            app:layout_constraintBottom_toBottomOf="@+id/btnAuto">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -330,38 +363,60 @@
         <!-- Auto Button -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnAuto"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
-            app:strokeColor="@color/card_stroke_color"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="@string/action_auto_count">
-            <ImageView
-                android:id="@+id/ivAutoIcon"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_auto"
-                app:tint="@color/card_background" android:contentDescription="@null"/>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Target Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/btnTarget"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             style="@style/PercentCornerCard"
-            android:layout_marginStart="24dp"
+            app:layout_constraintWidth_percent="0.17"
+            app:layout_constraintDimensionRatio="1:1"
             app:cardElevation="5dp"
             app:cardBackgroundColor="@color/tasbeeh_blue_accent"
             app:strokeWidth="2dp"
             app:strokeColor="@color/card_stroke_color"
             android:clickable="true"
             android:focusable="true"
-            android:contentDescription="@string/action_set_target">
+            android:contentDescription="@string/action_auto_count"
+            app:layout_constraintTop_toBottomOf="@+id/spaceBtnGap3"
+            app:layout_constraintStart_toStartOf="@+id/btnSave"
+            app:layout_constraintEnd_toEndOf="@+id/btnReset">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/ivAutoIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_auto"
+                    app:tint="@color/card_background"
+                    app:layout_constraintWidth_percent="0.666"
+                    app:layout_constraintHeight_percent="0.666"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@null"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Target Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnTarget"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/PercentCornerCard"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.13"
+            app:cardElevation="5dp"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/card_stroke_color"
+            app:cardBackgroundColor="@color/tasbeeh_blue_accent"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/action_set_target"
+            app:layout_constraintStart_toEndOf="@+id/btnAuto"
+            app:layout_constraintEnd_toStartOf="@+id/btnReset"
+            app:layout_constraintTop_toTopOf="@+id/btnAuto"
+            app:layout_constraintBottom_toBottomOf="@+id/btnAuto">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -381,7 +436,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
     <View
         android:id="@+id/bottomNavDivider"
         android:layout_width="match_parent"

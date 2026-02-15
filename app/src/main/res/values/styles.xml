@@ -6,7 +6,16 @@
     </style>
 
     <style name="ShapeAppearance.App.PercentCorner" parent="">
-        <!-- 25% corner radius of the card's height/width (smallest dimension) -->
+        <!-- 15% corner radius of the card's height/width (smallest dimension) -->
         <item name="cornerSize">15%</item>
+    </style>
+
+    <style name="PercentCornerGrid" parent="Widget.Material3.CardView.Filled">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.PercentCornerGrid</item>
+    </style>
+
+    <style name="ShapeAppearance.App.PercentCornerGrid" parent="">
+        <!-- 10% corner radius for the large grid container -->
+        <item name="cornerSize">7%</item>
     </style>
 </resources>

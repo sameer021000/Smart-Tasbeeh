@@ -1,6 +1,7 @@
 package com.example.smarttasbeeh;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
+import com.google.android.material.card.MaterialCardView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -52,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
     private ToneGenerator toneGen;
 
     private TextView tvCountDisplay;
-    private CardView counterButton;
+    private MaterialCardView counterButton;
     private View gridBackground;
-    private FrameLayout bigBoxContainer;
+    private MaterialCardView bigBoxContainer;
     private View rootLayout;
 
     // New Controls
@@ -205,11 +207,8 @@ public class MainActivity extends AppCompatActivity {
 
                 // Change border color to grid line color
                 try {
-                    android.graphics.drawable.GradientDrawable bg = (android.graphics.drawable.GradientDrawable) bigBoxContainer.getBackground();
                     int gridColor = androidx.core.content.ContextCompat.getColor(MainActivity.this, R.color.grid_line_color);
-                    float density = getResources().getDisplayMetrics().density;
-                    int strokeWidth = (int)(2 * density);
-                    bg.setStroke(strokeWidth, gridColor);
+                    bigBoxContainer.setStrokeColor(gridColor);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -266,11 +265,8 @@ public class MainActivity extends AppCompatActivity {
 
                         // Revert border color
                         try {
-                            android.graphics.drawable.GradientDrawable bg = (android.graphics.drawable.GradientDrawable) bigBoxContainer.getBackground();
                             int normalColor = androidx.core.content.ContextCompat.getColor(MainActivity.this, R.color.card_stroke_color);
-                            float density = getResources().getDisplayMetrics().density;
-                            int strokeWidth = (int)(2 * density);
-                            bg.setStroke(strokeWidth, normalColor);
+                            bigBoxContainer.setStrokeColor(normalColor);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -303,11 +299,8 @@ public class MainActivity extends AppCompatActivity {
 
                     // Revert border color
                     try {
-                        android.graphics.drawable.GradientDrawable bg = (android.graphics.drawable.GradientDrawable) bigBoxContainer.getBackground();
                         int normalColor = androidx.core.content.ContextCompat.getColor(MainActivity.this, R.color.card_stroke_color);
-                        float density = getResources().getDisplayMetrics().density;
-                        int strokeWidth = (int)(2 * density);
-                        bg.setStroke(strokeWidth, normalColor);
+                        bigBoxContainer.setStrokeColor(normalColor);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -435,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTargetDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_set_target, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -486,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void showSaveBeforeResetDialog(int newTarget) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_save_before_reset, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -515,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTargetLessThanCurrentDialog(int newTarget) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_target_less_warning, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -534,7 +527,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAutoConfigDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_auto_config, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -730,7 +723,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTargetReachedDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_target_reached, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -775,7 +768,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showResetDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_reset_confirm, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
