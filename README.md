@@ -23,9 +23,9 @@
 
 ## 📱 Screenshots
 
-| Portrait Mode | Landscape Mode | Analysis & History |
-|:---:|:---:|:---:|
-| *(Add Portrait Screenshot)* | *(Add Landscape Screenshot)* | *(Add Analysis Screenshot)* |
+|                         Portrait Mode                          | Landscape Mode | Analysis & History |
+|:--------------------------------------------------------------:|:---:|:---:|
+| ![Portrait](screenshots/counter_screen_lighttheme_potrait.jpg) | ![Landscape](screenshots/landscape.png) | ![Analysis](screenshots/analysis.png) |
 
 ## 🛠️ Tech Stack
 
