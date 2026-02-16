@@ -459,6 +459,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/nav_bg"
+        app:layout_constraintHeight_percent="0.12"
         android:orientation="horizontal"
         android:weightSum="4"
         android:baselineAligned="false"

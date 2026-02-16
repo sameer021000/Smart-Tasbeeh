@@ -29,7 +29,7 @@
         android:layout_height="0dp"
         style="@style/PercentCornerCard"
         app:layout_constraintWidth_percent="0.44"
-        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintHeight_percent="0.26"
         app:cardElevation="0dp"
         app:strokeWidth="2dp"
         app:strokeColor="@color/card_stroke_color"
@@ -48,28 +48,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.15" />
+                app:layout_constraintGuide_percent="0.07" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.85" />
+                app:layout_constraintGuide_percent="0.93" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.15" />
+                app:layout_constraintGuide_percent="0.05" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideBottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.85" />
+                app:layout_constraintGuide_percent="0.95" />
 
             <!-- Count Number -->
             <TextView
@@ -79,7 +79,6 @@
                 android:gravity="center_vertical|start"
                 android:text="@string/Count_Number"
                 android:textColor="@color/count_text_color"
-                android:textSize="58sp"
                 android:fontFamily="sans-serif-black"
                 android:letterSpacing="0.05"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
@@ -88,7 +87,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/guideBottom"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="12sp"
-                app:autoSizeMaxTextSize="120sp"
+                app:autoSizeMaxTextSize="170sp"
                 app:autoSizeStepGranularity="5sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -304,7 +303,7 @@
         app:strokeWidth="2dp"
         app:strokeColor="@color/card_stroke_color"
         app:cardElevation="0dp"
-        app:layout_constraintWidth_percent="0.45"
+        app:layout_constraintWidth_percent="0.44"
         app:layout_constraintStart_toEndOf="@id/guideline_vertical_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideTopMargin"
@@ -337,11 +336,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.15"
+                app:layout_constraintHeight_percent="0.2"
                 app:layout_constraintWidth_percent="0.8"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="12sp"
-                app:autoSizeMaxTextSize="40sp"
+                app:autoSizeMaxTextSize="120sp"
                 app:autoSizeStepGranularity="1sp" />
 
             <!-- "TAP" Button -->
@@ -369,7 +368,7 @@
                     android:padding="8dp"
                     app:autoSizeTextType="uniform"
                     app:autoSizeMinTextSize="8sp"
-                    app:autoSizeMaxTextSize="50sp"
+                    app:autoSizeMaxTextSize="20sp"
                     app:autoSizeStepGranularity="1sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.1"/>
@@ -387,22 +386,20 @@
             <TextView
                 android:id="@+id/helperText"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.1"
-                app:layout_constraintWidth_percent="0.9"
-                android:layout_marginBottom="8dp"
+                app:layout_constraintWidth_percent="0.8"
+                android:layout_marginBottom="32dp"
                 android:text="@string/Button_Reposition_Hint_Text"
                 android:textColor="@color/hint_text"
                 android:gravity="center"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="6sp"
-                app:autoSizeMaxTextSize="20sp"
+                app:autoSizeMaxTextSize="15sp"
                 app:autoSizeStepGranularity="1sp"
-                android:maxLines="2"
-                android:textStyle="bold"
+                android:maxLines="1"
                 android:letterSpacing="0.05"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -432,6 +429,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.21"
         android:background="@color/nav_bg"
         android:orientation="horizontal"
         android:weightSum="4"
