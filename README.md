@@ -29,9 +29,8 @@
 | :--------------------------------------------------------------: | :-----------------------------------------------------------------: |
 | ![Portrait](screenshots/analysis_screen_lighttheme_potrait.jpg)  | ![Landscape](screenshots/analysis_screen_lighttheme_landscape.jpg)  |
 | :--------------------------------------------------------------: | :-----------------------------------------------------------------: |
-| ![Portrait](screenshots/analysis_screen2_lighttheme_potrait.jpg) |  ![Landscape](screenshots/history_screen_lighttheme_landscape.jpg)  |
-| :--------------------------------------------------------------: | :-----------------------------------------------------------------: |
-|  ![Portrait](screenshots/history_screen_lighttheme_potrait.jpg)  | ![Landscape](screenshots/settings_screen_lighttheme_landscape.jpg)  |
+|  ![Portrait](screenshots/history_screen_lighttheme_potrait.jpg)  |  ![Landscape](screenshots/history_screen_lighttheme_landscape.jpg)  |
+| ![Portrait](screenshots/settings_screen_lighttheme_potrait.jpg)  | ![Landscape](screenshots/settings_screen_lighttheme_landscape.jpg)  |
 
 ## 🛠️ Tech Stack
 
