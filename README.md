@@ -23,15 +23,15 @@
 
 ## 📱 Screenshots
 
-|                         Portrait Mode                          |                           Landscape Mode                            | Analysis & History |
-|:--------------------------------------------------------------:|:-------------------------------------------------------------------:|:---:|
-| ![Portrait](screenshots/counter_screen_lighttheme_potrait.jpg) |  ![Landscape](screenshots/counter_screen_lighttheme_landscape.jpg)  | ![Analysis](screenshots/analysis.png) |
-|:--------------------------------------------------------------:| :-----------------------------------------------------------------: |:---:|
-| ![Portrait](screenshots/counter_screen_lighttheme_potrait.jpg) | ![Landscape](screenshots/analysis_screen_lighttheme_landscape.jpg)  | ![Analysis](screenshots/analysis.png) |
-|:--------------------------------------------------------------:| :-----------------------------------------------------------------: |:---:|
-| ![Portrait](screenshots/counter_screen_lighttheme_potrait.jpg) |  ![Landscape](screenshots/history_screen_lighttheme_landscape.jpg)  | ![Analysis](screenshots/analysis.png) |
-|:--------------------------------------------------------------:| :-----------------------------------------------------------------: |:---:|
-| ![Portrait](screenshots/counter_screen_lighttheme_potrait.jpg) | ![Landscape](screenshots/settings_screen_lighttheme_landscape.jpg)  | ![Analysis](screenshots/analysis.png) |
+|                          Portrait Mode                           |                           Landscape Mode                            |
+|:----------------------------------------------------------------:|:-------------------------------------------------------------------:|
+|  ![Portrait](screenshots/counter_screen_lighttheme_potrait.jpg)  |  ![Landscape](screenshots/counter_screen_lighttheme_landscape.jpg)  |
+| :--------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![Portrait](screenshots/analysis_screen_lighttheme_potrait.jpg)  | ![Landscape](screenshots/analysis_screen_lighttheme_landscape.jpg)  |
+| :--------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![Portrait](screenshots/analysis_screen2_lighttheme_potrait.jpg) |  ![Landscape](screenshots/history_screen_lighttheme_landscape.jpg)  |
+| :--------------------------------------------------------------: | :-----------------------------------------------------------------: |
+|  ![Portrait](screenshots/history_screen_lighttheme_potrait.jpg)  | ![Landscape](screenshots/settings_screen_lighttheme_landscape.jpg)  |
 
 ## 🛠️ Tech Stack
 
