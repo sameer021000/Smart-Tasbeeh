@@ -194,23 +194,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Counter Button Logic
-        Runnable longPressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                isDragMode = true;
-                gridBackground.setVisibility(View.VISIBLE);
-                vibrate(100); // Feedback for drag mode
+        Runnable longPressRunnable = () -> {
+            isDragMode = true;
+            gridBackground.setVisibility(View.VISIBLE);
+            vibrate(100); // Feedback for drag mode
 
-                // Highlight button logic (optional visual cue)
-                counterButton.setAlpha(0.8f);
+            // Highlight button logic (optional visual cue)
+            counterButton.setAlpha(0.8f);
 
-                // Change border color to grid line color
-                try {
-                    int gridColor = androidx.core.content.ContextCompat.getColor(MainActivity.this, R.color.grid_line_color);
-                    bigBoxContainer.setStrokeColor(gridColor);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            // Change border color to grid line color
+            try {
+                int gridColor = androidx.core.content.ContextCompat.getColor(MainActivity.this, R.color.grid_line_color);
+                bigBoxContainer.setStrokeColor(gridColor);
+            } catch (Exception e) {
+                Log.e("MainActivity", "Error changing color", e);
             }
         };
 
@@ -267,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                             int normalColor = androidx.core.content.ContextCompat.getColor(MainActivity.this, R.color.card_stroke_color);
                             bigBoxContainer.setStrokeColor(normalColor);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            Log.e("MainActivity", "Error reverting color", e);
                         }
                     } else {
                         // Click action
@@ -301,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
                         int normalColor = androidx.core.content.ContextCompat.getColor(MainActivity.this, R.color.card_stroke_color);
                         bigBoxContainer.setStrokeColor(normalColor);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Log.e("MainActivity", "Error reverting color", e);
                     }
                     return true;
             }
@@ -393,6 +390,7 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupButtonAnimation(View view) {
         view.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
@@ -591,9 +589,8 @@ public class MainActivity extends AppCompatActivity {
             tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", sliderSpeed.getValue()));
         });
 
-        sliderSpeed.addOnChangeListener((slider, value, fromUser) -> {
-            tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", value));
-        });
+        sliderSpeed.addOnChangeListener((slider, value, fromUser) ->
+                tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", value)));
 
         view.findViewById(R.id.btnStartAuto).setOnClickListener(v -> {
             float val = sliderSpeed.getValue();
