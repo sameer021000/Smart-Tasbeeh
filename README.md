@@ -1,46 +1,48 @@
 # Smart Tasbeeh 📿
 
-**Smart Tasbeeh** is a modern, feature-rich digital counter application for Android designed to help users track their dhikr (remembrances) and daily counts with ease. It combines a beautiful, user-friendly interface with practical features like history tracking and target setting.
+**Smart Tasbeeh** is a premium, feature-rich digital counter application for Android, designed to elevate your dhikr (remembrance) and daily counting experience. It combines a stunning, modern interface with powerful tools like auto-counting, detailed analysis, and a fully responsive design for all screen sizes.
 
-## ✨ Features
+## ✨ Key Features
 
-*   **Digital Counter**: Large, easy-to-tap interface for counting.
-*   **Target Mode**: Set a specific target count. The app notifies you when the target is reached.
-*   **Haptic Feedback**: Optional vibration on every click for a tactile experience.
-*   **History Tracking**: Automatically saves your sessions. View past counts with dates and times.
-*   **Persistent Storage**: Your current count is always saved, even if you close the app.
-*   **Dark Mode Support**: Optimized for comfortable viewing in low-light environments.
-*   **Modern UI**: Sleek animations and a clean material design.
+### 🚀 **Advanced Counting**
+*   **Digital Counter**: Large, responsive, and easy-to-tap interface.
+*   **Auto-Count Mode**: Hands-free counting with adjustable speed (0.1s to 5s+). Ideal for consistent pacing.
+*   **Tap Anywhere**: Option to increment the count by tapping any part of the screen.
+*   **Hardware Buttons**: Use volume keys to count, allowing for tactile feedback without looking at the screen.
+
+### 🎯 **Goals & Tracking**
+*   **Target Mode**: Set specific goals. The app notifies you with vibration and dialogs when targets are reached.
+*   **History & Pinning**: Automatically save sessions with dates/times. **Pin** your most important counts to the top and **sort** history by date or count value.
+*   **Smart Analysis**: Visualize your performance and consistency with built-in charts and statistics.
+
+### 🎨 **Premium UI/UX**
+*   **Responsive Landscape Mode**: A dedicated split-screen layout optimized for tablets and foldable devices, ensuring a perfect experience in any orientation.
+*   **Modern Aesthetics**: Features glassmorphism, smooth animations, and a clean Material Design interface.
+*   **Dark Mode**: Fully supported system-wide dark mode for comfortable night use.
+*   **Rich Feedback**: satisfying click sounds and customizable vibration (haptic) feedback.
 
 ## 📱 Screenshots
 
-|                Settings                |                    Counter                    |                    History                    |
-|:--------------------------------------:|:---------------------------------------------:|:---------------------------------------------:|
-| ![Settings](res/drawable/settings.png) | ![Counter](src/main/res/drawable/counter.png) | ![History](src/main/res/drawable/history.png) |
-
-*(Note: Images are stored in the `screenshots` folder)*
+| Portrait Mode | Landscape Mode | Analysis & History |
+|:---:|:---:|:---:|
+| *(Add Portrait Screenshot)* | *(Add Landscape Screenshot)* | *(Add Analysis Screenshot)* |
 
 ## 🛠️ Tech Stack
 
 *   **Language**: Java
-*   **UI Framework**: Android XML Layouts
-*   **Architecture**: MVVM / Standard Android Architecture
-*   **Minimum SDK**: Android 7.0 (Nougat)
+*   **UI**: Android XML Layouts (ConstraintLayout, Material Components)
+*   **Architecture**: MVVM Pattern
+*   **Persistence**: SharedPreferences & SQLite (DbHelper)
+*   **Compatibility**: Android 7.0 (Nougat) and above
 
 ## 📥 Installation
 
-1.  Clone the repository:
+1.  **Clone the repository:**
     ```bash
     git clone https://github.com/sameer021000/Smart-Tasbeeh.git
     ```
-2.  Open the project in **Android Studio**.
-3.  Sync with Gradle files.
-4.  Run on an emulator or physical device.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please fork the repository and create a pull request for any features or bug fixes.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
+2.  **Open in Android Studio**:
+    *   File > Open > Select the cloned directory.
+3.  **Build & Run**:
+    *   Sync Gradle files.
+    *   Run on an emulator or physical Android device.
