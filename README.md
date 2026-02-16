@@ -23,9 +23,9 @@
 
 ## 📱 Screenshots
 
-|                         Portrait Mode                          | Landscape Mode | Analysis & History |
-|:--------------------------------------------------------------:|:---:|:---:|
-| ![Portrait](screenshots/counter_screen_lighttheme_potrait.jpg) | ![Landscape](screenshots/landscape.png) | ![Analysis](screenshots/analysis.png) |
+|                         Portrait Mode                          |                                                     Landscape Mode                                                      | Analysis & History |
+|:--------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------:|:---:|
+| ![Portrait](screenshots/counter_screen_lighttheme_potrait.jpg) | ![Landscape](screenshots/counter_screen_lighttheme_landscape.jpg)(screenshots/analysis_screen_lighttheme_landscape.jpg) | ![Analysis](screenshots/analysis.png) |
 
 ## 🛠️ Tech Stack
 
