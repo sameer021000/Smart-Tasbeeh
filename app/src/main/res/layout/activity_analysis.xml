@@ -259,14 +259,16 @@
         android:orientation="horizontal"
         android:weightSum="4"
         android:baselineAligned="false"
+        android:divider="@drawable/nav_divider"
+        android:showDividers="middle|beginning|end"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- Analysis (Active) -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnNavAnalysis"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:clickable="true"
             android:focusable="true">
 
             <ImageView

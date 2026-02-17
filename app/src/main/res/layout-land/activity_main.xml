@@ -420,7 +420,7 @@
         android:id="@+id/bottomNavDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/card_stroke_color"
+        android:background="@color/count_text_color"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintTop_toBottomOf="@id/spaceBelowControls"/>
 
@@ -434,6 +434,8 @@
         android:orientation="horizontal"
         android:weightSum="4"
         android:baselineAligned="false"
+        android:divider="@drawable/nav_divider"
+        android:showDividers="middle|beginning|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomNavDivider">
 
