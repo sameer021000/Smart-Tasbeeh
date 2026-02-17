@@ -438,114 +438,182 @@
         app:layout_constraintTop_toBottomOf="@id/bottomNavDivider">
 
         <!-- Analysis -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnAnalysis"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:id="@+id/imgAnalysis"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:src="@drawable/ic_analysis"
-                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
+                app:tint="@color/nav_text_unselected"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtAnalysis"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:contentDescription="@null"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtAnalysis"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:text="@string/nav_analysis"
-                android:textSize="11sp"
+                android:textColor="@color/nav_text_unselected"
+                android:gravity="center"
                 android:textStyle="bold"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/nav_text_unselected"/>
-        </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@id/imgAnalysis"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintWidth_percent="0.9"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="8sp"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeStepGranularity="1sp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Counter (Active) -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:clickable="true"
             android:focusable="true">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:id="@+id/imgCounter"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:src="@drawable/ic_add"
-                app:tint="@color/nav_text_selected" android:contentDescription="@null"/>
+                app:tint="@color/nav_text_selected"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtCounter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:contentDescription="@null"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtCounter"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:text="@string/nav_counter"
-                android:textSize="11sp"
+                android:textColor="@color/nav_text_selected"
+                android:gravity="center"
                 android:textStyle="bold"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/nav_text_selected"/>
-        </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@id/imgCounter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintWidth_percent="0.9"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="8sp"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeStepGranularity="1sp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- History -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnSavedCounts"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_clock"
-                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/nav_history"
-                android:textColor="@color/nav_text_unselected"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Settings -->
-        <LinearLayout
-            android:id="@+id/btnSettings"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_settings"
-                app:tint="@color/nav_text_unselected" android:contentDescription="@null"/>
+                android:id="@+id/imgHistory"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_clock"
+                app:tint="@color/nav_text_unselected"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtHistory"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:contentDescription="@null"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nav_settings"
-                android:textSize="11sp"
+                android:id="@+id/txtHistory"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/nav_history"
+                android:textColor="@color/nav_text_unselected"
+                android:gravity="center"
                 android:textStyle="bold"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/nav_text_unselected"/>
-        </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@id/imgHistory"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintWidth_percent="0.9"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="8sp"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeStepGranularity="1sp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Settings -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/imgSettings"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_settings"
+                app:tint="@color/nav_text_unselected"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtSettings"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:contentDescription="@null"/>
+
+            <TextView
+                android:id="@+id/txtSettings"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/nav_settings"
+                android:textColor="@color/nav_text_unselected"
+                android:gravity="center"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/imgSettings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintWidth_percent="0.9"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="8sp"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeStepGranularity="1sp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
