@@ -368,8 +368,6 @@
         android:orientation="horizontal"
         android:weightSum="4"
         android:baselineAligned="false"
-        android:divider="@drawable/nav_divider"
-        android:showDividers="middle|beginning|end"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- Analysis -->
@@ -513,7 +511,16 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:focusable="true">
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:background="@color/nav_text_selected"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageView
                 android:id="@+id/imgSettings"
