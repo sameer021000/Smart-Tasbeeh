@@ -320,11 +320,11 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <!-- Report Container (Visible on request) -->
-            <LinearLayout
+            <!-- Report Container (Visible on request) -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/reportContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:visibility="gone"
                 android:animateLayoutChanges="true"
                 app:layout_constraintTop_toBottomOf="@id/spaceBelow_btnShowReport"
@@ -334,11 +334,23 @@
                 <!-- Carousel -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvAnalysisCards"
-                    android:layout_width="match_parent"
-                    android:layout_height="320dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent="1.0"
+                    app:layout_constraintDimensionRatio="H,1.05:1"
                     android:clipToPadding="false"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <View
+                    android:id="@+id/spaceBelow_rvAnalysisCards"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H,15:1"
+                    app:layout_constraintTop_toBottomOf="@+id/rvAnalysisCards"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
                 <!-- Dots Indicator -->
                 <LinearLayout
@@ -346,11 +358,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="24dp"/>
+                    app:layout_constraintTop_toBottomOf="@id/spaceBelow_rvAnalysisCards"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Dynamic Bottom Spacer (Height relative to width via ratio) -->
             <View

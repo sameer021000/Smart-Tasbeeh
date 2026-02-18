@@ -137,6 +137,13 @@ public class AnalysisActivity extends AppCompatActivity {
         rvCards = findViewById(R.id.rvAnalysisCards);
         layoutDots = findViewById(R.id.layoutDots);
 
+        // Dynamic Padding for Carousel (e.g., 8% of screen width)
+        rvCards.post(() -> {
+            int screenWidth = getResources().getDisplayMetrics().widthPixels;
+            int padding = (int) (screenWidth * 0.08f); 
+            rvCards.setPadding(padding, 0, padding, 0);
+        });
+
         // Initial State
         fabPause.setVisibility(View.INVISIBLE);
         reportView.setVisibility(View.GONE);
