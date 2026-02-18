@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -28,10 +29,10 @@ public class AnalysisActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView tvCount, tvTapHint, tvPausedOverlay;
     private View btnTap, reportView;
-    private FloatingActionButton fabPause;
-    private Button btnReset, btnShowReport;
+    private MaterialButton fabPause; // Changed from FloatingActionButton
+    private MaterialButton btnReset, btnShowReport;
 
-    private Button btnStartOverlay;
+    private MaterialButton btnStartOverlay;
 
     // New
     private androidx.recyclerview.widget.RecyclerView rvCards;
@@ -92,10 +93,44 @@ public class AnalysisActivity extends AppCompatActivity {
         tvPausedOverlay = findViewById(R.id.tvPausedOverlay);
         btnTap = findViewById(R.id.tapActionView);
         btnStartOverlay = findViewById(R.id.btnStartOverlay);
+        btnStartOverlay.getViewTreeObserver().addOnGlobalLayoutListener(new android.view.ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                btnStartOverlay.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int height = btnStartOverlay.getHeight();
+                // Set corner radius proportional to height (e.g., 15%)
+                btnStartOverlay.setCornerRadius((int) (height * 0.15f));
+            }
+        });
 
         fabPause = findViewById(R.id.fabPause);
         btnReset = findViewById(R.id.btnResetAnalysis);
         btnShowReport = findViewById(R.id.btnShowReport);
+
+        // Synchronize styles (Radius & Text Size) for Bottom Buttons
+        // We use fabPause as reliability anchor since it's INVISIBLE (measured) not GONE.
+        fabPause.post(() -> {
+            int height = fabPause.getHeight();
+            if (height > 0) {
+                // CORNER RADIUS: This line sets the radius to 15% of the button's height
+                int radius = (int) (height * 0.15f); 
+                
+                // TEXT SIZE: Reduced to 25% of height to ensure "Resume" fits
+                float textSizePx = height * 0.30f;
+
+                // Apply to Pause
+                fabPause.setCornerRadius(radius);
+                fabPause.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, textSizePx);
+
+                // Apply to Reset
+                btnReset.setCornerRadius(radius);
+                btnReset.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, textSizePx);
+
+                // Apply to Report
+                btnShowReport.setCornerRadius(radius);
+                btnShowReport.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, textSizePx);
+            }
+        });
 
         // reportContainer is the linear layout holding summary + graph + table
         this.reportView = findViewById(R.id.reportContainer);
@@ -157,7 +192,8 @@ public class AnalysisActivity extends AppCompatActivity {
         btnTap.setAlpha(1.0f);
 
         fabPause.setVisibility(View.VISIBLE);
-        fabPause.setImageResource(R.drawable.ic_pause);
+        fabPause.setText(R.string.pause_button_text); // Set text to "PAUSE"
+        // fabPause.setImageResource(R.drawable.ic_pause); // Original line
 
         updateUI();
     }
@@ -188,7 +224,7 @@ public class AnalysisActivity extends AppCompatActivity {
 
         if (isPaused) {
             // Entering Pause
-            fabPause.setImageResource(R.drawable.ic_play_circle); // Play icon to resume
+            fabPause.setText(R.string.action_resume_analysis); // Play icon to resume
             //Instead of layoutPauseOptions
             btnReset.setVisibility(View.VISIBLE);
             btnShowReport.setVisibility(View.VISIBLE);
@@ -200,7 +236,7 @@ public class AnalysisActivity extends AppCompatActivity {
 
         } else {
             // Resuming
-            fabPause.setImageResource(R.drawable.ic_pause);
+            fabPause.setText(R.string.pause_button_text); // Reset to PAUSE
             //Instead of layoutPauseOptions
             btnReset.setVisibility(View.GONE);
             btnShowReport.setVisibility(View.GONE);
