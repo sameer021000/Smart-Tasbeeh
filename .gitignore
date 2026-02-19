@@ -1,16 +1,24 @@
-*.iml
-.gradle
-/local.properties
-/.idea
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Android / Gradle
+.gradle/
+build/
+app/build/
+
+# Release builds
+app/release/
+*.apk
+*.aab
+
+# Local configuration
 local.properties
 
-# Google Services
-google-services.json
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Native build
+.externalNativeBuild/
+.cxx/
 
 # Keystore files
 *.jks
@@ -18,14 +26,12 @@ google-services.json
 *.p12
 *.pem
 
+# Google Services
+google-services.json
+
 # Fastlane
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
-
-# Bundle artifacts
-*.ap_
-*.ap_
-*.aab
