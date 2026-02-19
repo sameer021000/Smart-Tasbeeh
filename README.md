@@ -7,6 +7,8 @@
 
 **Smart Tasbeeh** is a premium, feature-rich digital counter application for Android, designed to elevate your dhikr (remembrance) and daily counting experience. It combines a stunning, modern interface with powerful tools like auto-counting, detailed analysis, and a fully responsive design for all screen sizes.
 
+---
+
 ## 📌 App Information
 
 - **Current Version:** v1.0.0
@@ -27,6 +29,7 @@
 > ⚠️ Enable "Install from Unknown Sources" in Android settings before installing the APK.
 
 ---
+
 ## ✨ Key Features
 
 ### 🚀 **Advanced Counting**
@@ -46,6 +49,8 @@
 *   **Dark Mode**: Fully supported system-wide dark mode for comfortable night use.
 *   **Rich Feedback**: satisfying click sounds and customizable vibration (haptic) feedback.
 
+---
+
 ## 📱 Screenshots
 
 |                          Portrait Mode                           |                           Landscape Mode                            |
@@ -55,6 +60,8 @@
 |  ![Portrait](screenshots/history_screen_lighttheme_potrait.jpg)  |  ![Landscape](screenshots/history_screen_lighttheme_landscape.jpg)  |
 | ![Portrait](screenshots/settings_screen_lighttheme_potrait.jpg)  | ![Landscape](screenshots/settings_screen_lighttheme_landscape.jpg)  |
 
+---
+
 ## 🛠️ Tech Stack
 
 *   **Language**: Java
@@ -62,6 +69,8 @@
 *   **Architecture**: MVVM Pattern
 *   **Persistence**: SharedPreferences & SQLite (DbHelper)
 *   **Compatibility**: Android 7.0 (Nougat) and above
+
+---
 
 ## 📥 Installation
 
