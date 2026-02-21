@@ -109,7 +109,6 @@
                 android:gravity="top|start"
                 android:text="@string/Count_Number_Text"
                 android:textColor="@color/text_secondary"
-                android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
                 android:textAllCaps="true"
                 android:lineSpacingMultiplier="0.9"
@@ -340,7 +339,7 @@
                     android:padding="4dp"
                     app:autoSizeTextType="uniform"
                     app:autoSizeMinTextSize="7sp"
-                    app:autoSizeMaxTextSize="17sp"
+                    app:autoSizeMaxTextSize="14sp"
                     app:autoSizeStepGranularity="1sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.1"/>
@@ -369,7 +368,7 @@
                 android:gravity="center"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="6sp"
-                app:autoSizeMaxTextSize="11sp"
+                app:autoSizeMaxTextSize="10sp"
                 app:autoSizeStepGranularity="1sp"
                 android:maxLines="1"
                 android:letterSpacing="0.05"/>
@@ -632,7 +631,7 @@
                 app:layout_constraintWidth_percent="0.9"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="8sp"
-                app:autoSizeMaxTextSize="13sp"
+                app:autoSizeMaxTextSize="11sp"
                 app:autoSizeStepGranularity="1sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -685,7 +684,7 @@
                 app:layout_constraintWidth_percent="0.9"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="8sp"
-                app:autoSizeMaxTextSize="13sp"
+                app:autoSizeMaxTextSize="11sp"
                 app:autoSizeStepGranularity="1sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -730,7 +729,7 @@
                 app:layout_constraintWidth_percent="0.9"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="8sp"
-                app:autoSizeMaxTextSize="13sp"
+                app:autoSizeMaxTextSize="11sp"
                 app:autoSizeStepGranularity="1sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -775,7 +774,7 @@
                 app:layout_constraintWidth_percent="0.9"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="8sp"
-                app:autoSizeMaxTextSize="13sp"
+                app:autoSizeMaxTextSize="11sp"
                 app:autoSizeStepGranularity="1sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

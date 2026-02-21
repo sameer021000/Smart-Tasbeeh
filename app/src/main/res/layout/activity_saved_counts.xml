@@ -152,7 +152,7 @@
                 app:layout_constraintWidth_percent="0.9"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="8sp"
-                app:autoSizeMaxTextSize="13sp"
+                app:autoSizeMaxTextSize="11sp"
                 app:autoSizeStepGranularity="1sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -197,7 +197,7 @@
                 app:layout_constraintWidth_percent="0.9"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="8sp"
-                app:autoSizeMaxTextSize="13sp"
+                app:autoSizeMaxTextSize="11sp"
                 app:autoSizeStepGranularity="1sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -249,7 +249,7 @@
                 app:layout_constraintWidth_percent="0.9"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="8sp"
-                app:autoSizeMaxTextSize="13sp"
+                app:autoSizeMaxTextSize="11sp"
                 app:autoSizeStepGranularity="1sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -294,7 +294,7 @@
                 app:layout_constraintWidth_percent="0.9"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="8sp"
-                app:autoSizeMaxTextSize="13sp"
+                app:autoSizeMaxTextSize="11sp"
                 app:autoSizeStepGranularity="1sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
