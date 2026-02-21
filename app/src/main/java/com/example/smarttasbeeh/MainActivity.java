@@ -549,12 +549,12 @@ public class MainActivity extends AppCompatActivity {
             if (currentSec > 60.0f) currentSec = 60.0f;
             // Removed redundant check (< 5.0f) for logic consistency
         } else {
-            sliderSpeed.setValueFrom(0.1f);
+            sliderSpeed.setValueFrom(0.3f);
             sliderSpeed.setValueTo(5.0f);
             sliderSpeed.setStepSize(0.1f);
             tvMoreTime.setText(R.string.auto_more_time);
 
-            if (currentSec < 0.1f) currentSec = 0.1f;
+            if (currentSec < 0.3f) currentSec = 0.3f;
             // Removed redundant check (> 5.0f) for logic consistency
         }
 
@@ -566,7 +566,7 @@ public class MainActivity extends AppCompatActivity {
             if (isExtendedMode[0]) {
                 // Switch to Less Time (Normal Mode)
                 isExtendedMode[0] = false;
-                sliderSpeed.setValueFrom(0.1f);
+                sliderSpeed.setValueFrom(0.3f);
                 sliderSpeed.setValueTo(5.0f);
                 sliderSpeed.setStepSize(0.1f);
                 sliderSpeed.setValue(5.0f); // Reset to max of normal

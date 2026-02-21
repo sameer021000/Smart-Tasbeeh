@@ -40,7 +40,7 @@
             android:id="@+id/sliderSpeed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:valueFrom="0.1"
+            android:valueFrom="0.3"
             android:valueTo="5.0"
             android:stepSize="0.1"
             android:value="1.0"
