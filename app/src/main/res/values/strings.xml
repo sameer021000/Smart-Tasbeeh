@@ -34,7 +34,7 @@
     <string name="drag_button_hint_short">You can move the count button anywhere! Hold for 3s.</string>
     <string name="dark_mode_title">Dark Mode</string>
     <string name="dark_mode_desc">Toggle between light and dark themes</string>
-    <string name="haptic_feedback_title">Haptic Feedback</string>
+    <string name="haptic_feedback_title">Vibration</string>
     <string name="haptic_feedback_desc">Strong vibration on every count</string>
     <string name="sound_title">Sound</string>
     <string name="sound_desc">Play sound on every count</string>
