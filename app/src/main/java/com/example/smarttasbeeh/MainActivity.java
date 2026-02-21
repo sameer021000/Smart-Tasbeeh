@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isSoundEnabled = false;
     private ToneGenerator toneGen;
 
-    private TextView tvCountDisplay;
+    private TextView tvCountDisplay, tvCountText;
     private MaterialCardView counterButton;
     private View gridBackground;
     private MaterialCardView bigBoxContainer;
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize Views
         tvCountDisplay = findViewById(R.id.tvCountDisplay);
+        tvCountText = findViewById(R.id.tvCountText);
         counterButton = findViewById(R.id.videoButton);
         gridBackground = findViewById(R.id.gridBackground);
         bigBoxContainer = findViewById(R.id.bigBoxContainer);
@@ -745,6 +746,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateCountDisplay() {
         tvCountDisplay.setText(String.valueOf(currentCount));
+        if (tvCountText != null) {
+            tvCountText.setText(NumberToWordsConverter.convert(currentCount));
+        }
     }
 
     private void saveCountPref() {

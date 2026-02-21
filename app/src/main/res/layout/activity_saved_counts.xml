@@ -104,7 +104,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintHeight_percent="0.10"
         android:background="@color/nav_bg"
         android:orientation="horizontal"
         android:weightSum="4"
