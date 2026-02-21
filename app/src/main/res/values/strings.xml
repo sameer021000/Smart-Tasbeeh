@@ -48,4 +48,9 @@
     <string name="auto_more_time">More time ?</string>
     <string name="target_reached_msg">Target of %1$d reached.</string>
     <string name="action_update">Update</string>
+    <string name="label_save">SAVE</string>
+    <string name="label_reset">RESET</string>
+    <string name="label_minus">MINUS</string>
+    <string name="label_auto">AUTO</string>
+    <string name="label_target">TARGET</string>
 </resources>

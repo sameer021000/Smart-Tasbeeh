@@ -17,6 +17,7 @@
     <color name="text_primary">#0F172A</color>         <!-- Slate 900 -->
     <color name="text_secondary">#475569</color>       <!-- Slate 600 (was Slate 500) -->
     <color name="text_white">#FFFFFF</color>
+    <color name="action_button_label">@color/white</color>
 
     <!-- Action Colors -->
     <color name="delete_background">#FEF2F2</color>    <!-- Red 50 -->
