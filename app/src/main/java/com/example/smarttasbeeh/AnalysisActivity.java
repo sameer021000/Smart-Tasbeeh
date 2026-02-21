@@ -61,12 +61,6 @@ public class AnalysisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE) {
-            getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
         setContentView(R.layout.activity_analysis);
 
         initViews();

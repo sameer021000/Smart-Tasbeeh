@@ -15,8 +15,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="32dp">
+            android:layout_height="wrap_content">
+
+            <!-- Dynamic Top Spacer (Height depends on width via ratio) -->
+            <View
+                android:id="@+id/topSpacer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,20:1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/tvPageTitle"
@@ -33,7 +42,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/topSpacer"/>
 
             <!-- Info Box (Moved to Top) -->
             <LinearLayout
