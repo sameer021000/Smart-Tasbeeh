@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         SwitchMaterial switchDarkMode = findViewById(R.id.switchDarkMode);
         SwitchMaterial switchHaptic = findViewById(R.id.switchHaptic);
-        SwitchMaterial switchSound = findViewById(R.id.switchSound);
+        ImageView ivSoundToggle = findViewById(R.id.ivSoundToggle);
         SwitchMaterial switchTapAnywhere = findViewById(R.id.switchTapAnywhere);
         SeekBar seekBarVibration = findViewById(R.id.seekBarVibration);
         View layoutVibrationLevel = findViewById(R.id.layoutVibrationLevel);
@@ -57,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
         boolean isVibEnabled = prefs.getBoolean(KEY_VIBRATION, true);
         switchHaptic.setChecked(isVibEnabled);
         boolean isSoundEnabled = prefs.getBoolean(KEY_SOUND, true);
-        switchSound.setChecked(isSoundEnabled);
+        ivSoundToggle.setImageResource(isSoundEnabled ? R.drawable.ic_volume_up : R.drawable.ic_volume_off);
         boolean isTapAnywhere = prefs.getBoolean(KEY_TAP_ANYWHERE, true);
         switchTapAnywhere.setChecked(isTapAnywhere);
 
@@ -98,11 +99,16 @@ public class SettingsActivity extends AppCompatActivity {
             if (isChecked) Toast.makeText(this, "Vibration On", Toast.LENGTH_SHORT).show();
         });
 
-        switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        ivSoundToggle.setOnClickListener(v -> {
+            boolean currentVal = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getBoolean(KEY_SOUND, true);
+            boolean newVal = !currentVal;
+
             SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-            editor.putBoolean(KEY_SOUND, isChecked);
+            editor.putBoolean(KEY_SOUND, newVal);
             editor.apply();
-            if (isChecked) Toast.makeText(this, "Sound On", Toast.LENGTH_SHORT).show();
+
+            ivSoundToggle.setImageResource(newVal ? R.drawable.ic_volume_up : R.drawable.ic_volume_off);
+            Toast.makeText(this, newVal ? "Sound On" : "Sound Off", Toast.LENGTH_SHORT).show();
         });
 
         switchTapAnywhere.setOnCheckedChangeListener((buttonView, isChecked) -> {
