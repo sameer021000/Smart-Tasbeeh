@@ -44,7 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         SwitchMaterial switchDarkMode = findViewById(R.id.switchDarkMode);
-        SwitchMaterial switchHaptic = findViewById(R.id.switchHaptic);
+        ImageView ivVibrationToggle = findViewById(R.id.ivVibrationToggle);
         ImageView ivSoundToggle = findViewById(R.id.ivSoundToggle);
         SwitchMaterial switchTapAnywhere = findViewById(R.id.switchTapAnywhere);
         SeekBar seekBarVibration = findViewById(R.id.seekBarVibration);
@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
         // Set initial state
         switchDarkMode.setChecked(isDarkMode);
         boolean isVibEnabled = prefs.getBoolean(KEY_VIBRATION, true);
-        switchHaptic.setChecked(isVibEnabled);
+        ivVibrationToggle.setImageResource(isVibEnabled ? R.drawable.ic_vibration_on : R.drawable.ic_vibration_off);
         boolean isSoundEnabled = prefs.getBoolean(KEY_SOUND, true);
         ivSoundToggle.setImageResource(isSoundEnabled ? R.drawable.ic_volume_up : R.drawable.ic_volume_off);
         boolean isTapAnywhere = prefs.getBoolean(KEY_TAP_ANYWHERE, true);
@@ -88,15 +88,20 @@ public class SettingsActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         });
 
-        switchHaptic.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        ivVibrationToggle.setOnClickListener(v -> {
+            boolean currentVal = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getBoolean(KEY_VIBRATION, true);
+            boolean newVal = !currentVal;
+
             SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-            editor.putBoolean(KEY_VIBRATION, isChecked);
+            editor.putBoolean(KEY_VIBRATION, newVal);
             editor.apply();
 
-            layoutVibrationLevel.setAlpha(isChecked ? 1.0f : 0.5f);
-            seekBarVibration.setEnabled(isChecked);
+            ivVibrationToggle.setImageResource(newVal ? R.drawable.ic_vibration_on : R.drawable.ic_vibration_off);
+            layoutVibrationLevel.setAlpha(newVal ? 1.0f : 0.5f);
+            seekBarVibration.setEnabled(newVal);
 
-            if (isChecked) Toast.makeText(this, "Vibration On", Toast.LENGTH_SHORT).show();
+            if (newVal) Toast.makeText(this, "Vibration On", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(this, "Vibration Off", Toast.LENGTH_SHORT).show();
         });
 
         ivSoundToggle.setOnClickListener(v -> {

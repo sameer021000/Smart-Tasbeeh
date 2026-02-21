@@ -165,14 +165,17 @@
                         android:layout_marginEnd="16dp"
                         app:layout_constraintTop_toBottomOf="@id/tvHaptic"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/switchHaptic"/>
+                        app:layout_constraintEnd_toStartOf="@id/ivVibrationToggle"/>
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchHaptic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:thumbTint="@color/tasbeeh_blue_primary"
-                        app:trackTint="@color/tasbeeh_blue_accent"
+                    <ImageView
+                        android:id="@+id/ivVibrationToggle"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_vibration_on"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toTopOf="@id/layoutVibrationLevel"
@@ -183,7 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/switchHaptic"
+                        app:layout_constraintTop_toBottomOf="@id/ivVibrationToggle"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent">
 
