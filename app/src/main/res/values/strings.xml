@@ -42,7 +42,7 @@
     <string name="tap_anywhere_title">Tap Anywhere</string>
     <string name="cd_full_screen_count">Full screen counting</string>
     <string name="tap_anywhere_desc">Count by tapping anywhere on the screen</string>
-    <string name="app_version">Smart Tasbeeh v1.0.1</string>
+    <string name="app_version">Smart Tasbeeh v1.0.2</string>
     <string name="vibration_percentage_text">75%</string>
     <string name="auto_less_time">Less time ?</string>
     <string name="auto_more_time">More time ?</string>
