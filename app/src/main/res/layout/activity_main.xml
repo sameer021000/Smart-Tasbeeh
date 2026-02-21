@@ -210,9 +210,12 @@
         app:layout_constraintStart_toEndOf="@+id/btnSave"
         app:layout_constraintTop_toTopOf="@+id/btnSave"
         app:layout_constraintBottom_toBottomOf="@+id/btnReset"
+        android:lines="2"
+        android:maxLines="2"
+        android:lineSpacingMultiplier="0.8"
         app:autoSizeTextType="uniform"
         app:autoSizeMinTextSize="12sp"
-        app:autoSizeMaxTextSize="40sp"
+        app:autoSizeMaxTextSize="28sp"
         app:autoSizeStepGranularity="1sp" />
 
     <!-- Reset Button (Right) -->
