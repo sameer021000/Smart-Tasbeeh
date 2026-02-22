@@ -107,7 +107,7 @@ public class AnalysisActivity extends AppCompatActivity {
                 int radius = (int) (height * 0.15f); 
                 
                 // TEXT SIZE: Reduced to 25% of height to ensure "Resume" fits
-                float textSizePx = height * 0.30f;
+                float textSizePx = height * 0.27f;
 
                 // Apply to Pause
                 fabPause.setCornerRadius(radius);

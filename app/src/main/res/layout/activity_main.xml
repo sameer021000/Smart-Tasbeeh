@@ -98,7 +98,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/tvCountText"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="12sp"
-                app:autoSizeMaxTextSize="100sp"
+                app:autoSizeMaxTextSize="50sp"
                 app:autoSizeStepGranularity="2sp"/>
 
             <!-- Count in Words -->
