@@ -20,6 +20,7 @@ import java.util.Locale;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class AnalysisActivity extends AppCompatActivity {
 
@@ -35,7 +36,7 @@ public class AnalysisActivity extends AppCompatActivity {
     private androidx.recyclerview.widget.RecyclerView rvCards;
     private LinearLayout layoutDots;
     private AnalysisAdapter adapter;
-    private List<AnalysisCard> analysisCards = new ArrayList<>();
+    private final List<AnalysisCard> analysisCards = new ArrayList<>();
 
     // State
 
@@ -48,7 +49,7 @@ public class AnalysisActivity extends AppCompatActivity {
 
     // Data: Stores DURATION (ms) of each Zikr (i.e., time between taps)
     // Start -> Tap 1 (Duration 1) -> Tap 2 (Duration 2)...
-    private ArrayList<Long> zikrDurations = new ArrayList<>();
+    private final ArrayList<Long> zikrDurations = new ArrayList<>();
 
     // Feedback
     private Vibrator vibrator;
@@ -71,7 +72,7 @@ public class AnalysisActivity extends AppCompatActivity {
         try {
             toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("AnalysisActivity", "Error initializing ToneGenerator", e);
         }
     }
 
@@ -360,13 +361,16 @@ public class AnalysisActivity extends AppCompatActivity {
                 public void onScrollStateChanged(@androidx.annotation.NonNull androidx.recyclerview.widget.RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
                     if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) {
-                        int pos = ((androidx.recyclerview.widget.LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-                        if (pos != -1) updateDots(pos);
+                        androidx.recyclerview.widget.RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
+                        if (lm instanceof androidx.recyclerview.widget.LinearLayoutManager) {
+                            int pos = ((androidx.recyclerview.widget.LinearLayoutManager) lm).findFirstCompletelyVisibleItemPosition();
+                            if (pos != -1) updateDots(pos);
+                        }
                     }
                 }
             });
         } else {
-            adapter.notifyDataSetChanged();
+            adapter.notifyItemRangeChanged(0, analysisCards.size());
             rvCards.scrollToPosition(0);
         }
 
@@ -415,7 +419,7 @@ public class AnalysisActivity extends AppCompatActivity {
 
     class AnalysisAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<AnalysisAdapter.CardViewHolder> {
 
-        private List<AnalysisCard> items;
+        private final List<AnalysisCard> items;
 
         AnalysisAdapter(List<AnalysisCard> items) { this.items = items; }
 
@@ -434,6 +438,15 @@ public class AnalysisActivity extends AppCompatActivity {
             holder.tvValue.setText(item.value);
             holder.tvSubtext.setText(item.subtext);
             holder.ivIcon.setImageResource(item.iconRes);
+
+            // Dynamic Corner Radius for Cards
+            holder.cardView.post(() -> {
+                int height = holder.cardView.getHeight();
+                if (height > 0) {
+                    // Set corner radius to 12% of height (adjust ratio as needed)
+                    holder.cardView.setRadius(height * 0.06f);
+                }
+            });
         }
 
         @Override
@@ -442,6 +455,7 @@ public class AnalysisActivity extends AppCompatActivity {
         class CardViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
             TextView tvTitle, tvValue, tvSubtext;
             ImageView ivIcon;
+            com.google.android.material.card.MaterialCardView cardView;
 
             CardViewHolder(View itemView) {
                 super(itemView);
@@ -449,6 +463,7 @@ public class AnalysisActivity extends AppCompatActivity {
                 tvValue = itemView.findViewById(R.id.tvValue);
                 tvSubtext = itemView.findViewById(R.id.tvSubtext);
                 ivIcon = itemView.findViewById(R.id.ivIcon);
+                cardView = itemView.findViewById(R.id.cardInfo);
             }
         }
     }
@@ -513,9 +528,12 @@ public class AnalysisActivity extends AppCompatActivity {
                     v.animate().scaleX(0.9f).scaleY(0.9f).setDuration(100).start();
                     break;
                 case android.view.MotionEvent.ACTION_UP:
+                    v.performClick();
+                    v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start();
+                    return true;
                 case android.view.MotionEvent.ACTION_CANCEL:
                     v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start();
-                    break;
+                    return true;
             }
             return false;
         });

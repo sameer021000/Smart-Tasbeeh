@@ -267,7 +267,7 @@
                 android:id="@+id/spaceBelow_controlsRow"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="H,15:1"
+                app:layout_constraintDimensionRatio="H,25:1"
                 app:layout_constraintTop_toBottomOf="@+id/controlsRow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -294,7 +294,6 @@
                 android:id="@+id/btnShowReport"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                app:layout_constraintWidth_percent="0.28"
                 app:layout_constraintDimensionRatio="H,1.9:1"
                 android:text="@string/report_button_text"
                 android:fontFamily="sans-serif-black"
@@ -312,12 +311,11 @@
                 android:id="@+id/spaceBelow_btnShowReport"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="H,15:1"
+                app:layout_constraintDimensionRatio="H,30:1"
                 app:layout_constraintTop_toBottomOf="@+id/btnShowReport"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <!-- Report Container (Visible on request) -->
             <!-- Report Container (Visible on request) -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/reportContainer"
@@ -335,7 +333,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintWidth_percent="1.0"
-                    app:layout_constraintDimensionRatio="H,1.05:1"
+                    app:layout_constraintDimensionRatio="H,1.2:1"
                     android:clipToPadding="false"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -345,7 +343,7 @@
                     android:id="@+id/spaceBelow_rvAnalysisCards"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="H,15:1"
+                    app:layout_constraintDimensionRatio="H,40:1"
                     app:layout_constraintTop_toBottomOf="@+id/rvAnalysisCards"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>

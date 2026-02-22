@@ -1,73 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardInfo"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="5dp"
-    app:cardBackgroundColor="@color/card_background"
-    app:strokeColor="@color/card_stroke_color"
-    app:strokeWidth="1.5dp">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="24dp">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardInfo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.80"
+        app:layout_constraintHeight_percent="0.80"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="@color/card_background"
+        app:strokeColor="@color/card_stroke_color"
+        app:strokeWidth="1.5dp">
 
-        <!-- Stat Content -->
-        <LinearLayout
-            android:id="@+id/layoutStatContent"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/ivIcon"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginBottom="20dp"
-                app:tint="@color/tasbeeh_blue_primary"/>
+            <!-- Stat Content - Scaled with percent instead of padding -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutStatContent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.85"
+                app:layout_constraintHeight_percent="0.85"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fastest Count"
-                android:textSize="20sp"
-                android:textColor="@color/text_secondary"
-                android:fontFamily="sans-serif-black"
-                android:layout_marginBottom="15dp"/>
+                <ImageView
+                    android:id="@+id/ivIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.22"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/spaceBelowIcon"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:tint="@color/tasbeeh_blue_primary"
+                    android:contentDescription="@null"/>
 
-            <TextView
-                android:id="@+id/tvValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0.5s"
-                android:textSize="56sp"
-                android:textColor="@color/tasbeeh_blue_primary"
-                android:fontFamily="sans-serif-black"
-                android:includeFontPadding="false"
-                android:layout_marginBottom="15dp"/>
+                <View
+                    android:id="@+id/spaceBelowIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H,20:1"
+                    app:layout_constraintTop_toBottomOf="@id/ivIcon"
+                    app:layout_constraintBottom_toTopOf="@id/tvTitle"/>
 
-            <TextView
-                android:id="@+id/tvSubtext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Zikr : 54"
-                android:textSize="16sp"
-                android:textColor="@color/text_secondary"
-                android:fontFamily="sans-serif-black"
-                android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent="0.8"
+                    app:layout_constraintDimensionRatio="H,8:1"
+                    android:text="@string/analysis_placeholder_tvTitle"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="8sp"
+                    app:autoSizeMaxTextSize="24sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:layout_constraintTop_toBottomOf="@id/spaceBelowIcon"
+                    app:layout_constraintBottom_toTopOf="@+id/spaceBelowTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-        </LinearLayout>
+                <View
+                    android:id="@+id/spaceBelowTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H,30:1"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                    app:layout_constraintBottom_toTopOf="@id/tvValue"/>
 
+                <TextView
+                    android:id="@+id/tvValue"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:layout_constraintDimensionRatio="H,3:1"
+                    android:text="@string/analysis_placeholder_value"
+                    android:textColor="@color/tasbeeh_blue_primary"
+                    android:fontFamily="sans-serif-black"
+                    android:includeFontPadding="false"
+                    android:gravity="center"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="24sp"
+                    app:autoSizeMaxTextSize="80sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:layout_constraintTop_toBottomOf="@id/spaceBelowTitle"
+                    app:layout_constraintBottom_toTopOf="@+id/spaceBelowValue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
+                <View
+                    android:id="@+id/spaceBelowValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H,35:1"
+                    app:layout_constraintTop_toBottomOf="@id/tvValue"
+                    app:layout_constraintBottom_toTopOf="@id/tvSubtext"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tvSubtext"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent="0.8"
+                    app:layout_constraintDimensionRatio="H,10:1"
+                    android:text="@string/analysis_placeholder_subtext"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="sans-serif-black"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="8sp"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:layout_constraintTop_toBottomOf="@id/spaceBelowValue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-</com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
