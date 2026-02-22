@@ -546,9 +546,8 @@ public class MainActivity extends AppCompatActivity {
             sliderSpeed.setStepSize(1.0f); // 1 sec steps for extended range
             tvMoreTime.setText(R.string.auto_less_time);
 
-            // Allow up to 60.0
             if (currentSec > 60.0f) currentSec = 60.0f;
-            // Removed redundant check (< 5.0f) for logic consistency
+            currentSec = Math.round(currentSec); // Round to align with stepSize 1.0
         } else {
             sliderSpeed.setValueFrom(0.3f);
             sliderSpeed.setValueTo(5.0f);
@@ -556,7 +555,7 @@ public class MainActivity extends AppCompatActivity {
             tvMoreTime.setText(R.string.auto_more_time);
 
             if (currentSec < 0.3f) currentSec = 0.3f;
-            // Removed redundant check (> 5.0f) for logic consistency
+            currentSec = Math.round(currentSec * 10.0f) / 10.0f; // Round to align with stepSize 0.1
         }
 
         sliderSpeed.setValue(currentSec);
