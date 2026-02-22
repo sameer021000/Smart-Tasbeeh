@@ -7,85 +7,134 @@
     android:background="@color/app_background">
 
     <!-- Header Area -->
-    <LinearLayout
+    <!-- Header Area - Premium Dashboard Design -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/app_background">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_clock"
-            app:tint="@color/count_text_color"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@null"/>
-
-        <TextView
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/headerStart"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/headerEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <!-- Title & Stats - Responsive scaling -->
+        <TextView
+            android:id="@+id/tvHistoryTitleMain"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@string/history_title"
-            android:textSize="30sp"
+            android:textColor="@color/tasbeeh_blue_primary"
             android:fontFamily="sans-serif-black"
-            android:textColor="@color/count_text_color" />
+            android:letterSpacing="0.1"
+            android:includeFontPadding="false"
+            android:gravity="bottom|start"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="44sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintHeight_percent="0.50"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/recordCountBadge"
+            app:layout_constraintStart_toStartOf="@id/headerStart"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/recordCountBadge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_bg_shape"
-            android:backgroundTint="@color/card_background"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@string/no_records_badge"
+            android:textColor="@color/text_secondary"
             android:fontFamily="sans-serif-black"
-            android:textColor="@color/count_text_color"
-            android:textSize="12sp"/>
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:gravity="top|start"
+            android:alpha="0.9"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintTop_toBottomOf="@id/tvHistoryTitleMain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/headerStart"/>
 
-        <ImageView
-            android:id="@+id/btnSort"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/item_bg_shape"
-            android:backgroundTint="@color/card_background"
-            android:src="@drawable/ic_sort"
-            android:scaleType="centerInside"
-            app:tint="@color/count_text_color"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="@string/action_sort_history"/>
+        <!-- Refined Sort Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnSortContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/PercentCornerCard"
+            app:layout_constraintHeight_percent="0.53"
+            app:layout_constraintDimensionRatio="1:1"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="@color/card_stroke_color"
+            app:layout_constraintEnd_toEndOf="@id/headerEnd"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/btnSort"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_sort"
+                android:padding="5dp"
+                android:scaleType="centerInside"
+                app:tint="@color/tasbeeh_blue_primary"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/action_sort_history"/>
 
-    <!-- List -->
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- List - Responsive Dimensions -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:padding="16dp"
+        app:layout_constraintWidth_percent="0.92"
         app:layout_constraintTop_toBottomOf="@id/headerLayout"
         app:layout_constraintBottom_toTopOf="@id/bottomNavDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_saved_count" />
 
     <TextView
         android:id="@+id/emptyView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.85"
+        app:layout_constraintHeight_percent="0.1"
         android:text="@string/no_saved_counts"
         android:textColor="@color/text_secondary"
-        android:textSize="16sp"
         android:visibility="gone"
+        android:gravity="center"
+        android:lines="1"
+        android:maxLines="1"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="24sp"
+        app:autoSizeStepGranularity="1sp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
