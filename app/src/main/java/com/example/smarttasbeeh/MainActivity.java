@@ -802,8 +802,20 @@ public class MainActivity extends AppCompatActivity {
 
         // Check for Resume State
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        int resumeId = prefs.getInt(KEY_RESUME_ID, -1);
-        String resumeTitle = prefs.getString(KEY_RESUME_TITLE, null);
+        int tempResumeId = prefs.getInt(KEY_RESUME_ID, -1);
+        String tempResumeTitle = prefs.getString(KEY_RESUME_TITLE, null);
+
+        if (tempResumeId != -1 && tempResumeTitle != null) {
+            // Verify if it still exists in DB (might have been deleted from History)
+            if (!dbHelper.isIdExists(tempResumeId)) {
+                clearResumeState();
+                tempResumeId = -1;
+                tempResumeTitle = null;
+            }
+        }
+
+        final int resumeId = tempResumeId;
+        final String resumeTitle = tempResumeTitle;
 
         if (resumeId != -1 && resumeTitle != null) {
             // Update Mode

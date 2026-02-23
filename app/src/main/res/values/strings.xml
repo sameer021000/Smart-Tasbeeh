@@ -56,4 +56,12 @@
     <string name="analysis_placeholder_tvTitle">Fastest Count</string>
     <string name="analysis_placeholder_value">0.5s</string>
     <string name="analysis_placeholder_subtext">Zikr : 54</string>
+    <string name="label_total">TOTAL</string>
+    <string name="label_resume">RESUME</string>
+    <string name="label_title_placeholder">Title</string>
+    <string name="label_date_placeholder">29-01-2026   12:41</string>
+    <string name="label_count_placeholder">000000000</string>
+    <string name="cd_pin">Pinned</string>
+    <string name="cd_delete">Delete</string>
+
 </resources>

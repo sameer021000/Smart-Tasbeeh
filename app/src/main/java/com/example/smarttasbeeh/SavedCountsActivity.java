@@ -160,6 +160,17 @@ public class SavedCountsActivity extends AppCompatActivity {
         view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         view.findViewById(R.id.btnDeleteConfirm).setOnClickListener(v -> {
             dbHelper.deleteCount(item.getId());
+            
+            // Clear resume state if the deleted item was currently being resumed
+            android.content.SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+            int resumeId = prefs.getInt("resume_id", -1);
+            if (resumeId == item.getId()) {
+                prefs.edit()
+                    .remove("resume_id")
+                    .remove("resume_title")
+                    .apply();
+            }
+            
             loadCounts(); // Refresh list
             dialog.dismiss();
         });

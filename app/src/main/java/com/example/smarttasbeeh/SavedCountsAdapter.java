@@ -1,9 +1,13 @@
 package com.example.smarttasbeeh;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,8 +46,31 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
         holder.tvDate.setText(item.getTimestamp());
         holder.tvCount.setText(String.valueOf(item.getCount()));
         
-        // Show/Hide Pin Icon
-        holder.ivPin.setVisibility(item.isPinned() ? View.VISIBLE : View.GONE);
+        // Date Clock Icon (14dp manually sized)
+        Drawable clockIcon = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_clock);
+        if (clockIcon != null) {
+            clockIcon = DrawableCompat.wrap(clockIcon).mutate();
+            int size = (int) (14 * holder.itemView.getContext().getResources().getDisplayMetrics().density);
+            clockIcon.setBounds(0, 0, size, size);
+            DrawableCompat.setTint(clockIcon, holder.itemView.getContext().getResources().getColor(R.color.hint_text));
+            holder.tvDate.setCompoundDrawables(clockIcon, null, null, null);
+        }
+        
+        // Show/Hide Pin Icon on tvCount (16dp manually sized)
+        if (item.isPinned()) {
+            Drawable pinIcon = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_pin);
+            if (pinIcon != null) {
+                pinIcon = DrawableCompat.wrap(pinIcon).mutate();
+                int size = (int) (16 * holder.itemView.getContext().getResources().getDisplayMetrics().density);
+                pinIcon.setBounds(0, 0, size, size);
+                DrawableCompat.setTint(pinIcon, holder.itemView.getContext().getResources().getColor(R.color.tasbeeh_blue_primary));
+                holder.tvCount.setCompoundDrawables(pinIcon, null, null, null);
+            }
+            holder.tvCount.setContentDescription(holder.itemView.getContext().getString(R.string.cd_pin) + ", " + item.getCount());
+        } else {
+            holder.tvCount.setCompoundDrawables(null, null, null, null);
+            holder.tvCount.setContentDescription(String.valueOf(item.getCount()));
+        }
 
         // Highlight Logic
         com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
@@ -80,7 +107,6 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvDate, tvCount;
-        android.widget.ImageView ivPin;
         android.widget.Button btnContinue;
         View btnDelete;
 
@@ -89,7 +115,6 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvCount = itemView.findViewById(R.id.tvCount);
-            ivPin = itemView.findViewById(R.id.ivPin);
             btnContinue = itemView.findViewById(R.id.btnContinue);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }

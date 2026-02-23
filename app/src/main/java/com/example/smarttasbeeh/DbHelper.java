@@ -83,6 +83,14 @@ public class DbHelper extends SQLiteOpenHelper {
         return exists;
     }
 
+    public boolean isIdExists(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM " + TABLE_COUNTS + " WHERE " + COL_ID + " = ?", new String[]{String.valueOf(id)});
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
+
     public void updateCount(int id, int count, String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
