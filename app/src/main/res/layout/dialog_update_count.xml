@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
-    <!-- Dialog Box Container: 85% of screen width -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dialogBox"
         android:layout_width="0dp"
@@ -17,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Responsive Padding Guidelines (8% for horizontal, 6% for vertical approximation) -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideStart"
             android:layout_width="wrap_content"
@@ -46,22 +44,21 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.85" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@string/dialog_reset_title"
+            android:text="@string/dialog_update_title"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/text_primary"
             app:autoSizeTextType="uniform"
             app:autoSizeMinTextSize="12sp"
-            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeMaxTextSize="16sp"
             app:autoSizeStepGranularity="2sp"
-            app:layout_constraintDimensionRatio="H,12:1"
+            app:layout_constraintDimensionRatio="H,6:1"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
-            app:layout_constraintTop_toTopOf="@id/guideTop" />
+            app:layout_constraintTop_toTopOf="@id/guideTop"/>
 
         <!-- Responsive Margin using Space -->
         <Space
@@ -73,19 +70,19 @@
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <!-- Message -->
+        <!-- Message/Count Area -->
         <TextView
-            android:id="@+id/tvMessage"
+            android:id="@+id/tvSessionTitle"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@string/dialog_reset_message"
+            android:text="@string/dialog_update_message"
             android:textColor="@color/text_secondary"
-            android:lineSpacingMultiplier="1.2"
+            android:gravity="center"
             app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="9sp"
-            app:autoSizeMaxTextSize="15sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="20sp"
             app:autoSizeStepGranularity="1sp"
-            app:layout_constraintDimensionRatio="H,6:1"
+            app:layout_constraintDimensionRatio="H,8:1"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintTop_toBottomOf="@id/spaceTitleToMessage" />
@@ -98,9 +95,8 @@
             app:layout_constraintDimensionRatio="H,15:1"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
-            app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+            app:layout_constraintTop_toBottomOf="@id/tvSessionTitle" />
 
-        <!-- Buttons Row Container -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -116,7 +112,7 @@
                 android:text="@string/dialog_cancel"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:background="@drawable/selector_cancel_reset"
+                android:background="@drawable/selector_cancel_save"
                 android:stateListAnimator="@null"
                 android:minHeight="48dp"
                 app:autoSizeTextType="uniform"
@@ -137,18 +133,18 @@
                 android:layout_height="0dp"
                 app:layout_constraintHorizontal_weight="0.2"
                 app:layout_constraintStart_toEndOf="@id/btnCancel"
-                app:layout_constraintEnd_toStartOf="@+id/btnResetConfirm"
+                app:layout_constraintEnd_toStartOf="@+id/btnUpdate"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <Button
-                android:id="@+id/btnResetConfirm"
+                android:id="@+id/btnUpdate"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="@string/dialog_reset_confirm"
+                android:text="@string/action_update"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/delete_text"
+                android:backgroundTint="@color/tasbeeh_blue_primary"
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
@@ -168,5 +164,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

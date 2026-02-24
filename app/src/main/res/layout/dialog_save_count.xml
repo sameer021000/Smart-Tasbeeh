@@ -1,89 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="320dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/dialog_background_premium"
-    android:padding="24dp"
     android:layout_gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Dialog Box Container: 85% of screen width -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialogBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Save Progress"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/text_primary"
-        android:layout_marginBottom="8dp"/>
+        android:background="@drawable/dialog_background_premium"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/tvInstructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter a title for this count session."
-        android:textSize="14sp"
-        android:textColor="@color/text_secondary"
-        android:layout_marginBottom="16dp"/>
+        <!-- Responsive Padding Guidelines -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
 
-    <TextView
-        android:id="@+id/tvExistingTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/text_primary"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="24dp"
-        android:visibility="gone" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
 
-    <!-- Simple Bordered Custom EditText -->
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_edittext_selector"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:hint="e.g. SubhanAllah"
-        android:textColor="@color/text_primary"
-        android:textColorHint="@color/hint_text"
-        android:textCursorDrawable="@null"
-        android:textSize="16sp"
-        android:singleLine="true"
-        android:layout_marginBottom="24dp"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCancel"
+        <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="Cancel"
-            android:textAllCaps="false"
+            android:layout_height="0dp"
+            android:text="@string/dialog_save_title"
+            android:fontFamily="sans-serif-black"
             android:textColor="@color/text_primary"
-            android:background="@drawable/selector_cancel_save"
-            android:stateListAnimator="@null"
-            android:padding="0dp"
-            android:layout_marginEnd="8dp"/>
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintDimensionRatio="H,12:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toTopOf="@id/guideTop"/>
 
-        <Button
-            android:id="@+id/btnSave"
+        <Space
+            android:id="@+id/spaceTitleToInfo"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:layout_marginStart="8dp"
-            android:backgroundTint="@color/tasbeeh_blue_primary"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
-    </LinearLayout>
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,40:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvInstructions"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/dialog_save_instructions"
+            android:textColor="@color/text_secondary"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="9sp"
+            app:autoSizeMaxTextSize="15sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintDimensionRatio="H,12:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/spaceTitleToInfo"/>
+
+
+        <Space
+            android:id="@+id/spaceInfoToInput"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,30:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/tvInstructions" />
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_edittext_selector"
+            android:hint="@string/dialog_save_hint"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/hint_text"
+            android:textCursorDrawable="@null"
+            android:singleLine="true"
+            android:gravity="center_vertical|start"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:inputType="textCapSentences"
+            android:importantForAutofill="no"
+            android:textSize="14sp"
+            app:layout_constraintHeight_min="42dp"
+            app:layout_constraintWidth_max="488dp"
+            app:layout_constraintWidth_percent="0.85"
+            app:layout_constraintDimensionRatio="H,11:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spaceInfoToInput"/>
+
+        <Space
+            android:id="@+id/spaceInputToButtons"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,35:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/etTitle" />
+
+        <!-- Buttons Row Container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/spaceInputToButtons"
+            app:layout_constraintBottom_toBottomOf="@id/guideBottom">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/dialog_cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/selector_cancel_save"
+                android:stateListAnimator="@null"
+                android:minHeight="48dp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeMaxTextSize="13sp"
+                app:layout_constraintHeight_min="48dp"
+                app:layout_constraintWidth_max="280dp"
+                app:layout_constraintDimensionRatio="H,2.5:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonGap"
+                app:layout_constraintHorizontal_weight="1"/>
+
+            <Space
+                android:id="@+id/buttonGap"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHorizontal_weight="0.2"
+                app:layout_constraintStart_toEndOf="@id/btnCancel"
+                app:layout_constraintEnd_toStartOf="@+id/btnSave"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/dialog_save_confirm"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/tasbeeh_blue_primary"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="48dp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeMaxTextSize="13sp"
+                app:layout_constraintHeight_min="48dp"
+                app:layout_constraintWidth_max="280dp"
+                app:layout_constraintDimensionRatio="H,2.5:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/buttonGap"
+                app:layout_constraintHorizontal_weight="1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

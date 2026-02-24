@@ -64,4 +64,23 @@
     <string name="cd_pin">Pinned</string>
     <string name="cd_delete">Delete</string>
 
+    <!-- Dialog Strings -->
+    <string name="dialog_reset_title">Reset Counter?</string>
+    <string name="dialog_reset_message">This action will reset your current count to 0 and cannot be undone.</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_reset_confirm">Yes, Reset</string>
+    <string name="dialog_save_title">Save \'%1$s\'?</string>
+    <string name="dialog_save_instructions">Enter a title for this count session.</string>
+    <string name="dialog_save_hint">e.g. Astaqfirullah</string>
+    <string name="dialog_save_confirm">Save</string>
+    <string name="dialog_target_title">Set Target</string>
+    <string name="dialog_target_instructions">Enter the target count you want to reach.</string>
+    <string name="dialog_target_hint">e.g. 100</string>
+    <string name="dialog_target_confirm">Set</string>
+    <string name="dialog_auto_title">Auto Count Speed</string>
+    <string name="dialog_auto_start">Start</string>
+    <string name="dialog_auto_speed_format">%1$.1f sec</string>
+    <string name="dialog_update_title">Update %1$s?</string>
+    <string name="dialog_update_message">\'%1$d\' ——> \'%2$d\'</string>
+
 </resources>

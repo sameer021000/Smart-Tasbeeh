@@ -117,4 +117,15 @@ public class DbHelper extends SQLiteOpenHelper {
         cursor.close();
         return count;
     }
+
+    public int getCountById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_COUNTS, new String[]{COL_COUNT}, COL_ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
 }

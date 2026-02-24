@@ -1,64 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/dialog_background_premium"
-    android:padding="24dp"
     android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialogBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Save Current Count?"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/text_primary"
-        android:layout_marginBottom="12dp"/>
+        android:background="@drawable/dialog_background_premium"
+        app:layout_constraintWidth_percent="0.90"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/tvMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Do you want to save current count before resetting?"
-        android:textSize="15sp"
-        android:textColor="@color/text_secondary"
-        android:lineSpacingMultiplier="1.2"
-        android:layout_marginBottom="24dp"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDontSave"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="Don't Save"
-            android:textAllCaps="false"
+            android:layout_height="0dp"
+            android:text="Save Current Count?"
+            android:fontFamily="sans-serif-black"
             android:textColor="@color/text_primary"
-            android:background="@drawable/selector_cancel_reset"
-            android:stateListAnimator="@null"
-            android:padding="0dp"
-            android:layout_marginEnd="8dp"/>
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintDimensionRatio="H,12:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toTopOf="@id/guideTop"/>
 
-        <Button
-            android:id="@+id/btnSave"
+        <Space
+            android:id="@+id/spaceTitleToMessage"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/tasbeeh_blue_primary"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:layout_marginStart="8dp"/>
-    </LinearLayout>
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,40:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Do you want to save current count before resetting?"
+            android:textColor="@color/text_secondary"
+            android:lineSpacingMultiplier="1.2"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="9sp"
+            app:autoSizeMaxTextSize="15sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintDimensionRatio="H,8:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/spaceTitleToMessage" />
+
+        <Space
+            android:id="@+id/spaceMessageToButtons"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,15:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/spaceMessageToButtons"
+            app:layout_constraintBottom_toBottomOf="@id/guideBottom">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnDontSave"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="Don\'t Save"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/selector_cancel_reset"
+                android:stateListAnimator="@null"
+                android:minHeight="48dp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeMaxTextSize="13sp"
+                app:layout_constraintHeight_min="48dp"
+                app:layout_constraintWidth_max="280dp"
+                app:layout_constraintDimensionRatio="H,2.2:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonGap"
+                app:layout_constraintHorizontal_weight="1"/>
+
+            <Space
+                android:id="@+id/buttonGap"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHorizontal_weight="0.2"
+                app:layout_constraintStart_toEndOf="@id/btnDontSave"
+                app:layout_constraintEnd_toStartOf="@+id/btnSave"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/dialog_save_confirm"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/tasbeeh_blue_primary"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="48dp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeMaxTextSize="13sp"
+                app:layout_constraintHeight_min="48dp"
+                app:layout_constraintWidth_max="280dp"
+                app:layout_constraintDimensionRatio="H,2.2:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/buttonGap"
+                app:layout_constraintHorizontal_weight="1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

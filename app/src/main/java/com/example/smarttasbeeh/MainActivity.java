@@ -308,7 +308,13 @@ public class MainActivity extends AppCompatActivity {
         });
         btnSave.setOnClickListener(v -> {
             performButtonFeedback();
-            showSaveDialog();
+            SharedPreferences prefCheck = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+            int resumeId = prefCheck.getInt(KEY_RESUME_ID, -1);
+            if (resumeId != -1 && dbHelper.isIdExists(resumeId)) {
+                showUpdateDialog(resumeId, prefCheck.getString(KEY_RESUME_TITLE, "Session"));
+            } else {
+                showSaveDialog();
+            }
         });
         btnSavedCounts.setOnClickListener(v -> {
             if (isAutoRunning) {
@@ -786,7 +792,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSaveDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_save_count, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -795,108 +801,86 @@ public class MainActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        tvTitle.setText(getString(R.string.dialog_save_title, String.valueOf(currentCount)));
         EditText etTitle = view.findViewById(R.id.etTitle);
         Button btnSaveDialog = view.findViewById(R.id.btnSave);
-        TextView tvInstructions = view.findViewById(R.id.tvInstructions);
-        TextView tvExistingTitle = view.findViewById(R.id.tvExistingTitle);
 
-        // Check for Resume State
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        int tempResumeId = prefs.getInt(KEY_RESUME_ID, -1);
-        String tempResumeTitle = prefs.getString(KEY_RESUME_TITLE, null);
+        // Save Mode
+        btnSaveDialog.setAlpha(0.5f);
+        btnSaveDialog.setEnabled(false);
 
-        if (tempResumeId != -1 && tempResumeTitle != null) {
-            // Verify if it still exists in DB (might have been deleted from History)
-            if (!dbHelper.isIdExists(tempResumeId)) {
-                clearResumeState();
-                tempResumeId = -1;
-                tempResumeTitle = null;
+        etTitle.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    btnSaveDialog.setAlpha(1.0f);
+                    btnSaveDialog.setEnabled(true);
+                } else {
+                    btnSaveDialog.setAlpha(0.5f);
+                    btnSaveDialog.setEnabled(false);
+                }
             }
+            @Override
+            public void afterTextChanged(android.text.Editable s) {}
+        });
+
+        btnSaveDialog.setOnClickListener(v -> {
+            String title = etTitle.getText().toString().trim().replaceAll("\\s+", " ");
+            if (title.isEmpty()) return;
+
+            if (dbHelper.isTitleExists(title)) {
+                etTitle.setError("Name already exists");
+                return;
+            }
+
+            String timestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date());
+            dbHelper.saveCount(title, currentCount, timestamp);
+
+            Toast.makeText(this, "Count Saved!", Toast.LENGTH_SHORT).show();
+            currentCount = 0;
+            updateCountDisplay();
+            saveCountPref();
+            stopAutoCount();
+            dialog.dismiss();
+        });
+
+        view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+    private void showUpdateDialog(int resumeId, String resumeTitle) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_update_count, null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
-        final int resumeId = tempResumeId;
-        final String resumeTitle = tempResumeTitle;
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        TextView tvSessionTitle = view.findViewById(R.id.tvSessionTitle);
+        Button btnUpdate = view.findViewById(R.id.btnUpdate);
 
-        if (resumeId != -1 && resumeTitle != null) {
-            // Update Mode
-            tvInstructions.setVisibility(View.GONE);
-            etTitle.setVisibility(View.GONE);
-            tvExistingTitle.setVisibility(View.VISIBLE);
-            tvExistingTitle.setText(resumeTitle);
+        int oldCount = dbHelper.getCountById(resumeId);
+        tvTitle.setText(getString(R.string.dialog_update_title, resumeTitle));
+        tvSessionTitle.setText(getString(R.string.dialog_update_message, oldCount, currentCount));
 
-            btnSaveDialog.setText(R.string.action_update);
+        btnUpdate.setOnClickListener(v -> {
+            String timestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date());
+            dbHelper.updateCount(resumeId, currentCount, timestamp);
 
-            // Enable button by default since title is present
-            btnSaveDialog.setAlpha(1.0f);
-            btnSaveDialog.setEnabled(true);
-            btnSaveDialog.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFF2962FF));
-
-            btnSaveDialog.setOnClickListener(v -> {
-                String timestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date());
-                dbHelper.updateCount(resumeId, currentCount, timestamp);
-
-                Toast.makeText(this, "Count Updated!", Toast.LENGTH_SHORT).show();
-
-                // Reset after update
-                currentCount = 0;
-                updateCountDisplay();
-                saveCountPref();
-                clearResumeState();
-                stopAutoCount(); // Ensure stopped
-
-                dialog.dismiss();
-            });
-
-        } else {
-            // Save Mode (Existing Logic)
-            // Initial state
-            btnSaveDialog.setAlpha(0.5f);
-            btnSaveDialog.setEnabled(false);
-
-            etTitle.addTextChangedListener(new android.text.TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (!s.toString().trim().isEmpty()) {
-                        btnSaveDialog.setAlpha(1.0f);
-                        btnSaveDialog.setEnabled(true);
-                        btnSaveDialog.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFF2962FF));
-                    } else {
-                        btnSaveDialog.setAlpha(0.5f);
-                        btnSaveDialog.setEnabled(false);
-                        btnSaveDialog.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFF2962FF));
-                    }
-                }
-                @Override
-                public void afterTextChanged(android.text.Editable s) {}
-            });
-
-            btnSaveDialog.setOnClickListener(v -> {
-                // Trim and replace multiple spaces with single space
-                String title = etTitle.getText().toString().trim().replaceAll("\\s+", " ");
-
-                if (title.isEmpty()) return;
-
-                if (dbHelper.isTitleExists(title)) {
-                    etTitle.setError("Name already exists");
-                    return;
-                }
-
-                String timestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date());
-                dbHelper.saveCount(title, currentCount, timestamp);
-
-                Toast.makeText(this, "Count Saved!", Toast.LENGTH_SHORT).show();
-
-                // Reset after save
-                currentCount = 0;
-                updateCountDisplay();
-                saveCountPref();
-                stopAutoCount(); // Ensure stopped
-
-                dialog.dismiss();
-            });
-        }
+            Toast.makeText(this, "Count Updated!", Toast.LENGTH_SHORT).show();
+            currentCount = 0;
+            updateCountDisplay();
+            saveCountPref();
+            clearResumeState();
+            stopAutoCount();
+            dialog.dismiss();
+        });
 
         view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         dialog.show();
