@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:cardCornerRadius="24dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.SmartTasbeeh.ResponsiveCard"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/card_background"
         app:strokeColor="@color/card_stroke_color"
@@ -44,28 +44,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.15" />
+                app:layout_constraintGuide_percent="0.10" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideBottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.85" />
+                app:layout_constraintGuide_percent="0.90" />
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="@string/dialog_auto_title"
-                android:textStyle="bold"
-                android:textColor="@color/tasbeeh_blue_primary"
-                android:gravity="center"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/text_primary"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeMaxTextSize="24sp"
                 app:autoSizeStepGranularity="2sp"
                 app:layout_constraintDimensionRatio="H,12:1"
+                android:gravity="center"
                 app:layout_constraintTop_toTopOf="@id/guideTop"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"/>
@@ -73,7 +73,7 @@
                 android:id="@+id/spaceTitleToValue"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="H,50:1"
+                app:layout_constraintDimensionRatio="H,40:1"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
@@ -84,11 +84,11 @@
                 android:layout_height="0dp"
                 android:text="@string/dialog_auto_speed_format"
                 android:fontFamily="sans-serif-black"
-                android:textColor="@color/tasbeeh_blue_primary"
+                android:textColor="@color/text_secondary"
                 android:gravity="center"
                 app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="10sp"
-                app:autoSizeMaxTextSize="18sp"
+                app:autoSizeMinTextSize="9sp"
+                app:autoSizeMaxTextSize="15sp"
                 app:autoSizeStepGranularity="1sp"
                 app:layout_constraintDimensionRatio="H,15:1"
                 app:layout_constraintTop_toBottomOf="@id/spaceTitleToValue"
@@ -118,19 +118,32 @@
                 app:layout_constraintTop_toBottomOf="@id/spaceValueToSlider"
                 app:layout_constraintStart_toStartOf="@id/guideStart"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"/>
+            <Space
+                android:id="@+id/spaceBelow_sliderSpeed"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,40:1"
+                app:layout_constraintStart_toStartOf="@id/guideStart"
+                app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                app:layout_constraintTop_toBottomOf="@id/sliderSpeed" />
 
             <TextView
                 android:id="@+id/tvMoreTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:text="@string/auto_more_time"
-                android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="@color/tasbeeh_blue_primary"
-                android:layout_marginTop="8dp"
+                android:textColor="@color/text_secondary"
                 android:clickable="true"
                 android:focusable="true"
-                app:layout_constraintTop_toBottomOf="@id/sliderSpeed"
+                android:gravity="center_vertical|end"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="11sp"
+                app:autoSizeMaxTextSize="15sp"
+                app:autoSizeStepGranularity="1sp"
+                app:layout_constraintWidth_percent="0.3"
+                app:layout_constraintDimensionRatio="H,2.3:1"
+                app:layout_constraintTop_toBottomOf="@id/spaceBelow_sliderSpeed"
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"/>
 
             <Space
@@ -150,31 +163,63 @@
                 app:layout_constraintEnd_toEndOf="@id/guideEnd"
                 app:layout_constraintBottom_toBottomOf="@id/guideBottom">
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnCancelAuto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:text="@string/dialog_cancel"
+                    android:textAllCaps="false"
                     android:fontFamily="sans-serif-black"
-                    android:textColor="@color/tasbeeh_blue_primary"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:textColor="@color/text_primary"
+                    android:background="@drawable/selector_cancel_save"
+                    android:stateListAnimator="@null"
+                    android:minHeight="48dp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeMaxTextSize="13sp"
+                    app:layout_constraintHeight_min="48dp"
+                    app:layout_constraintWidth_max="280dp"
+                    app:layout_constraintDimensionRatio="H,2.5:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/buttonGap"
+                    app:layout_constraintHorizontal_weight="1"/>
+
+                <Space
+                    android:id="@+id/buttonGap"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintHorizontal_weight="0.2"
+                    app:layout_constraintStart_toEndOf="@id/btnCancelAuto"
                     app:layout_constraintEnd_toStartOf="@+id/btnStartAuto"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
                 <Button
                     android:id="@+id/btnStartAuto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:text="@string/dialog_auto_start"
+                    android:textAllCaps="false"
                     android:fontFamily="sans-serif-black"
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:backgroundTint="@color/tasbeeh_blue_primary"
-                    android:textColor="@android:color/white"
-                    android:layout_marginStart="8dp"
+                    android:textColor="@color/white"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minHeight="48dp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeMaxTextSize="13sp"
+                    app:layout_constraintHeight_min="48dp"
+                    app:layout_constraintWidth_max="280dp"
+                    app:layout_constraintDimensionRatio="H,2.5:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/buttonGap"
+                    app:layout_constraintHorizontal_weight="1"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
