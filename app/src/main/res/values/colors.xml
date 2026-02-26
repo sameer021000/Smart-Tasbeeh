@@ -8,6 +8,8 @@
     <color name="tasbeeh_blue_light">#EFF6FF</color>   <!-- Blue 50 -->
     <color name="tasbeeh_blue_accent">#3B82F6</color>  <!-- Blue 500 -->
     <color name="tasbeeh_blue_dark2">#202962FF</color>
+    <color name="tasbeeh_blue_transparent_8">#152563EB</color>
+
 
     <!-- UI Colors -->
     <color name="background_light">#EFF6FF</color>     <!-- Blue 50 (App Background) -->
@@ -38,4 +40,8 @@
     <color name="grid_line_color">#2563EB</color>
 
     <color name="card_stroke_color">#DBEAFE</color> <!-- Blue 100 -->
+
+    <!-- Button Pressed States -->
+    <color name="cancel_btn_pressed_green">#95B697</color>
+    <color name="cancel_btn_pressed_red">#F69E98</color>
 </resources>

@@ -1,171 +1,529 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/dialog_background_premium"
-    android:paddingBottom="24dp">
+    android:animateLayoutChanges="true"
+    android:background="@drawable/dialog_background_premium">
 
-    <!-- Handle Bar (Visual cue for bottom sheet) -->
-    <View
-        android:layout_width="40dp"
-        android:layout_height="4dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="@color/card_stroke_color"
-        android:backgroundTint="@color/card_stroke_color"/>
-
-    <!-- Option: Time Latest -->
-    <LinearLayout
-        android:id="@+id/optionLatest"
-        android:layout_width="match_parent"
+    <!-- GUTTERS & GUIDELINES -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideStart"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.94" />
+
+    <!-- TOP SPACING -->
+    <Space
+        android:id="@+id/spaceTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,32:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- HANDLE BAR -->
+    <View
+        android:id="@+id/handleBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/item_bg_shape"
+        android:backgroundTint="@color/card_stroke_color"
+        app:layout_constraintWidth_percent="0.12"
+        app:layout_constraintDimensionRatio="H,10:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spaceTop" />
+
+    <!-- HEADER TITLE -->
+    <TextView
+        android:id="@+id/tvSortHeader"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/sort_header_title"
+        android:gravity="center"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/text_primary"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="16sp"
+        app:layout_constraintDimensionRatio="H,12:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/handleBar"
+        android:layout_marginTop="12dp" />
+
+    <Space
+        android:id="@+id/spaceHeaderToOptions"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,40:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSortHeader" />
+
+    <!-- OPTIONS -->
+
+    <!-- Time Latest -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/optionLatest"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@anim/press_lift"
         android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_clock"
-            app:tint="@color/text_primary"
-            android:layout_marginEnd="16dp"/>
-        <TextView
+        app:layout_constraintDimensionRatio="H,7.6:1"
+        app:layout_constraintStart_toStartOf="@id/guideStart"
+        app:layout_constraintEnd_toEndOf="@id/guideEnd"
+        app:layout_constraintTop_toBottomOf="@id/spaceHeaderToOptions">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerIconLatest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time Latest"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif-black"
-            android:textColor="@color/text_primary"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
 
-    <!-- Option: Time Earliest -->
-    <LinearLayout
-        android:id="@+id/optionEarliest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerTextLatest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <View
+            android:id="@+id/bgLatestIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/tasbeeh_blue_transparent_8"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/guideInnerIconLatest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/ivLatestIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_clock"
+            android:contentDescription="@string/cd_sort_time"
+            app:tint="@color/tasbeeh_blue_primary"
+            app:layout_constraintWidth_percent="0.06"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/bgLatestIcon"
+            app:layout_constraintEnd_toEndOf="@id/bgLatestIcon"
+            app:layout_constraintTop_toTopOf="@id/bgLatestIcon"
+            app:layout_constraintBottom_toBottomOf="@id/bgLatestIcon" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_option_latest"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/text_primary"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="11sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/guideInnerTextLatest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:id="@+id/gap_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,100:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionLatest" />
+
+    <!-- Time Earliest -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/optionEarliest"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@anim/press_lift"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintDimensionRatio="H,7.6:1"
+        app:layout_constraintStart_toStartOf="@id/guideStart"
+        app:layout_constraintEnd_toEndOf="@id/guideEnd"
+        app:layout_constraintTop_toBottomOf="@id/gap_1">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerIconEarliest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerTextEarliest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <View
+            android:id="@+id/bgEarliestIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/tasbeeh_blue_transparent_8"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/guideInnerIconEarliest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivEarliestIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:src="@drawable/ic_clock"
             android:rotation="180"
-            app:tint="@color/text_primary"
-            android:layout_marginEnd="16dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time Earliest"
-            android:fontFamily="sans-serif-black"
-            android:textSize="16sp"
-            android:textColor="@color/text_primary"/>
-    </LinearLayout>
+            android:contentDescription="@string/cd_sort_time"
+            app:tint="@color/tasbeeh_blue_primary"
+            app:layout_constraintWidth_percent="0.06"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/bgEarliestIcon"
+            app:layout_constraintEnd_toEndOf="@id/bgEarliestIcon"
+            app:layout_constraintTop_toTopOf="@id/bgEarliestIcon"
+            app:layout_constraintBottom_toBottomOf="@id/bgEarliestIcon" />
 
-    <!-- Option: Highest Count -->
-    <LinearLayout
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_option_earliest"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/text_primary"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="11sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/guideInnerTextEarliest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:id="@+id/gap_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,100:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionEarliest" />
+
+    <!-- Highest Count -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/optionHighest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@anim/press_lift"
         android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_add" 
-            app:tint="@color/text_primary"
-            android:layout_marginEnd="16dp"/>
-        <TextView
+        app:layout_constraintDimensionRatio="H,7.6:1"
+        app:layout_constraintStart_toStartOf="@id/guideStart"
+        app:layout_constraintEnd_toEndOf="@id/guideEnd"
+        app:layout_constraintTop_toBottomOf="@id/gap_2">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerIconHighest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Highest Count"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerTextHighest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <View
+            android:id="@+id/bgHighestIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/tasbeeh_blue_transparent_8"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/guideInnerIconHighest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivHighestIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_add"
+            android:contentDescription="@string/cd_sort_count"
+            app:tint="@color/tasbeeh_blue_primary"
+            app:layout_constraintWidth_percent="0.06"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/bgHighestIcon"
+            app:layout_constraintEnd_toEndOf="@id/bgHighestIcon"
+            app:layout_constraintTop_toTopOf="@id/bgHighestIcon"
+            app:layout_constraintBottom_toBottomOf="@id/bgHighestIcon" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_option_highest"
             android:fontFamily="sans-serif-black"
-            android:textSize="16sp"
-            android:textColor="@color/text_primary"/>
-    </LinearLayout>
-    
-    <!-- Option: Lowest Count -->
-    <LinearLayout
+            android:textColor="@color/text_primary"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="11sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/guideInnerTextHighest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:id="@+id/gap_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,100:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionHighest" />
+
+    <!-- Lowest Count -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/optionLowest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@anim/press_lift"
         android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical">
+        app:layout_constraintDimensionRatio="H,7.6:1"
+        app:layout_constraintStart_toStartOf="@id/guideStart"
+        app:layout_constraintEnd_toEndOf="@id/guideEnd"
+        app:layout_constraintTop_toBottomOf="@id/gap_3">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerIconLowest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerTextLowest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <View
+            android:id="@+id/bgLowestIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/tasbeeh_blue_transparent_8"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/guideInnerIconLowest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_remove" 
-            app:tint="@color/text_primary"
-            android:layout_marginEnd="16dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lowest Count"
-            android:fontFamily="sans-serif-black"
-            android:textSize="16sp"
-            android:textColor="@color/text_primary"/>
-    </LinearLayout>
+            android:id="@+id/ivLowestIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_remove"
+            android:contentDescription="@string/cd_sort_count"
+            app:tint="@color/tasbeeh_blue_primary"
+            app:layout_constraintWidth_percent="0.06"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/bgLowestIcon"
+            app:layout_constraintEnd_toEndOf="@id/bgLowestIcon"
+            app:layout_constraintTop_toTopOf="@id/bgLowestIcon"
+            app:layout_constraintBottom_toBottomOf="@id/bgLowestIcon" />
 
-    <!-- Option: A-Z -->
-    <LinearLayout
-         android:id="@+id/optionAZ"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_option_lowest"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/text_primary"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="11sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/guideInnerTextLowest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:id="@+id/gap_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,100:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionLowest" />
+
+    <!-- A-Z -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/optionAZ"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@anim/press_lift"
         android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical">
-        <TextView
-             android:layout_width="24dp"
-             android:layout_height="24dp"
-             android:text="A-Z"
-            android:fontFamily="sans-serif-black"
-             android:textSize="12sp"
-             android:gravity="center"
-             android:textColor="@color/text_primary"
-             android:layout_marginEnd="16dp"/>
-        <TextView
+        app:layout_constraintDimensionRatio="H,7.6:1"
+        app:layout_constraintStart_toStartOf="@id/guideStart"
+        app:layout_constraintEnd_toEndOf="@id/guideEnd"
+        app:layout_constraintTop_toBottomOf="@id/gap_4">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerIconAZ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title (A-Z)"
-            android:fontFamily="sans-serif-black"
-            android:textSize="16sp"
-            android:textColor="@color/text_primary"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
 
-    <!-- Option: Z-A -->
-    <LinearLayout
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerTextAZ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <TextView
+            android:id="@+id/tvAZLetterIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/sort_option_az_icon"
+            android:gravity="center"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/tasbeeh_blue_primary"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/tasbeeh_blue_transparent_8"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/guideInnerIconAZ"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_option_az_label"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/text_primary"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="11sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/guideInnerTextAZ"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:id="@+id/gap_5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,100:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionAZ" />
+
+    <!-- Z-A -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/optionZA"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@anim/press_lift"
         android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical">
-        <TextView
-             android:layout_width="24dp"
-             android:layout_height="24dp"
-             android:text="Z-A"
-            android:fontFamily="sans-serif-black"
-             android:textSize="12sp"
-             android:gravity="center"
-             android:textColor="@color/text_primary"
-             android:layout_marginEnd="16dp"/>
-        <TextView
+        app:layout_constraintDimensionRatio="H,7.6:1"
+        app:layout_constraintStart_toStartOf="@id/guideStart"
+        app:layout_constraintEnd_toEndOf="@id/guideEnd"
+        app:layout_constraintTop_toBottomOf="@id/gap_5">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerIconZA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title (Z-A)"
-            android:fontFamily="sans-serif-black"
-            android:textSize="16sp"
-            android:textColor="@color/text_primary"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
 
-</LinearLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideInnerTextZA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <TextView
+            android:id="@+id/tvZALetterIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/sort_option_za_icon"
+            android:gravity="center"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/tasbeeh_blue_primary"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/tasbeeh_blue_transparent_8"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/guideInnerIconZA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_option_za_label"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/text_primary"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="11sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/guideInnerTextZA"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- BOTTOM SPACING -->
+    <Space
+        android:id="@+id/spaceBottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,12:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionZA"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

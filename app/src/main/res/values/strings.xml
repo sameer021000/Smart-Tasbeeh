@@ -1,35 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Global -->
     <string name="app_name">Smart Tasbeeh</string>
+    <string name="app_version">Smart Tasbeeh v1.0.2</string>
+
+    <!-- Main Activity (Counter Screen) -->
+    <string name="Tasbeeh_Name">SMART\nTASBEEH</string>
     <string name="Count_Number">0</string>
     <string name="Count_Number_Text">Zero</string>
-    <string name="Tasbeeh_Name">SMART\nTASBEEH</string>
     <string name="Tap_Button_Text">TAP</string>
     <string name="Button_Reposition_Hint_Text">HOLD 3-SECONDS TO REPOSITION BUTTON</string>
-    <string name="action_save_count">Save count</string>
-    <string name="action_reset_count">Reset count</string>
-    <string name="action_decrease_count">Decrease count</string>
-    <string name="action_auto_count">Auto count</string>
-    <string name="action_set_target">Set target</string>
-    <string name="action_pause_analysis">Pause analysis</string>
-    <string name="action_resume_analysis">Resume</string>
-    <string name="action_sort_history">Sort history</string>
-    <string name="action_tap_count">Count</string>
-    <string name="history_icon_desc">History icon</string>
+    <string name="label_save">SAVE</string>
+    <string name="label_reset">RESET</string>
+    <string name="label_minus">MINUS</string>
+    <string name="label_auto">AUTO</string>
+    <string name="label_target">TARGET</string>
+
+    <!-- Navigation Bar -->
     <string name="nav_analysis">ANALYSIS</string>
     <string name="nav_counter">COUNTER</string>
     <string name="nav_history">HISTORY</string>
     <string name="nav_settings">SETTINGS</string>
-    <string name="zikr_analysis_title">Zikr Analysis</string>
-    <string name="zikr_analysis_subtitle">Tap to measure your Zikr speed</string>
-    <string name="paused_text">PAUSED</string>
-    <string name="pause_button_text">PAUSE</string>
-    <string name="start_button_text">START</string>
-    <string name="reset_button_text">Reset</string>
-    <string name="report_button_text">Report</string>
-    <string name="history_title">History</string>
-    <string name="no_records_badge">0 records</string>
-    <string name="no_saved_counts">No saved counts found</string>
-    <string name="no_pinned_counts">NO\nPINNED\nCOUNTS</string>
+
+    <!-- Settings Activity -->
     <string name="did_you_know_title">Did you know?</string>
     <string name="drag_button_hint">You can move the count button anywhere on the screen! Just press and hold it for 3 seconds to enter layout mode.</string>
     <string name="drag_button_hint_short">You can move the count button anywhere! Hold for 3s.</string>
@@ -40,47 +33,93 @@
     <string name="sound_title">Sound</string>
     <string name="sound_desc">Play sound on every count</string>
     <string name="tap_anywhere_title">Tap Anywhere</string>
-    <string name="cd_full_screen_count">Full screen counting</string>
     <string name="tap_anywhere_desc">Count by tapping anywhere on the screen</string>
-    <string name="app_version">Smart Tasbeeh v1.0.2</string>
+    <string name="cd_full_screen_count">Full screen counting</string>
     <string name="vibration_percentage_text">75%</string>
-    <string name="auto_less_time">Less time ?</string>
-    <string name="auto_more_time">More time ?</string>
-    <string name="target_reached_msg">Target of %1$d reached.</string>
-    <string name="action_update">Update</string>
-    <string name="label_save">SAVE</string>
-    <string name="label_reset">RESET</string>
-    <string name="label_minus">MINUS</string>
-    <string name="label_auto">AUTO</string>
-    <string name="label_target">TARGET</string>
-    <string name="analysis_placeholder_tvTitle">Fastest Count</string>
-    <string name="analysis_placeholder_value">0.5s</string>
-    <string name="analysis_placeholder_subtext">Zikr : 54</string>
-    <string name="label_total">TOTAL</string>
-    <string name="label_resume">RESUME</string>
+
+    <!-- Analysis Activity -->
+    <string name="zikr_analysis_title">Zikr Analysis</string>
+    <string name="zikr_analysis_subtitle">Tap to measure your Zikr speed</string>
+    <string name="paused_text">PAUSED</string>
+    <string name="pause_button_text">PAUSE</string>
+    <string name="start_button_text">START</string>
+    <string name="reset_button_text">Reset</string>
+    <string name="report_button_text">Report</string>
+    <string name="action_resume_analysis">Resume</string>
+    <string name="action_pause_analysis">Pause analysis</string>
+
+    <!-- History Screen (Saved Counts) -->
+    <string name="history_title">History</string>
+    <string name="no_records_badge">0 records</string>
+    <string name="no_saved_counts">No saved counts found</string>
+    <string name="no_pinned_counts">NO\nPINNED\nCOUNTS</string>
+    <string name="action_sort_history">Sort history</string>
+
+    <!-- Item Layouts (List Elements) -->
     <string name="label_title_placeholder">Title</string>
     <string name="label_date_placeholder">29-01-2026   12:41</string>
     <string name="label_count_placeholder">000000000</string>
-    <string name="cd_pin">Pinned</string>
+    <string name="label_total">TOTAL</string>
+    <string name="label_resume">RESUME</string>
     <string name="cd_delete">Delete</string>
+    <string name="cd_pin">Pinned</string>
+    <string name="analysis_placeholder_tvTitle">Fastest Count</string>
+    <string name="analysis_placeholder_value">0.5s</string>
+    <string name="analysis_placeholder_subtext">Zikr : 54</string>
 
-    <!-- Dialog Strings -->
+    <!-- Dialog Strings (General) -->
+    <string name="dialog_cancel">Cancel</string>
+
+    <!-- Dialog: Reset -->
     <string name="dialog_reset_title">Reset Counter?</string>
     <string name="dialog_reset_message">This action will reset your current count to 0 and cannot be undone.</string>
-    <string name="dialog_cancel">Cancel</string>
     <string name="dialog_reset_confirm">Yes, Reset</string>
+
+    <!-- Dialog: Save -->
     <string name="dialog_save_title">Save \'%1$s\'?</string>
     <string name="dialog_save_instructions">Enter a title for this count session.</string>
     <string name="dialog_save_hint">e.g. Astaqfirullah</string>
     <string name="dialog_save_confirm">Save</string>
+
+    <!-- Dialog: Set Target -->
     <string name="dialog_target_title">Set Target</string>
     <string name="dialog_target_instructions">Enter the target count you want to reach.</string>
     <string name="dialog_target_hint">e.g. 100</string>
     <string name="dialog_target_confirm">Set</string>
+    <string name="target_reached_msg">Target of %1$d reached.</string>
+
+    <!-- Dialog: Auto Count -->
     <string name="dialog_auto_title">Auto Count Speed</string>
     <string name="dialog_auto_start">Start</string>
     <string name="dialog_auto_speed_format">%1$.1f sec</string>
+    <string name="auto_less_time">Less time ?</string>
+    <string name="auto_more_time">More time ?</string>
+
+    <!-- Dialog: Update -->
     <string name="dialog_update_title">Update %1$s?</string>
     <string name="dialog_update_message">\'%1$d\' ——> \'%2$d\'</string>
+    <string name="action_update">Update</string>
+
+    <!-- Sort Bottom Sheet -->
+    <string name="sort_header_title">Sort Records</string>
+    <string name="sort_option_latest">Time (Newest First)</string>
+    <string name="sort_option_earliest">Time (Oldest First)</string>
+    <string name="sort_option_highest">Highest Count</string>
+    <string name="sort_option_lowest">Lowest Count</string>
+    <string name="sort_option_az_icon">Az</string>
+    <string name="sort_option_az_label">Title (A - Z)</string>
+    <string name="sort_option_za_icon">Za</string>
+    <string name="sort_option_za_label">Title (Z - A)</string>
+    <string name="cd_sort_time">Time sort icon</string>
+    <string name="cd_sort_count">Count sort icon</string>
+
+    <!-- Action Descriptions (Accessibility) -->
+    <string name="action_save_count">Save count</string>
+    <string name="action_reset_count">Reset count</string>
+    <string name="action_decrease_count">Decrease count</string>
+    <string name="action_auto_count">Auto count</string>
+    <string name="action_set_target">Set target</string>
+    <string name="action_tap_count">Count</string>
+    <string name="history_icon_desc">History icon</string>
 
 </resources>

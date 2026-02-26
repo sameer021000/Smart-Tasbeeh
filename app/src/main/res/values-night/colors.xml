@@ -40,4 +40,8 @@
     <color name="card_stroke_color">#801E3A8A</color> <!-- Blue 900 at 50% opacity -->
 
     <color name="grid_line_color">#60A5FA</color>
+
+    <!-- Button Pressed States -->
+    <color name="cancel_btn_pressed_green">#95B697</color>
+    <color name="cancel_btn_pressed_red">#F69E98</color>
 </resources>

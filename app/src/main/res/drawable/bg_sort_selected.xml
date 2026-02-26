@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Solid Background -->
+    <!-- Solid Background (Soft Blue) -->
+    <!-- Note: Corner radius is handled programmatically in SavedCountsActivity.java -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#20007AFF" /> 
-            <corners android:radius="12dp" />
+            <solid android:color="@color/tasbeeh_blue_transparent_8" />
         </shape>
     </item>
 
-    <!-- Stroke (Border) -->
+    <!-- Stroke (Thin primary border) -->
     <item>
         <shape android:shape="rectangle">
-             <stroke android:width="2dp" android:color="@color/tasbeeh_blue_primary" />
-             <corners android:radius="12dp" />
+             <stroke
+                 android:width="1.0dp"
+                 android:color="@color/tasbeeh_blue_primary" />
         </shape>
     </item>
+
+    <!-- Right-aligned Checkmark Indicator -->
+    <item 
+        android:width="20dp"
+        android:height="20dp"
+        android:right="15dp"
+        android:gravity="center_vertical|end"
+        android:drawable="@drawable/ic_check_circle"
+        android:tint="@color/tasbeeh_blue_primary" />
 </layer-list>

@@ -206,15 +206,26 @@ public class SavedCountsActivity extends AppCompatActivity {
         int[] types = {SORT_LATEST, SORT_EARLIEST, SORT_HIGHEST, SORT_LOWEST, SORT_A_Z, SORT_Z_A};
 
         for (int i = 0; i < ids.length; i++) {
-            View option = sheetView.findViewById(ids[i]);
+            final View option = sheetView.findViewById(ids[i]);
             if (types[i] == sortType) {
                 // Selected: Highlight with stroke/background
-                option.setBackground(androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_sort_selected)); 
+                option.setBackground(androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_sort_selected));
+                
+                // Fluid Corner Radius: Clip to 20% of the view's height
+                option.setOutlineProvider(new android.view.ViewOutlineProvider() {
+                    @Override
+                    public void getOutline(View view, android.graphics.Outline outline) {
+                        int radius = (int) (view.getHeight() * 0.20f); // 20% of height for ideal proportionality
+                        outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), radius);
+                    }
+                });
+                option.setClipToOutline(true);
             } else {
                 // Default: Selectable Item Background
                 android.util.TypedValue outValue = new android.util.TypedValue();
                 getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
                 option.setBackgroundResource(outValue.resourceId);
+                option.setClipToOutline(false); // Reset clipping for unselected
             }
         }
     }
