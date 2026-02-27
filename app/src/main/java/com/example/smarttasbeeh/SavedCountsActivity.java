@@ -307,7 +307,23 @@ public class SavedCountsActivity extends AppCompatActivity {
             if (dialog.getWindow() != null) {
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             }
-            
+
+            // Calculate Fluid Text Sizes based on Screen Width
+            android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+            float screenWidth = metrics.widthPixels;
+            float titleSize = screenWidth * 0.044f; // ~4.4% of width
+            float messageSize = screenWidth * 0.035f; // ~3.5% of width
+
+            TextView tvTitle = view.findViewById(R.id.tvPinDialogTitle);
+            if (tvTitle != null) {
+                tvTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
+            }
+
+            TextView tvMsg = view.findViewById(R.id.tvPinDialogMessage);
+            if (tvMsg != null) {
+                tvMsg.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
+            }
+
             view.findViewById(R.id.btnOk).setOnClickListener(v -> dialog.dismiss());
             
             dialog.show();

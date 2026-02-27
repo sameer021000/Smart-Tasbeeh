@@ -436,6 +436,22 @@ public class MainActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
+        // Calculate Fluid Text Sizes based on Screen Width
+        android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float screenWidth = metrics.widthPixels;
+        float titleSize = screenWidth * 0.044f; // ~4.4% of width
+        float instructionSize = screenWidth * 0.035f; // ~3.5% of width
+
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        if (tvTitle != null) {
+            tvTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
+        }
+
+        TextView tvInstructions = view.findViewById(R.id.tvInstructions);
+        if (tvInstructions != null) {
+            tvInstructions.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, instructionSize);
+        }
+
         EditText etTarget = view.findViewById(R.id.etTarget);
         if (targetCount > 0) {
             etTarget.setText(String.valueOf(targetCount));
@@ -551,9 +567,27 @@ public class MainActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
+        // Calculate Fluid Text Sizes based on Screen Width
+        android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float screenWidth = metrics.widthPixels;
+        float titleSize = screenWidth * 0.044f; // ~4.4% of width
+        float valueSize = screenWidth * 0.035f; // ~3.5% of width
+
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        if (tvTitle != null) {
+            tvTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
+        }
+
         TextView tvSpeedValue = view.findViewById(R.id.tvSpeedValue);
+        if (tvSpeedValue != null) {
+            tvSpeedValue.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, valueSize);
+        }
         com.google.android.material.slider.Slider sliderSpeed = view.findViewById(R.id.sliderSpeed);
         TextView tvMoreTime = view.findViewById(R.id.tvMoreTime);
+        if (tvMoreTime != null) {
+            float moreTimeSize = screenWidth * 0.040f; // ~4.0% of width
+            tvMoreTime.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, moreTimeSize);
+        }
 
         // Convert internal ms to seconds for display
         float currentSec = autoSpeed / 1000f;
@@ -794,6 +828,22 @@ public class MainActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
+        // Calculate Fluid Text Sizes based on Screen Width
+        android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float screenWidth = metrics.widthPixels;
+        float titleSize = screenWidth * 0.044f; // ~4.4% of width
+        float messageSize = screenWidth * 0.035f; // ~3.5% of width
+
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        if (tvTitle != null) {
+            tvTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
+        }
+
+        TextView tvMsg = view.findViewById(R.id.tvMessage);
+        if (tvMsg != null) {
+            tvMsg.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
+        }
+
         view.findViewById(R.id.btnResetConfirm).setOnClickListener(v -> {
             stopAutoCount(); // Ensure auto stops
             currentCount = 0;
@@ -817,8 +867,22 @@ public class MainActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
+        // Calculate Fluid Text Sizes based on Screen Width
+        android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float screenWidth = metrics.widthPixels;
+        float titleSize = screenWidth * 0.044f; // ~4.4% of width
+        float instructionSize = screenWidth * 0.035f; // ~3.5% of width
+
         TextView tvTitle = view.findViewById(R.id.tvTitle);
-        tvTitle.setText(getString(R.string.dialog_save_title, String.valueOf(currentCount)));
+        if (tvTitle != null) {
+            tvTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
+            tvTitle.setText(getString(R.string.dialog_save_title, String.valueOf(currentCount)));
+        }
+
+        TextView tvInstructions = view.findViewById(R.id.tvInstructions);
+        if (tvInstructions != null) {
+            tvInstructions.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, instructionSize);
+        }
         EditText etTitle = view.findViewById(R.id.etTitle);
         Button btnSaveDialog = view.findViewById(R.id.btnSave);
 

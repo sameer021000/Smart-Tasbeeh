@@ -49,15 +49,10 @@
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/dialog_target_title"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/text_primary"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeMaxTextSize="24sp"
-            app:autoSizeStepGranularity="2sp"
-            app:layout_constraintDimensionRatio="H,12:1"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintTop_toTopOf="@id/guideTop"/>
@@ -74,14 +69,9 @@
         <TextView
             android:id="@+id/tvInstructions"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/dialog_target_instructions"
             android:textColor="@color/text_secondary"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="9sp"
-            app:autoSizeMaxTextSize="15sp"
-            app:autoSizeStepGranularity="1sp"
-            app:layout_constraintDimensionRatio="H,12:1"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintTop_toBottomOf="@id/spaceTitleToInfo"/>
