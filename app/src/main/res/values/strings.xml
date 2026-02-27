@@ -138,6 +138,11 @@
     <string name="cd_sort_time">Time sort icon</string>
     <string name="cd_sort_count">Count sort icon</string>
 
+    <!-- Dialog: Target Less Warning -->
+    <string name="dialog_target_less_title">Existing Count</string>
+    <string name="dialog_target_less_message">Entered Target is less than or equal to current count. Do you want to start from 0?</string>
+    <string name="dialog_start_from_zero">Start from 0</string>
+
     <!-- Action Descriptions (Accessibility) -->
     <string name="action_save_count">Save count</string>
     <string name="action_reset_count">Reset count</string>
