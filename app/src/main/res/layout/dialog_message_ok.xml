@@ -1,41 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="320dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/dialog_background_premium"
-    android:padding="24dp"
     android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/tvPinDialogTitle"
-        android:layout_width="wrap_content"
+    <!-- Dialog Box Container: 90% of screen width -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialogBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Pin Limit Reached"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/text_primary"
-        android:layout_marginBottom="8dp"/>
+        android:background="@drawable/dialog_background_premium"
+        app:layout_constraintWidth_percent="0.90"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/tvPinDialogMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You can only pin up to 3 items."
-        android:textSize="14sp"
-        android:textColor="@color/text_secondary"
-        android:layout_marginBottom="24dp"/>
+        <!-- Responsive Padding Guidelines -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
 
-    <Button
-        android:id="@+id/btnOk"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="OK"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/tasbeeh_blue_primary"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
 
-</LinearLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvPinDialogTitle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/dialog_pin_limit_title"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/text_primary"
+            android:gravity="center_vertical"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintDimensionRatio="H,12:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toTopOf="@id/guideTop" />
+
+        <!-- Responsive Margin using Space -->
+        <Space
+            android:id="@+id/spaceTitleToMessage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,40:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/tvPinDialogTitle" />
+
+        <!-- Message -->
+        <TextView
+            android:id="@+id/tvPinDialogMessage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/dialog_pin_limit_message"
+            android:textColor="@color/text_secondary"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="9sp"
+            app:autoSizeMaxTextSize="15sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintDimensionRatio="H,15:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/spaceTitleToMessage" />
+
+        <!-- Responsive Margin using Space -->
+        <Space
+            android:id="@+id/spaceMessageToButtons"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,15:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/tvPinDialogMessage" />
+
+        <!-- Button centered in guidelines -->
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/dialog_ok"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/tasbeeh_blue_primary"
+            android:fontFamily="sans-serif-black"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="40dp"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:layout_constraintHeight_min="40dp"
+            app:layout_constraintWidth_max="200dp"
+            app:layout_constraintDimensionRatio="H,4.2:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/spaceMessageToButtons"
+            app:layout_constraintBottom_toBottomOf="@id/guideBottom"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

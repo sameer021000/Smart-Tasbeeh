@@ -107,6 +107,11 @@
     <string name="dialog_update_message">\'%1$d\' ——> \'%2$d\'</string>
     <string name="action_update">Update</string>
 
+    <!-- Dialog: Pin Limit Reach -->
+    <string name="dialog_pin_limit_title">Pin Limit Reached</string>
+    <string name="dialog_pin_limit_message">You can only pin up to 3 items.</string>
+    <string name="dialog_ok">OK</string>
+
     <!-- Sort Bottom Sheet -->
     <string name="sort_header_title">Sort Records</string>
     <string name="sort_option_latest">Time (Newest First)</string>
