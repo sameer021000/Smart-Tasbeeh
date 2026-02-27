@@ -323,26 +323,37 @@ public class SavedCountsActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
+        // Calculate Fluid Text Sizes based on Screen Width
+        android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float screenWidth = metrics.widthPixels;
+        float titleSize = screenWidth * 0.044f; // Matches refined delete dialog
+        float messageSize = screenWidth * 0.035f;
+
         TextView title = view.findViewById(R.id.tvPinDialogTitle);
         TextView msg = view.findViewById(R.id.tvPinDialogMessage);
         android.widget.Button btnAction = view.findViewById(R.id.btnPin);
+
+        if (title != null) title.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
+        if (msg != null) msg.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
         
         if (isPinned) {
-            title.setText("Unpin Item");
-            msg.setText("Do you want to unpin this item?");
-            btnAction.setText("Unpin");
+            if (title != null) title.setText(getString(R.string.dialog_unpin_title, item.getTitle()));
+            if (msg != null) msg.setText(getString(R.string.dialog_unpin_message, item.getTitle()));
+            if (btnAction != null) btnAction.setText(R.string.dialog_unpin_confirm);
         } else {
-            title.setText("Pin Item");
-            msg.setText("Do you want to pin this item to the top?");
-            btnAction.setText("Pin");
+            if (title != null) title.setText(getString(R.string.dialog_pin_title, item.getTitle()));
+            if (msg != null) msg.setText(getString(R.string.dialog_pin_message, item.getTitle()));
+            if (btnAction != null) btnAction.setText(R.string.dialog_pin_confirm);
         }
 
         view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
-        btnAction.setOnClickListener(v -> {
-            dbHelper.togglePin(item.getId(), !isPinned);
-            loadCounts();
-            dialog.dismiss();
-        });
+        if (btnAction != null) {
+            btnAction.setOnClickListener(v -> {
+                dbHelper.togglePin(item.getId(), !isPinned);
+                loadCounts();
+                dialog.dismiss();
+            });
+        }
 
         dialog.show();
     }

@@ -112,6 +112,14 @@
     <string name="dialog_pin_limit_message">You can only pin up to 3 items.</string>
     <string name="dialog_ok">OK</string>
 
+    <!-- Dialog: Pin/Unpin -->
+    <string name="dialog_pin_title">Pin %1$s</string>
+    <string name="dialog_unpin_title">Unpin %1$s?</string>
+    <string name="dialog_pin_message">Do you want to pin \'%1$s\' to the top?</string>
+    <string name="dialog_unpin_message">Do you want to unpin \'%1$s\'?</string>
+    <string name="dialog_pin_confirm">Pin</string>
+    <string name="dialog_unpin_confirm">Unpin</string>
+
     <!-- Sort Bottom Sheet -->
     <string name="sort_header_title">Sort Records</string>
     <string name="sort_option_latest">Time (Newest First)</string>
