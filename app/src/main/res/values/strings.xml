@@ -143,6 +143,13 @@
     <string name="dialog_target_less_message">Entered Target is less than or equal to current count. Do you want to start from 0?</string>
     <string name="dialog_start_from_zero">Start from 0</string>
 
+    <!-- Dialog: Target Reached -->
+    <string name="dialog_target_reached_title">Masha Allah!</string>
+    <string name="dialog_target_reached_message">You have reached your goal.</string>
+    <string name="dialog_continue">Continue</string>
+    <string name="dialog_new_target">New Target</string>
+    <string name="cd_success">Success icon</string>
+
     <!-- Action Descriptions (Accessibility) -->
     <string name="action_save_count">Save count</string>
     <string name="action_reset_count">Reset count</string>
