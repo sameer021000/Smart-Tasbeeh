@@ -1,62 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/dialog_background_premium"
-    android:padding="24dp"
     android:layout_gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Dialog Box Container: 85% of screen width -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialogBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Delete Session"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/text_primary"
-        android:layout_marginBottom="12dp"/>
+        android:background="@drawable/dialog_background_premium"
+        app:layout_constraintWidth_percent="0.90"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Are you sure you want to delete this session?"
-        android:textSize="15sp"
-        android:textColor="@color/text_secondary"
-        android:lineSpacingMultiplier="1.2"
-        android:layout_marginBottom="24dp"/>
+        <!-- Responsive Padding Guidelines (8% for horizontal, 6% for vertical approximation) -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCancel"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="Cancel"
-            android:textAllCaps="false"
+            android:layout_height="0dp"
+            android:text="@string/dialog_delete_title"
+            android:fontFamily="sans-serif-black"
             android:textColor="@color/text_primary"
-            android:background="@drawable/selector_cancel_delete"
-            android:stateListAnimator="@null"
-            android:padding="0dp"
-            android:layout_marginEnd="8dp"/>
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintDimensionRatio="H,12:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toTopOf="@id/guideTop" />
 
-        <Button
-            android:id="@+id/btnDeleteConfirm"
+        <!-- Responsive Margin using Space -->
+        <Space
+            android:id="@+id/spaceTitleToMessage"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="Delete"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/delete_text"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:layout_marginStart="8dp"/>
-    </LinearLayout>
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,40:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-</LinearLayout>
+        <!-- Message -->
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/dialog_delete_message"
+            android:textColor="@color/text_secondary"
+            android:lineSpacingMultiplier="1.2"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="9sp"
+            app:autoSizeMaxTextSize="15sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintDimensionRatio="H,6:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/spaceTitleToMessage" />
+
+        <!-- Responsive Margin using Space -->
+        <Space
+            android:id="@+id/spaceMessageToButtons"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,15:1"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+
+        <!-- Buttons Row Container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintTop_toBottomOf="@id/spaceMessageToButtons"
+            app:layout_constraintBottom_toBottomOf="@id/guideBottom">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/dialog_cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/selector_cancel_delete"
+                android:stateListAnimator="@null"
+                android:minHeight="48dp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeMaxTextSize="13sp"
+                app:layout_constraintHeight_min="48dp"
+                app:layout_constraintWidth_max="280dp"
+                app:layout_constraintDimensionRatio="H,2.2:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonGap"
+                app:layout_constraintHorizontal_weight="1"/>
+
+            <Space
+                android:id="@+id/buttonGap"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHorizontal_weight="0.2"
+                app:layout_constraintStart_toEndOf="@id/btnCancel"
+                app:layout_constraintEnd_toStartOf="@+id/btnDeleteConfirm"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <Button
+                android:id="@+id/btnDeleteConfirm"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/dialog_delete_confirm"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/delete_text"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="48dp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeMaxTextSize="13sp"
+                app:layout_constraintHeight_min="48dp"
+                app:layout_constraintWidth_max="280dp"
+                app:layout_constraintDimensionRatio="H,2.2:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/buttonGap"
+                app:layout_constraintHorizontal_weight="1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
