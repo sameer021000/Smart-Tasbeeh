@@ -157,6 +157,24 @@ public class SavedCountsActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
+        // Calculate Fluid Text Sizes based on Screen Width
+        android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float screenWidth = metrics.widthPixels;
+        float titleSize = screenWidth * 0.044f; // ~4.4% of width
+        float messageSize = screenWidth * 0.035f; // ~3.5% of width
+
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        if (tvTitle != null) {
+            tvTitle.setText(getString(R.string.dialog_delete_title, item.getTitle()));
+            tvTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
+        }
+
+        TextView tvMsg = view.findViewById(R.id.tvMessage);
+        if (tvMsg != null) {
+            tvMsg.setText(getString(R.string.dialog_delete_message, item.getTitle()));
+            tvMsg.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
+        }
+
         view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         view.findViewById(R.id.btnDeleteConfirm).setOnClickListener(v -> {
             dbHelper.deleteCount(item.getId());
