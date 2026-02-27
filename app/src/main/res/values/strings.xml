@@ -102,6 +102,11 @@
     <string name="auto_less_time">Less time ?</string>
     <string name="auto_more_time">More time ?</string>
 
+    <!-- Dialog: Save Before Reset -->
+    <string name="dialog_save_before_reset_title">Save Current Count?</string>
+    <string name="dialog_save_before_reset_message">Do you want to save current count before resetting?</string>
+    <string name="dialog_dont_save">Don\'t Save</string>
+
     <!-- Dialog: Update -->
     <string name="dialog_update_title">Update %1$s?</string>
     <string name="dialog_update_message">\'%1$d\' ——> \'%2$d\'</string>
