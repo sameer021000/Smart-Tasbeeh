@@ -1,11 +1,11 @@
 package com.example.smarttasbeeh;
 
 public class SavedCount {
-    private int id;
-    private String title;
-    private int count;
-    private String timestamp;
-    private long pinnedTimestamp;
+    private final int id;
+    private final String title;
+    private final int count;
+    private final String timestamp;
+    private final long pinnedTimestamp;
     
     public SavedCount(int id, String title, int count, String timestamp, long pinnedTimestamp) {
         this.id = id;
@@ -22,5 +22,4 @@ public class SavedCount {
 
     public long getPinnedTimestamp() { return pinnedTimestamp; }
     public boolean isPinned() { return pinnedTimestamp > 0; }
-    public void setPinnedTimestamp(long ts) { pinnedTimestamp = ts; }
 }
