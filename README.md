@@ -33,21 +33,23 @@
 ## ✨ Key Features
 
 ### 🚀 **Advanced Counting**
-*   **Digital Counter**: Large, responsive, and easy-to-tap interface.
-*   **Auto-Count Mode**: Hands-free counting with adjustable speed (0.1s to 5s+). Ideal for consistent pacing.
+*   **Smart Digital Counter**: Large, responsive interface with **Integrated Word Representation** (e.g., "One Hundred") displayed below the digit.
+*   **Action Labels**: Every button features a clear text label (SAVE, RESET, etc.) for an intuitive, zero-learning-curve experience.
+*   **Auto-Count Mode**: Hands-free counting with a dual-range speed slider (**0.3s to 60.0s**). Ideal for both rapid and meditative pacing.
 *   **Tap Anywhere**: Option to increment the count by tapping any part of the screen.
-*   **Hardware Buttons**: Use volume keys to count, allowing for tactile feedback without looking at the screen.
 
 ### 🎯 **Goals & Tracking**
 *   **Target Mode**: Set specific goals. The app notifies you with vibration and dialogs when targets are reached.
-*   **History & Pinning**: Automatically save sessions with dates/times. **Pin** your most important counts to the top and **sort** history by date or count value.
+*   **Dashboard History**: Automatically save sessions. A redesigned management screen with a **Record Count Badge**, pin support (up to 3), and **Advanced Sorting** (Date, Count, Title).
+*   **Update Comparison**: When resuming a zikr, view a side-by-side comparison of your "Old Saved Count" and "Current New Count."
 *   **Smart Analysis**: Visualize your performance and consistency with built-in charts and statistics.
 
 ### 🎨 **Premium UI/UX**
 *   **Responsive Landscape Mode**: A dedicated split-screen layout optimized for tablets and foldable devices, ensuring a perfect experience in any orientation.
-*   **Modern Aesthetics**: Features glassmorphism, smooth animations, and a clean Material Design interface.
+*   **Fluid Text Scaling**: Dynamic typography that calculates size based on screen width, ensuring a premium look on phones, tablets, and foldables.
+*   **Modern Aesthetics**: Features glassmorphism, smooth animations, and clean Material Design. Includes **icon-based toggles** for Sound and Vibration controls.
 *   **Dark Mode**: Fully supported system-wide dark mode for comfortable night use.
-*   **Rich Feedback**: satisfying click sounds and customizable vibration (haptic) feedback.
+*   **Rich Feedback**: satisfying click sounds and customizable vibration (haptic) strength.
 
 ---
 
