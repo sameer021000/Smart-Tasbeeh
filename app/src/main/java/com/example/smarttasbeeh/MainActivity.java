@@ -969,22 +969,40 @@ public class MainActivity extends AppCompatActivity {
         android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
         float screenWidth = metrics.widthPixels;
         float titleSize = screenWidth * 0.044f; // ~4.4% of width
-        float messageSize = screenWidth * 0.050f; // ~3.5% of width
+        float messageSize = screenWidth * 0.050f; // ~5.0% of width
 
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         if (tvTitle != null) {
             tvTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
         }
 
-        TextView tvSessionTitle = view.findViewById(R.id.tvSessionTitle);
-        if (tvSessionTitle != null) {
-            tvSessionTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
-        }
+        TextView tvOldCount = view.findViewById(R.id.tvOldCount);
+        TextView tvNewCount = view.findViewById(R.id.tvNewCount);
+        TextView tvUpdateArrow = view.findViewById(R.id.tvUpdateArrow);
+        TextView tvOldWords = view.findViewById(R.id.tvOldWords);
+        TextView tvNewWords = view.findViewById(R.id.tvNewWords);
+
+        // Apply sizing to all comparison elements
+        if (tvOldCount != null) tvOldCount.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
+        if (tvNewCount != null) tvNewCount.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
+        if (tvUpdateArrow != null) tvUpdateArrow.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
+        
+        // Words slightly smaller (about 70% of number size) for better hierarchy
+        if (tvOldWords != null) tvOldWords.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize * 0.7f);
+        if (tvNewWords != null) tvNewWords.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize * 0.7f);
+
         Button btnUpdate = view.findViewById(R.id.btnUpdate);
 
         int oldCount = dbHelper.getCountById(resumeId);
         tvTitle.setText(getString(R.string.dialog_update_title, resumeTitle));
-        tvSessionTitle.setText(getString(R.string.dialog_update_message, oldCount, currentCount));
+        
+        // Numeric display
+        if (tvOldCount != null) tvOldCount.setText(String.format(Locale.US, "%d", oldCount));
+        if (tvNewCount != null) tvNewCount.setText(String.format(Locale.US, "%d", currentCount));
+        
+        // Word equivalents below
+        if (tvOldWords != null) tvOldWords.setText(NumberToWordsConverter.convert(oldCount));
+        if (tvNewWords != null) tvNewWords.setText(NumberToWordsConverter.convert(currentCount));
 
         btnUpdate.setOnClickListener(v -> {
             String timestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date());

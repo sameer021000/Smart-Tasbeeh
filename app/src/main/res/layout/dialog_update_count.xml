@@ -65,19 +65,70 @@
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <!-- Message/Count Area -->
-        <TextView
-            android:id="@+id/tvSessionTitle"
+        <!-- Comparison Area -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/comparisonContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/dialog_update_message"
-            android:textColor="@color/text_secondary"
-            android:gravity="center"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
-            app:layout_constraintTop_toBottomOf="@id/spaceTitleToMessage" />
+            app:layout_constraintTop_toBottomOf="@id/spaceTitleToMessage">
 
-        <!-- Responsive Margin using Space -->
+            <TextView
+                android:id="@+id/tvUpdateArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_update_arrow"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="sans-serif-black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvOldCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-black"
+                app:layout_constraintEnd_toStartOf="@id/tvUpdateArrow"
+                app:layout_constraintTop_toTopOf="@id/tvUpdateArrow"
+                app:layout_constraintBottom_toBottomOf="@id/tvUpdateArrow" />
+
+            <TextView
+                android:id="@+id/tvNewCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tasbeeh_blue_primary"
+                android:fontFamily="sans-serif-black"
+                app:layout_constraintStart_toEndOf="@id/tvUpdateArrow"
+                app:layout_constraintTop_toTopOf="@id/tvUpdateArrow"
+                app:layout_constraintBottom_toBottomOf="@id/tvUpdateArrow" />
+
+            <TextView
+                android:id="@+id/tvOldWords"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/text_secondary"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/tvOldCount"
+                app:layout_constraintEnd_toEndOf="@id/tvOldCount"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvNewWords"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/text_secondary"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@id/tvNewCount"
+                app:layout_constraintStart_toStartOf="@id/tvNewCount"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <Space
             android:id="@+id/spaceMessageToButtons"
             android:layout_width="0dp"
@@ -85,7 +136,7 @@
             app:layout_constraintDimensionRatio="H,20:1"
             app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintEnd_toEndOf="@id/guideEnd"
-            app:layout_constraintTop_toBottomOf="@id/tvSessionTitle" />
+            app:layout_constraintTop_toBottomOf="@id/comparisonContainer" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"

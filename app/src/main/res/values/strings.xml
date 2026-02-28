@@ -109,7 +109,7 @@
 
     <!-- Dialog: Update -->
     <string name="dialog_update_title">Update %1$s?</string>
-    <string name="dialog_update_message">\%1$d\ ——> \%2$d\</string>
+    <string name="dialog_update_arrow"> ——> </string>
     <string name="action_update">Update</string>
 
     <!-- Dialog: Pin Limit Reach -->
