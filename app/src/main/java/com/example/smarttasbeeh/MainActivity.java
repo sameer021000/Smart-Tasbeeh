@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private Runnable autoRunnable;
     private boolean isAutoRunning = false;
     private boolean shouldIgnoreTarget = false; // New flag for Case A/B
+    private boolean isTargetReachedDialogShowing = false; // Flag to stop increments during dialog
     private long autoSpeed = 1000; // Default 1 sec
 
     private DbHelper dbHelper;
@@ -413,6 +414,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentCount > 0) {
             currentCount--;
+            if (targetCount > 0 && currentCount < targetCount) {
+                shouldIgnoreTarget = false; 
+            }
             updateCountDisplay();
             // vibration handled in performButtonFeedback
             saveCountPref();
@@ -472,6 +476,7 @@ public class MainActivity extends AppCompatActivity {
                 if (newTarget > currentCount) {
                     // Direct update without dialog
                     targetCount = newTarget;
+                    shouldIgnoreTarget = false; // Reset ignore flag
                     getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putInt(KEY_TARGET, targetCount).apply();
                     dialog.dismiss();
                     Toast.makeText(this, "Target Set: " + targetCount, Toast.LENGTH_SHORT).show();
@@ -482,6 +487,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 targetCount = newTarget;
+                shouldIgnoreTarget = false; // Reset ignore flag
                 getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putInt(KEY_TARGET, targetCount).apply();
                 dialog.dismiss();
                 Toast.makeText(this, "Target Set: " + targetCount, Toast.LENGTH_SHORT).show();
@@ -531,6 +537,7 @@ public class MainActivity extends AppCompatActivity {
             updateCountDisplay();
             saveCountPref();
             targetCount = newTarget;
+            shouldIgnoreTarget = false; // Reset ignore flag
             getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putInt(KEY_TARGET, targetCount).apply();
             Toast.makeText(this, "Count Reset. Target Set: " + targetCount, Toast.LENGTH_SHORT).show();
         });
@@ -739,46 +746,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void incrementCount() {
+        // Strict Guard: Prevent rapid-tapping from increasing count beyond target
+        if (targetCount > 0 && currentCount >= targetCount && !shouldIgnoreTarget) {
+            if (!isTargetReachedDialogShowing) {
+                if (isAutoRunning) stopAutoCount();
+                showTargetReachedDialog();
+            }
+            return; // Block increment
+        }
+
         if (currentCount < MAX_COUNT) {
             currentCount++;
             updateCountDisplay();
-            vibrate(90); // Strong vibration for click
-            vibrate(90); // Strong vibration for click
+            vibrate(90); // Click feedback
+            
             if (isSoundEnabled && toneGen != null) {
-                // TONE_PROP_NACK produces a dull click/thud sound
                 toneGen.startTone(ToneGenerator.TONE_PROP_NACK, 50);
             }
             saveCountPref();
 
-            // Target Check
-            // Controlled by shouldIgnoreTarget for Auto Loop, but what about manual taps?
-            // "When Auto-count is running... Taps disabled". So manual taps impossible during auto.
-            // So we only check target here if MANUALLY tapping (which only happens if !isAutoRunning)
-            // OR if called by autoRunnable.
-            // BUT wait, autoRunnable calls startAutoCount -> calls incrementCount.
-            // We should strip target logic from here or handle it.
-            // If I move target check to autoRunnable, manual taps won't check target?
-            // Target check should be consistent.
-
-            // Let's rely on the check inside autoRunnable for AUTO.
-            // For Manual, we always respecting target?
-            // "Counter == Target --> Show popup" implies general rule.
-
-            // However, the "Ignore Target" rule is specific to Auto Count "Continue" scenario.
-            // If I manually tap past target, should it stop me? Usually yes.
-            // But if I am in Auto Mode, I might be "ignoring target".
-
-            // Refined Check:
+            // Final Target Check
             if (targetCount > 0 && currentCount == targetCount) {
-                if (isAutoRunning) {
-                    if (!shouldIgnoreTarget) {
-                        stopAutoCount();
-                        showTargetReachedDialog();
-                    }
-                    // Else: Continue (Case A)
-                } else {
-                    // Manual Tap: Always show?
-                    // If I am manually tapping, I likely want that feedback.
+                if (!shouldIgnoreTarget) {
+                    if (isAutoRunning) stopAutoCount();
                     showTargetReachedDialog();
                 }
             }
@@ -786,9 +776,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTargetReachedDialog() {
+        if (isTargetReachedDialogShowing) return;
+        isTargetReachedDialogShowing = true;
+
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_target_reached, null);
         builder.setView(view);
+        builder.setOnDismissListener(d -> isTargetReachedDialogShowing = false);
         AlertDialog dialog = builder.create();
 
         if (dialog.getWindow() != null) {
@@ -813,14 +807,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         view.findViewById(R.id.btnContinue).setOnClickListener(v -> {
-            // "Show ... whether to continue"
+            shouldIgnoreTarget = true;
+            isTargetReachedDialogShowing = false;
             dialog.dismiss();
-            // Continue means we ignore target? or what?
-            // "Counter == Target --> Show popup... whether to continue or increase target."
-            // If continue, we just close dialog. Next count 101 != 100. So it won't trigger again.
         });
 
         view.findViewById(R.id.btnIncreaseTarget).setOnClickListener(v -> {
+            isTargetReachedDialogShowing = false;
             dialog.dismiss();
             showTargetDialog(); // Set new target
         });
@@ -877,6 +870,7 @@ public class MainActivity extends AppCompatActivity {
         view.findViewById(R.id.btnResetConfirm).setOnClickListener(v -> {
             stopAutoCount(); // Ensure auto stops
             currentCount = 0;
+            shouldIgnoreTarget = false; // Reset ignore flag
             updateCountDisplay();
             saveCountPref();
             clearResumeState();
@@ -971,8 +965,21 @@ public class MainActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
+        // Calculate Fluid Text Sizes based on Screen Width
+        android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float screenWidth = metrics.widthPixels;
+        float titleSize = screenWidth * 0.044f; // ~4.4% of width
+        float messageSize = screenWidth * 0.050f; // ~3.5% of width
+
         TextView tvTitle = view.findViewById(R.id.tvTitle);
+        if (tvTitle != null) {
+            tvTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, titleSize);
+        }
+
         TextView tvSessionTitle = view.findViewById(R.id.tvSessionTitle);
+        if (tvSessionTitle != null) {
+            tvSessionTitle.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, messageSize);
+        }
         Button btnUpdate = view.findViewById(R.id.btnUpdate);
 
         int oldCount = dbHelper.getCountById(resumeId);
