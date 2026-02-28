@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
         // Map 1-255 to 0-100
         int progress = (int) ((savedStrength - 1) * 100 / 254.0f);
         seekBarVibration.setProgress(progress);
-        tvSeekValue.setText(progress + "%");
+        tvSeekValue.setText(getString(R.string.vibration_strength_format, progress));
 
         // Post to wait for layout to determine width for positioning
         seekBarVibration.post(() -> updateLabelPosition(seekBarVibration, tvSeekValue, progress));
@@ -143,7 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
                             .putInt(KEY_VIBRATION_STRENGTH, strength)
                             .apply();
 
-                    tvSeekValue.setText(progress + "%");
+                    tvSeekValue.setText(getString(R.string.vibration_strength_format, progress));
                     updateLabelPosition(seekBar, tvSeekValue, progress);
                 }
             }
