@@ -16,8 +16,8 @@ import java.util.List;
 
 public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.ViewHolder> {
 
-    private List<SavedCount> savedCounts;
-    private OnItemClickListener listener;
+    private final List<SavedCount> savedCounts;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onContinueClick(SavedCount item);
@@ -52,7 +52,7 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
             clockIcon = DrawableCompat.wrap(clockIcon).mutate();
             int size = (int) (14 * holder.itemView.getContext().getResources().getDisplayMetrics().density);
             clockIcon.setBounds(0, 0, size, size);
-            DrawableCompat.setTint(clockIcon, holder.itemView.getContext().getResources().getColor(R.color.hint_text));
+            DrawableCompat.setTint(clockIcon, ContextCompat.getColor(holder.itemView.getContext(), R.color.hint_text));
             holder.tvDate.setCompoundDrawables(clockIcon, null, null, null);
         }
         
@@ -63,7 +63,7 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
                 pinIcon = DrawableCompat.wrap(pinIcon).mutate();
                 int size = (int) (16 * holder.itemView.getContext().getResources().getDisplayMetrics().density);
                 pinIcon.setBounds(0, 0, size, size);
-                DrawableCompat.setTint(pinIcon, holder.itemView.getContext().getResources().getColor(R.color.tasbeeh_blue_primary));
+                DrawableCompat.setTint(pinIcon, ContextCompat.getColor(holder.itemView.getContext(), R.color.tasbeeh_blue_primary));
                 holder.tvCount.setCompoundDrawables(pinIcon, null, null, null);
             }
             holder.tvCount.setContentDescription(holder.itemView.getContext().getString(R.string.cd_pin) + ", " + item.getCount());
@@ -76,19 +76,21 @@ public class SavedCountsAdapter extends RecyclerView.Adapter<SavedCountsAdapter.
         com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
         if (selectedPosition == position) {
             // Selected: Highlight with Primary Blue
-            card.setStrokeColor(holder.itemView.getContext().getResources().getColor(R.color.tasbeeh_blue_primary));
+            card.setStrokeColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.tasbeeh_blue_primary));
             card.setStrokeWidth(4); // Thicker border
         } else {
             // Default: Standard border
-            card.setStrokeColor(holder.itemView.getContext().getResources().getColor(R.color.card_stroke_color));
+            card.setStrokeColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.card_stroke_color));
             card.setStrokeWidth(2); // Standard width (1dp approx 2-3px, let's use pixels or keep consistent)
         }
 
         holder.itemView.setOnClickListener(v -> {
             int previousSelected = selectedPosition;
-            selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(previousSelected);
-            notifyItemChanged(selectedPosition);
+            selectedPosition = holder.getBindingAdapterPosition();
+            if (selectedPosition != RecyclerView.NO_POSITION) {
+                notifyItemChanged(previousSelected);
+                notifyItemChanged(selectedPosition);
+            }
         });
         
         holder.itemView.setOnLongClickListener(v -> {
