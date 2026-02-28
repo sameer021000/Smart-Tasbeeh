@@ -42,14 +42,14 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public long saveCount(String title, int count, String timestamp) {
+    public void saveCount(String title, int count, String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_TITLE, title);
         values.put(COL_COUNT, count);
         values.put(COL_TIMESTAMP, timestamp);
         values.put(COL_IS_PINNED, 0);
-        return db.insert(TABLE_COUNTS, null, values);
+        db.insert(TABLE_COUNTS, null, values);
     }
 
     public List<SavedCount> getAllCounts() {
