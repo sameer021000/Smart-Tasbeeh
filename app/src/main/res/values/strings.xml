@@ -2,7 +2,7 @@
 <resources>
     <!-- App Global -->
     <string name="app_name">Smart Tasbeeh</string>
-    <string name="app_version">Smart Tasbeeh v1.0.2</string>
+    <string name="app_version">Smart Tasbeeh v1.1.0</string>
 
     <!-- Main Activity (Counter Screen) -->
     <string name="Tasbeeh_Name">SMART\nTASBEEH</string>
