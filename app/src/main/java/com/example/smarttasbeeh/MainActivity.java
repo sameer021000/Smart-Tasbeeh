@@ -619,63 +619,80 @@ public class MainActivity extends AppCompatActivity {
         final boolean[] isExtendedMode = {currentSec > 5.0f};
 
         // Configure Slider based on mode
-        if (isExtendedMode[0]) {
-            sliderSpeed.setValueFrom(5.0f);
-            sliderSpeed.setValueTo(60.0f);
-            sliderSpeed.setStepSize(1.0f); // 1 sec steps for extended range
-            tvMoreTime.setText(R.string.auto_less_time);
-
-            if (currentSec > 60.0f) currentSec = 60.0f;
-            currentSec = Math.round(currentSec); // Round to align with stepSize 1.0
-        } else {
-            sliderSpeed.setValueFrom(0.3f);
-            sliderSpeed.setValueTo(5.0f);
-            sliderSpeed.setStepSize(0.1f);
-            tvMoreTime.setText(R.string.auto_more_time);
-
-            if (currentSec < 0.3f) currentSec = 0.3f;
-            currentSec = Math.round(currentSec * 10.0f) / 10.0f; // Round to align with stepSize 0.1
-        }
-
-        sliderSpeed.setValue(currentSec);
-        tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", currentSec));
-
-        // Toggle Logic
-        tvMoreTime.setOnClickListener(v -> {
+        if (sliderSpeed != null) {
             if (isExtendedMode[0]) {
-                // Switch to Less Time (Normal Mode)
-                isExtendedMode[0] = false;
+                sliderSpeed.setValueFrom(5.0f);
+                sliderSpeed.setValueTo(60.0f);
+                sliderSpeed.setStepSize(1.0f); // 1 sec steps for extended range
+                if (tvMoreTime != null) tvMoreTime.setText(R.string.auto_less_time);
+
+                if (currentSec > 60.0f) currentSec = 60.0f;
+                currentSec = Math.round(currentSec); // Round to align with stepSize 1.0
+            } else {
                 sliderSpeed.setValueFrom(0.3f);
                 sliderSpeed.setValueTo(5.0f);
                 sliderSpeed.setStepSize(0.1f);
-                sliderSpeed.setValue(5.0f); // Reset to max of normal
-                tvMoreTime.setText(R.string.auto_more_time);
-            } else {
-                // Switch to More Time (Extended Mode)
-                isExtendedMode[0] = true;
-                sliderSpeed.setValueFrom(5.0f);
-                sliderSpeed.setValueTo(60.0f);
-                sliderSpeed.setStepSize(1.0f);
-                sliderSpeed.setValue(5.0f); // Reset to min of extended
-                tvMoreTime.setText(R.string.auto_less_time);
+                if (tvMoreTime != null) tvMoreTime.setText(R.string.auto_more_time);
+
+                if (currentSec < 0.3f) currentSec = 0.3f;
+                currentSec = Math.round(currentSec * 10.0f) / 10.0f; // Round to align with stepSize 0.1
             }
-            // Update Text
-            tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", sliderSpeed.getValue()));
-        });
+            sliderSpeed.setValue(currentSec);
+        }
+        if (tvSpeedValue != null) {
+            tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", currentSec));
+        }
 
-        sliderSpeed.addOnChangeListener((slider, value, fromUser) ->
-                tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", value)));
+        // Toggle Logic
+        if (tvMoreTime != null) {
+            tvMoreTime.setOnClickListener(v -> {
+                if (sliderSpeed == null) return;
+                if (isExtendedMode[0]) {
+                    // Switch to Less Time (Normal Mode)
+                    isExtendedMode[0] = false;
+                    sliderSpeed.setValueFrom(0.3f);
+                    sliderSpeed.setValueTo(5.0f);
+                    sliderSpeed.setStepSize(0.1f);
+                    sliderSpeed.setValue(5.0f); // Reset to max of normal
+                    tvMoreTime.setText(R.string.auto_more_time);
+                } else {
+                    // Switch to More Time (Extended Mode)
+                    isExtendedMode[0] = true;
+                    sliderSpeed.setValueFrom(5.0f);
+                    sliderSpeed.setValueTo(60.0f);
+                    sliderSpeed.setStepSize(1.0f);
+                    sliderSpeed.setValue(5.0f); // Reset to min of extended
+                    tvMoreTime.setText(R.string.auto_less_time);
+                }
+                // Update Text
+                if (tvSpeedValue != null) {
+                    tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", sliderSpeed.getValue()));
+                }
+            });
+        }
 
-        view.findViewById(R.id.btnStartAuto).setOnClickListener(v -> {
-            float val = sliderSpeed.getValue();
-            autoSpeed = (long)(val * 1000);
-            getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putLong(KEY_AUTO_SPEED, autoSpeed).apply();
+        if (sliderSpeed != null && tvSpeedValue != null) {
+            sliderSpeed.addOnChangeListener((slider, value, fromUser) ->
+                    tvSpeedValue.setText(String.format(Locale.US, "%.1f sec", value)));
+        }
 
-            startAutoCount();
-            dialog.dismiss();
-        });
+        View btnStartAuto = view.findViewById(R.id.btnStartAuto);
+        if (btnStartAuto != null) {
+            btnStartAuto.setOnClickListener(v -> {
+                if (sliderSpeed != null) {
+                    float val = sliderSpeed.getValue();
+                    autoSpeed = (long)(val * 1000);
+                    getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putLong(KEY_AUTO_SPEED, autoSpeed).apply();
+                }
+                startAutoCount();
+                dialog.dismiss();
+            });
+        }
 
-        view.findViewById(R.id.btnCancelAuto).setOnClickListener(v -> dialog.dismiss());
+        View btnCancelAuto = view.findViewById(R.id.btnCancelAuto);
+        if (btnCancelAuto != null) {
+            btnCancelAuto.setOnClickListener(v -> dialog.dismiss());
+        }
         dialog.show();
     }
 
@@ -994,7 +1011,9 @@ public class MainActivity extends AppCompatActivity {
         Button btnUpdate = view.findViewById(R.id.btnUpdate);
 
         int oldCount = dbHelper.getCountById(resumeId);
-        tvTitle.setText(getString(R.string.dialog_update_title, resumeTitle));
+        if (tvTitle != null) {
+            tvTitle.setText(getString(R.string.dialog_update_title, resumeTitle));
+        }
         
         // Numeric display
         if (tvOldCount != null) tvOldCount.setText(String.format(Locale.US, "%d", oldCount));
@@ -1004,7 +1023,8 @@ public class MainActivity extends AppCompatActivity {
         if (tvOldWords != null) tvOldWords.setText(NumberToWordsConverter.convert(oldCount));
         if (tvNewWords != null) tvNewWords.setText(NumberToWordsConverter.convert(currentCount));
 
-        btnUpdate.setOnClickListener(v -> {
+        if (btnUpdate != null) {
+            btnUpdate.setOnClickListener(v -> {
             String timestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date());
             dbHelper.updateCount(resumeId, currentCount, timestamp);
 
@@ -1016,8 +1036,12 @@ public class MainActivity extends AppCompatActivity {
             stopAutoCount();
             dialog.dismiss();
         });
+        }
 
-        view.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
+        View btnCancel = view.findViewById(R.id.btnCancel);
+        if (btnCancel != null) {
+            btnCancel.setOnClickListener(v -> dialog.dismiss());
+        }
         dialog.show();
     }
 
