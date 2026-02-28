@@ -41,7 +41,7 @@ public class NumberToWordsConverter {
         }
 
         if (n > 0) {
-            if (!words.equals("") && n < 100) {
+            if (!words.isEmpty()) {
                 words += "And ";
             }
 
