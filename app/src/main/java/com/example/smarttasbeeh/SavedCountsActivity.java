@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -23,7 +22,6 @@ public class SavedCountsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private View emptyView;
     private DbHelper dbHelper;
-    private ImageView ivSort;
 
     // Sorting Constants
     private static final int SORT_LATEST = 0;
@@ -49,7 +47,7 @@ public class SavedCountsActivity extends AppCompatActivity {
         // Load saved sort order
         currentSort = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_SORT_ORDER, SORT_LATEST);
 
-        ivSort = findViewById(R.id.btnSort); 
+        ImageView ivSort = findViewById(R.id.btnSort); 
         ivSort.setOnClickListener(this::showSortMenu);
 
         // Top Bar Logic (Custom Header)
@@ -92,7 +90,7 @@ public class SavedCountsActivity extends AppCompatActivity {
         }
 
         // 2. Sort Pinned List (Always Latest Pinned First)
-        Collections.sort(pinnedList, (o1, o2) -> Long.compare(o2.getPinnedTimestamp(), o1.getPinnedTimestamp()));
+        pinnedList.sort((o1, o2) -> Long.compare(o2.getPinnedTimestamp(), o1.getPinnedTimestamp()));
 
         // 3. Sort Unpinned List (Based on User Preference)
         sortUnpinnedList(unpinnedList);
@@ -100,7 +98,7 @@ public class SavedCountsActivity extends AppCompatActivity {
         // Update Badge
         TextView badge = findViewById(R.id.recordCountBadge);
         if (badge != null) {
-            badge.setText(counts.size() + " records");
+            badge.setText(getString(R.string.record_count_format, counts.size()));
         }
 
         // Listener
@@ -198,8 +196,10 @@ public class SavedCountsActivity extends AppCompatActivity {
 
     private void showSortMenu(View view) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
-        View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_sort, null);
-        bottomSheetDialog.setContentView(sheetView);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_sort);
+        
+        View sheetView = bottomSheetDialog.findViewById(R.id.bottomSheetSortRoot);
+        if (sheetView == null) return;
 
         // Initial Highlight Logic
         updateSortHighlight(sheetView, currentSort);
@@ -261,8 +261,8 @@ public class SavedCountsActivity extends AppCompatActivity {
     }
 
     private void sortUnpinnedList(List<SavedCount> counts) {
-        Collections.sort(counts, new Comparator<SavedCount>() {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+        counts.sort(new Comparator<>() {
+            final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
             
             @Override
             public int compare(SavedCount o1, SavedCount o2) {
@@ -278,15 +278,21 @@ public class SavedCountsActivity extends AppCompatActivity {
                         return o2.getTitle().compareToIgnoreCase(o1.getTitle());
                     case SORT_EARLIEST: // Oldest first
                         try {
-                            return sdf.parse(o1.getTimestamp()).compareTo(sdf.parse(o2.getTimestamp()));
-                        } catch (ParseException e) {
+                            java.util.Date d1 = sdf.parse(o1.getTimestamp());
+                            java.util.Date d2 = sdf.parse(o2.getTimestamp());
+                            if (d1 != null && d2 != null) return d1.compareTo(d2);
+                            return 0;
+                        } catch (ParseException | NullPointerException e) {
                             return 0;
                         }
                     case SORT_LATEST: // Newest first
                     default:
                         try {
-                            return sdf.parse(o2.getTimestamp()).compareTo(sdf.parse(o1.getTimestamp()));
-                        } catch (ParseException e) {
+                            java.util.Date d1 = sdf.parse(o1.getTimestamp());
+                            java.util.Date d2 = sdf.parse(o2.getTimestamp());
+                            if (d1 != null && d2 != null) return d2.compareTo(d1);
+                            return 0;
+                        } catch (ParseException | NullPointerException e) {
                             return 0;
                         }
                 }
